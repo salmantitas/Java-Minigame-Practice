@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Help Pochku:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Help_Pochku_jar</output-path>
+    <root id="archive" name="Help Pochku.jar">
+      <element id="module-output" name="Help Pochku" />
+    </root>
+  </artifact>
+</component>

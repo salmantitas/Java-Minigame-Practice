@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Scrolling Shooter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Scrolling_Shooter_jar</output-path>
+    <root id="archive" name="Scrolling Shooter.jar">
+      <element id="module-output" name="Scrolling Shooter" />
+    </root>
+  </artifact>
+</component>
