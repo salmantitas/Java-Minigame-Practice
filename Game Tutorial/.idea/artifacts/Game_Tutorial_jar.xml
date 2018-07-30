@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Game Tutorial:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Game_Tutorial_jar</output-path>
+    <root id="archive" name="Game Tutorial.jar">
+      <element id="module-output" name="Game Tutorial" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Libs/jars/jinput.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Libs/jars/jogg-0.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Libs/jars/jorbis-0.0.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Libs/jars/lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Libs/jars/slick.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
