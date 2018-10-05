@@ -1,7 +1,4 @@
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MouseInput extends MouseAdapter {
     private GameController gameController;
@@ -13,7 +10,7 @@ public class MouseInput extends MouseAdapter {
     }
 
     public void updatePressed() {
-
+        gameController.grid.checkOverlap(getMxPressed(), getMyPressed());
     }
 
     public void updateReleased() {

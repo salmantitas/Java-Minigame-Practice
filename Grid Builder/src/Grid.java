@@ -24,12 +24,20 @@ public class Grid {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 g.setColor(tile);
-                g.fillRect(i*size, j*size, size, size);
+                g.fillRect(x + i * size, y + j * size, size, size);
 
                 g.setColor(padding);
-                g.drawRect(i*size, j*size, size, size);
+                g.drawRect(x + i * size, y + j * size, size, size);
             }
         }
+    }
+
+    public boolean checkOverlap(int mx, int my) {
+        boolean clicked = x < mx && mx < x + (column)*size &&
+                y < my && my < y + (row)*size;
+        if (clicked)
+            System.out.println("The grid has been clicked");
+        return clicked;
     }
 
 }

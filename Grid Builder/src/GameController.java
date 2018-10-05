@@ -28,7 +28,7 @@ public class GameController {
      * User variables *
      ******************/
 
-    private Grid grid;
+    public Grid grid;
 
     public GameController() {
 
@@ -46,7 +46,7 @@ public class GameController {
         /*************
          * Game Code *
          *************/
-        grid = new Grid(0,0,5,5, Engine.intAtWidth640(32));
+        grid = new Grid(Engine.intAtWidth640(32),Engine.intAtWidth640(32),5,5, Engine.intAtWidth640(32));
 
     }
 
