@@ -7,6 +7,8 @@ public class Worldspace extends Grid {
 
     public static HashMap<Tile.ID, Color> colorMap;
 
+    private Tile.ID buildState = Tile.ID.GRASS;
+
     public Worldspace(int x, int y, int row, int column, int size) {
         super(x, y, row, column, size);
 
@@ -83,10 +85,22 @@ public class Worldspace extends Grid {
     }
 
     private void changeTile(Tile tile) {
-        if (tile.getId() == Tile.ID.FLOOR)
-            tile.changeTile(Tile.ID.GRASS);
-        else tile.changeTile(Tile.ID.FLOOR);
+//        if (tile.getId() == Tile.ID.FLOOR)
+//            tile.changeTile(Tile.ID.GRASS);
+//        else tile.changeTile(Tile.ID.FLOOR);
+        if (tile.getId() != buildState)
+            tile.changeTile(buildState);
     }
 
+    public void buildStateGrass() {
+        setBuildState(Tile.ID.GRASS);
+    }
 
+    public void buildStateFloor() {
+        setBuildState(Tile.ID.FLOOR);
+    }
+
+    private void setBuildState(Tile.ID buildState) {
+        this.buildState = buildState;
+    }
 }

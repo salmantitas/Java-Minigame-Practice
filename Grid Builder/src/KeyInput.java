@@ -1,5 +1,6 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.security.Key;
 
 public class KeyInput extends KeyAdapter{
 
@@ -15,6 +16,12 @@ public class KeyInput extends KeyAdapter{
         /*************
          * Game Code *
          *************/
+
+        if (keyIsPressed(KeyEvent.VK_G))
+            gameController.worldspace.buildStateGrass();
+
+        if (keyIsPressed(KeyEvent.VK_F))
+            gameController.worldspace.buildStateFloor();
 
     }
 
