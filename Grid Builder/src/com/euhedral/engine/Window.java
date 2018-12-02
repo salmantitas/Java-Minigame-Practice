@@ -1,6 +1,8 @@
-/*
+package com.euhedral.engine;/*
  * Do not modify this class
  * */
+
+import com.euhedral.engine.Engine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +14,7 @@ public class Window extends Canvas {
     // is started.
     public Window(int width, int height, String title, Engine engine) {
         JFrame frame = new JFrame(title);
-        System.out.println("Window created");
+        System.out.println("com.euhedral.engine.Window created");
         Dimension dimension = new Dimension(width, height);
         System.out.println("Dimensions set");
 
@@ -30,7 +32,7 @@ public class Window extends Canvas {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(engine);
-        System.out.println("Engine added to window");
+        System.out.println("com.euhedral.engine.Engine added to window");
 
         frame.setVisible(true);
         engine.gameLoop();

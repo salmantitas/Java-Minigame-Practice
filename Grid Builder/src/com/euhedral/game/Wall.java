@@ -1,9 +1,13 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Pair;
+
 import java.awt.*;
 
 public class Wall extends Buildable {
 //    private int x, y;
 //    private Color color = Color.BLUE;
-//    private Tile.ID suitable = Tile.ID.FLOOR;
+//    private com.euhedral.game.Tile.ID suitable = com.euhedral.game.Tile.ID.FLOOR;
 
     public Wall(int x, int y, int size) {
         super(x,y,size);

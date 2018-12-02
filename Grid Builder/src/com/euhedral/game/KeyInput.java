@@ -1,6 +1,10 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.EngineKeyboard;
+import com.euhedral.game.GameController;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 
 public class KeyInput extends KeyAdapter{
 

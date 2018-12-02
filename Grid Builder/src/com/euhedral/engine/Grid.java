@@ -1,3 +1,5 @@
+package com.euhedral.engine;
+
 import java.awt.*;
 
 public class Grid {
@@ -44,7 +46,7 @@ public class Grid {
     public void gridClicked(int mx, int my) {
         int gridX = mouseToGrid(mx, x);
         int gridY = mouseToGrid(my, y);
-        System.out.println("Grid [" + gridX + ", " + gridY + "]");
+        System.out.println("com.euhedral.engine.Grid [" + gridX + ", " + gridY + "]");
     }
 
     protected int mouseToGrid(int mouse, int pos) {

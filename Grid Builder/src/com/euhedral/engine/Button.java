@@ -1,6 +1,8 @@
-/*
+package com.euhedral.engine;/*
  * Do not modify
  * */
+
+import com.euhedral.engine.Engine;
 
 import java.awt.*;
 import java.util.LinkedList;

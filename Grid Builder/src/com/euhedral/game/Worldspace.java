@@ -1,3 +1,8 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
+import com.euhedral.engine.Grid;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,10 +93,10 @@ public class Worldspace extends Grid {
 //        int endCellY = mouseToGrid(my, y);
 //
 //        // Bind values inside the grid
-//        startCellX = Engine.clamp(startCellX, 0, column - 1);
-//        startCellY = Engine.clamp(startCellY, 0, row - 1);
-//        endCellX = Engine.clamp(endCellX, 0, column - 1);
-//        endCellY = Engine.clamp(endCellY, 0, row - 1);
+//        startCellX = com.euhedral.engine.Engine.clamp(startCellX, 0, column - 1);
+//        startCellY = com.euhedral.engine.Engine.clamp(startCellY, 0, row - 1);
+//        endCellX = com.euhedral.engine.Engine.clamp(endCellX, 0, column - 1);
+//        endCellY = com.euhedral.engine.Engine.clamp(endCellY, 0, row - 1);
 //
 //
 //        // Switch cells if in reverse order (ie, startcell larger than endcell)
@@ -203,9 +208,9 @@ public class Worldspace extends Grid {
                         }
                     }
             } else if (tileOccupied) {
-                System.out.println("Tile is occupied");
+                System.out.println("com.euhedral.game.Tile is occupied");
             } else {
-                System.out.println("Tile is not suitable");
+                System.out.println("com.euhedral.game.Tile is not suitable");
             }
         }
     }
@@ -213,14 +218,14 @@ public class Worldspace extends Grid {
     public Tile getTileAt(int mx, int my) {
         int tileX = mouseToGrid(mx, x);
         int tileY = mouseToGrid(my, y);
-        System.out.println("Grid [" + tileX + ", " + tileY + "]");
+        System.out.println("com.euhedral.engine.Grid [" + tileX + ", " + tileY + "]");
         return tiles[tileX][tileY];
     }
 
     private void changeTile(Tile tile) {
-//        if (tile.getId() == Tile.ID.FLOOR)
-//            tile.changeTile(Tile.ID.GRASS);
-//        else tile.changeTile(Tile.ID.FLOOR);
+//        if (tile.getId() == com.euhedral.game.Tile.ID.FLOOR)
+//            tile.changeTile(com.euhedral.game.Tile.ID.GRASS);
+//        else tile.changeTile(com.euhedral.game.Tile.ID.FLOOR);
         if (tile.getId() != flooringState)
             tile.changeTile(flooringState);
     }

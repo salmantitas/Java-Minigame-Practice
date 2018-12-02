@@ -1,4 +1,8 @@
-import java.awt.*;
+package com.euhedral.game;
+
+import com.euhedral.engine.EngineMouse;
+import com.euhedral.game.GameController;
+
 import java.awt.event.MouseAdapter;
 
 public class MouseInput extends MouseAdapter {

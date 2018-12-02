@@ -1,5 +1,6 @@
+package com.euhedral.game;
+
 import java.awt.*;
-import java.util.HashMap;
 
 public class Tile {
 
@@ -44,7 +45,7 @@ public class Tile {
     public void changeTile(ID id) {
         this.id = id;
         this.color = worldspace.colorMap.get(id);
-        System.out.println("Tile changed");
+        System.out.println("com.euhedral.game.Tile changed");
     }
 
     public void render(Graphics g, int worldX, int worldY) {

@@ -1,3 +1,7 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Pair;
+
 import java.awt.*;
 
 public abstract class Buildable {
