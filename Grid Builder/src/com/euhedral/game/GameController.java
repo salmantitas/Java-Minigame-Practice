@@ -38,7 +38,7 @@ public class GameController {
     public GameController() {
 
         /******************
-         * com.euhedral.engine.Window Setting *
+         * Window Setting *
          ******************/
         Engine.setTITLE(gameTitle);
         Engine.setWIDTH(gameWidth);
@@ -99,7 +99,7 @@ public class GameController {
         }
 
         /***************
-         * com.euhedral.engine.Engine Code *
+         * Engine Code *
          ***************/
 
         // The UI must be rendered after everything else, to ensure that it is on top

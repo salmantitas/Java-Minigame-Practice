@@ -19,7 +19,7 @@ public class Engine extends Canvas {
     * BACKGROUND_COLOR = Color.BLACK
     */
     public static double VERSION = 0.151;
-    public static String TITLE = "Euhedral com.euhedral.engine.Engine " + VERSION;
+    public static String TITLE = "Euhedral Engine " + VERSION;
     public static double SCREEN_RATIO = 4.0/3.0;
     public static int WIDTH = 640;
     public static int HEIGHT = (int) (WIDTH / SCREEN_RATIO);
