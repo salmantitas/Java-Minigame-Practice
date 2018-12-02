@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Worldspace extends Grid {
 
@@ -55,9 +56,10 @@ public class Worldspace extends Grid {
             }
         }
 
-        for (Buildable buildable: buildables)
+        for (int i = 0; i < buildables.size(); i ++)
         {
-            buildable.render(g,x,y);
+
+            buildables.get(i).render(g,x,y);
         }
     }
 
@@ -152,7 +154,31 @@ public class Worldspace extends Grid {
         }
 
         if (building) {
-//            if (buildingState == Buildable.ID.WALL) {
+            if (buildingState == Buildable.ID.DEMOLISH) {
+                for (int i = startCellX; i <= endCellX; i++) {
+                    for (int j = startCellY; j <= endCellY; j++) {
+                        Tile tile = tiles[i][j];
+                        if (tile.isOccupied())
+                            for (int k = 0; k < buildables.size(); k++) {
+                                Buildable buildable = buildables.get(k);
+                                if (buildable.getX() == i && buildable.getY() == j) {
+                                    Iterator<Buildable> it = buildables.iterator();
+                                    while(it.hasNext()) {
+                                        Buildable b = it.next();
+                                        if (b == buildable) {
+                                            it.remove();
+                                            for (int m = 0; m <= b.cellOccupancy.x; m++) {
+                                                for (int n = 0; n <= b.cellOccupancy.y; n++)
+                                                    tiles[i+m][j+n].setOccupied(false);
+                                            }
+                                        }
+                                    }
+//                                    buildables.remove(k);
+                                }
+                            }
+                    }
+                }
+            }
 
             Buildable buildable = buildableMap.get(buildingState);
 
@@ -167,12 +193,15 @@ public class Worldspace extends Grid {
             }
 
             if (!tileOccupied && tileSuitability) {
-                buildables.add(new Wall(startCellX, startCellY, size));
-                for (int i = startCellX; i < startCellX + buildable.cellOccupancy.x; i++) {
-                    for (int j = startCellY; j < startCellY + buildable.cellOccupancy.y; j++) {
-                        tiles[i][j].setOccupied(true);
+                for (int a = startCellX; a <= endCellX; a += buildable.cellOccupancy.x)
+                    for (int b = startCellY; b <= endCellY; b += buildable.cellOccupancy.y) {
+                        buildables.add(new Wall(a, b, size));
+                        for (int i = a; i < a + buildable.cellOccupancy.x; i++) {
+                            for (int j = b; j < b + buildable.cellOccupancy.y; j++) {
+                                tiles[i][j].setOccupied(true);
+                            }
+                        }
                     }
-                }
             } else if (tileOccupied) {
                 System.out.println("Tile is occupied");
             } else {

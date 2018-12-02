@@ -29,4 +29,12 @@ public abstract class Buildable {
     public Pair getCellOccupancy() {
         return cellOccupancy;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

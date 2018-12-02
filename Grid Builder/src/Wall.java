@@ -28,5 +28,9 @@ public class Wall extends Buildable {
                 g.fillRect(size * i + worldX + x * size, size * j + worldY + y * size, size, size);
             }
         }
+
+        g.setColor(Color.RED);
+        g.drawRect(worldX + x * size,  worldY + y * size, cellOccupancy.x*size, cellOccupancy.y*size);
+
     }
 }
