@@ -40,4 +40,18 @@ public class Grid {
         return clicked;
     }
 
+    //Assuming this will not be called if the grid has not been clicked.
+    public void gridClicked(int mx, int my) {
+        int gridX = mouseToGrid(mx, x);
+        int gridY = mouseToGrid(my, y);
+        System.out.println("Grid [" + gridX + ", " + gridY + "]");
+    }
+
+    private int mouseToGrid(int mouse, int pos) {
+        int result = (mouse - pos)/size ;
+        return result;
+    }
+
+
+
 }
