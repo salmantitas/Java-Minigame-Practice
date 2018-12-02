@@ -172,8 +172,8 @@ public class Worldspace extends Grid {
                                         Buildable b = it.next();
                                         if (b == buildable) {
                                             it.remove();
-                                            for (int m = 0; m <= b.cellOccupancy.x; m++) {
-                                                for (int n = 0; n <= b.cellOccupancy.y; n++)
+                                            for (int m = 0; m < b.cellOccupancy.x; m++) {
+                                                for (int n = 0; n < b.cellOccupancy.y; n++)
                                                     tiles[i+m][j+n].setOccupied(false);
                                             }
                                         }
