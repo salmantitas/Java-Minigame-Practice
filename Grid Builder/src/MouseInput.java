@@ -10,16 +10,17 @@ public class MouseInput extends MouseAdapter {
     }
 
     public void updatePressed() {
-        boolean isGridClicked = gameController.worldspace.checkOverlap(getMxPressed(), getMyPressed());
 
-        if (isGridClicked) {
-            gameController.worldspace.gridClicked(getMxPressed(), getMyPressed());
-        }
 
     }
 
     public void updateReleased() {
+        boolean isGridClicked = (gameController.worldspace.checkOverlap(getMxReleased(), getMyReleased()) ||
+                gameController.worldspace.checkOverlap(getMxPressed(), getMyPressed()));
 
+        if (isGridClicked) {
+            gameController.worldspace.gridClicked(getMxPressed(), getMyPressed(), getMxReleased(), getMyReleased());
+        }
     }
 
     public int getMxPressed() {

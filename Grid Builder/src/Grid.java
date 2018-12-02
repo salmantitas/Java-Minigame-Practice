@@ -49,6 +49,7 @@ public class Grid {
 
     protected int mouseToGrid(int mouse, int pos) {
         int result = (mouse - pos)/size ;
+
         return result;
     }
 

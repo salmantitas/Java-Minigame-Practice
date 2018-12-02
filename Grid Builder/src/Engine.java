@@ -211,4 +211,11 @@ public class Engine extends Canvas {
     public static void printTimer() {
         System.out.println(timer);
     }
+
+    // Does not work because Integers aren't objects
+//    public static void swapInt(int x, int y) {
+//        int temp = x;
+//        x = y;
+//        y = temp;
+//    }
 }
