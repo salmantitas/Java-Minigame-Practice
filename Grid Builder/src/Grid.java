@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class Grid {
 
-    int x, y, row, column, size;
-    Color padding, tile;
+    protected int x, y, row, column, size;
+    protected Color padding, tile;
 
     public Grid(int x, int y, int row, int column, int size) {
         this.x = y;
@@ -47,7 +47,7 @@ public class Grid {
         System.out.println("Grid [" + gridX + ", " + gridY + "]");
     }
 
-    private int mouseToGrid(int mouse, int pos) {
+    protected int mouseToGrid(int mouse, int pos) {
         int result = (mouse - pos)/size ;
         return result;
     }
