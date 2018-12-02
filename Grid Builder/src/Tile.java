@@ -7,6 +7,7 @@ public class Tile {
         GRASS, FLOOR
     }
 
+    private Worldspace worldspace;
     private int x;
     private int y;
 
@@ -19,7 +20,7 @@ public class Tile {
     }
 
     private int size;
-    private boolean overlay = false;
+    private boolean overlay = false, occupied = false;
 
     public ID getId() {
         return id;
@@ -28,7 +29,8 @@ public class Tile {
     private ID id = ID.GRASS;
     private Color color = Color.GREEN;
 
-    public Tile(int x, int y, int size) {
+    public Tile(Worldspace worldspace, int x, int y, int size) {
+        this.worldspace = worldspace;
         this.x = x;
         this.y = y;
         this.size = size;
@@ -41,7 +43,7 @@ public class Tile {
 
     public void changeTile(ID id) {
         this.id = id;
-        this.color = Worldspace.colorMap.get(id);
+        this.color = worldspace.colorMap.get(id);
         System.out.println("Tile changed");
     }
 
@@ -57,5 +59,15 @@ public class Tile {
 
     public void setOverlay(boolean overlay) {
         this.overlay = overlay;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
+    }
+
+
+
+    public boolean isOccupied() {
+        return occupied;
     }
 }

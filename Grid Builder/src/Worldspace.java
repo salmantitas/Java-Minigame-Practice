@@ -1,28 +1,39 @@
 import java.awt.*;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Worldspace extends Grid {
 
     public Tile[][] tiles;
+    public ArrayList<Buildable> buildables;
+//    public ArrayList<Placeable> placeables;
 
-    public static HashMap<Tile.ID, Color> colorMap;
+    public HashMap<Tile.ID, Color> colorMap;
+    public HashMap<Buildable.ID, Buildable> buildableMap;
 
-    private Tile.ID buildState = Tile.ID.GRASS;
+    private Tile.ID flooringState = Tile.ID.GRASS;
+    private Buildable.ID buildingState = Buildable.ID.WALL;
+    private boolean flooring = true;
+    private boolean building = false, placing = false;
+
+    // Instances of Buildables
 
     public Worldspace(int x, int y, int row, int column, int size) {
         super(x, y, row, column, size);
 
         tiles = new Tile[column][row];
+        buildables = new ArrayList<>();
 
         colorMap =  new HashMap<>();
         colorMap.put(Tile.ID.GRASS, Color.GREEN);
         colorMap.put(Tile.ID.FLOOR, Color.darkGray);
 
+        buildableMap = new HashMap<>();
+        buildableMap.put(Buildable.ID.WALL, new Wall(0,0,size));
+
         for (int i = 0; i < column; i++) {
             for (int j = 0; j < row; j++) {
-                tiles[i][j] = new Tile(i,j,size);
+                tiles[i][j] = new Tile(this, i,j,size);
             }
         }
     }
@@ -42,6 +53,11 @@ public class Worldspace extends Grid {
             for (Tile tile: tileArray) {
                 tile.render(g, x, y);
             }
+        }
+
+        for (Buildable buildable: buildables)
+        {
+            buildable.render(g,x,y);
         }
     }
 
@@ -125,9 +141,42 @@ public class Worldspace extends Grid {
             endCellY = temp;
         }
 
-        for (int i = startCellX; i <= endCellX; i++) {
-            for (int j = startCellY; j <= endCellY; j++) {
-                changeTile(tiles[i][j]);
+        if (flooring) {
+            for (int i = startCellX; i <= endCellX; i++) {
+                for (int j = startCellY; j <= endCellY; j++) {
+                    Tile tile = tiles[i][j];
+                    if (!tile.isOccupied())
+                        changeTile(tiles[i][j]);
+                }
+            }
+        }
+
+        if (building) {
+//            if (buildingState == Buildable.ID.WALL) {
+
+            Buildable buildable = buildableMap.get(buildingState);
+
+            boolean tileOccupied = false;
+            boolean tileSuitability = true;
+
+            for (int i = startCellX; i < startCellX + buildable.cellOccupancy.x; i++) {
+                for (int j = startCellY; j < startCellY + buildable.cellOccupancy.y; j++) {
+                    tileOccupied = tileOccupied || tiles[i][j].isOccupied();
+                    tileSuitability = tileSuitability && tiles[i][j].getId() == buildable.suitable;
+                }
+            }
+
+            if (!tileOccupied && tileSuitability) {
+                buildables.add(new Wall(startCellX, startCellY, size));
+                for (int i = startCellX; i < startCellX + buildable.cellOccupancy.x; i++) {
+                    for (int j = startCellY; j < startCellY + buildable.cellOccupancy.y; j++) {
+                        tiles[i][j].setOccupied(true);
+                    }
+                }
+            } else if (tileOccupied) {
+                System.out.println("Tile is occupied");
+            } else {
+                System.out.println("Tile is not suitable");
             }
         }
     }
@@ -143,19 +192,44 @@ public class Worldspace extends Grid {
 //        if (tile.getId() == Tile.ID.FLOOR)
 //            tile.changeTile(Tile.ID.GRASS);
 //        else tile.changeTile(Tile.ID.FLOOR);
-        if (tile.getId() != buildState)
-            tile.changeTile(buildState);
+        if (tile.getId() != flooringState)
+            tile.changeTile(flooringState);
     }
 
     public void buildStateGrass() {
-        setBuildState(Tile.ID.GRASS);
+        setFlooringState(Tile.ID.GRASS);
     }
 
     public void buildStateFloor() {
-        setBuildState(Tile.ID.FLOOR);
+        setFlooringState(Tile.ID.FLOOR);
     }
 
-    private void setBuildState(Tile.ID buildState) {
-        this.buildState = buildState;
+    public void demolish() {
+        setBuildingState(Buildable.ID.DEMOLISH);
     }
+
+    public void buildWall() {
+        setBuildingState(Buildable.ID.WALL);
+    }
+
+    private void setFlooringState(Tile.ID flooringState) {
+        flooring = true;
+        building = false;
+        placing = false;
+        this.flooringState = flooringState;
+    }
+
+    private void setBuildingState(Buildable.ID buildingState) {
+        flooring = false;
+        building = true;
+        placing = false;
+        this.buildingState = buildingState;
+    }
+
+//    private void setPlacingState(Placeable.ID placingState) {
+//        flooring = false;
+//        building = false;
+//        placing = true;
+//        this.placingState = placingState;
+//    }
 }

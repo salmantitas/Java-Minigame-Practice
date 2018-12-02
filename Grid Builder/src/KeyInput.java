@@ -23,6 +23,12 @@ public class KeyInput extends KeyAdapter{
         if (keyIsPressed(KeyEvent.VK_F))
             gameController.worldspace.buildStateFloor();
 
+        if (keyIsPressed(KeyEvent.VK_D))
+            gameController.worldspace.demolish();
+
+        if (keyIsPressed(KeyEvent.VK_W))
+            gameController.worldspace.buildWall();
+
     }
 
     public void updateReleased() {
