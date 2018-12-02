@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 
 public class Worldspace extends Grid {
@@ -43,6 +45,58 @@ public class Worldspace extends Grid {
         }
     }
 
+    public void onGrid(int mx, int my) {
+        int startCellX = mouseToGrid(mx, x);
+        int startCellY = mouseToGrid(my, y);
+
+        int i = startCellX;
+        int j = startCellY;
+
+        for (Tile[] tileArray: tiles) {
+            for (Tile tile: tileArray) {
+                if (tile.getY() != j || tile.getX() != i)
+                    tile.setOverlay(false);
+            }
+        }
+
+        Tile tile = tiles[i][j];
+        tile.setOverlay(true);
+    }
+
+//    public void displayOverlay(int mxPressed, int myPressed, int mx, int my) {
+//        int startCellX = mouseToGrid(mxPressed, x);
+//        int startCellY = mouseToGrid(myPressed, y);
+//        int endCellX = mouseToGrid(mx, x);
+//        int endCellY = mouseToGrid(my, y);
+//
+//        // Bind values inside the grid
+//        startCellX = Engine.clamp(startCellX, 0, column - 1);
+//        startCellY = Engine.clamp(startCellY, 0, row - 1);
+//        endCellX = Engine.clamp(endCellX, 0, column - 1);
+//        endCellY = Engine.clamp(endCellY, 0, row - 1);
+//
+//
+//        // Switch cells if in reverse order (ie, startcell larger than endcell)
+//        if (startCellX > endCellX)
+//        {
+//            int temp = startCellX;
+//            startCellX = endCellX;
+//            endCellX = temp;
+//        }
+//        if (startCellY > endCellY)
+//        {
+//            int temp = startCellY;
+//            startCellY = endCellY;
+//            endCellY = temp;
+//        }
+//
+//        for (int i = startCellX; i <= endCellX; i++) {
+//            for (int j = startCellY; j <= endCellY; j++) {
+//                tiles[i][j].setOverlay(true);
+//            }
+//        }
+//    }
+
     //@Override
     public void gridClicked(int mxPressed, int myPressed, int mxReleased, int myReleased) {
         int startCellX = mouseToGrid(mxPressed, x);
@@ -55,6 +109,7 @@ public class Worldspace extends Grid {
         startCellY = Engine.clamp(startCellY, 0, row - 1);
         endCellX = Engine.clamp(endCellX, 0, column - 1);
         endCellY = Engine.clamp(endCellY, 0, row - 1);
+
 
         // Switch cells if in reverse order (ie, startcell larger than endcell)
         if (startCellX > endCellX)

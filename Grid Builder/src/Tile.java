@@ -7,7 +7,19 @@ public class Tile {
         GRASS, FLOOR
     }
 
-    private int x, y, size;
+    private int x;
+    private int y;
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    private int size;
+    private boolean overlay = false;
 
     public ID getId() {
         return id;
@@ -36,6 +48,14 @@ public class Tile {
     public void render(Graphics g, int worldX, int worldY) {
         g.setColor(color);
         g.fillRect(worldX + x * size, worldY + y * size , size, size);
+
+        if (overlay) {
+            g.setColor(Color.BLACK);
+            g.fillRect(worldX + x * size, worldY + y * size , size/2, size/2);
+        }
     }
 
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
+    }
 }

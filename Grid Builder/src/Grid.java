@@ -33,11 +33,11 @@ public class Grid {
     }
 
     public boolean checkOverlap(int mx, int my) {
-        boolean clicked = x < mx && mx < x + (column)*size &&
+        boolean overlap = x < mx && mx < x + (column)*size &&
                 y < my && my < y + (row)*size;
-        if (clicked)
-            System.out.println("The grid has been clicked");
-        return clicked;
+//        if (overlap)
+//            System.out.println("The grid has been clicked");
+        return overlap;
     }
 
     //Assuming this will not be called if the grid has not been clicked.

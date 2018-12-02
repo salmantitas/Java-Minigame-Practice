@@ -42,6 +42,7 @@ public class Engine extends Canvas {
 
         addKeyListener(keyInput);
         addMouseListener(mouseInput);
+        addMouseMotionListener(mouseInput);
         System.out.println("Game initialized");
         new Window(WIDTH, HEIGHT, TITLE, this);
     }

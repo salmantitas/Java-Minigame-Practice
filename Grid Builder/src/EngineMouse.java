@@ -9,6 +9,7 @@ public class EngineMouse extends MouseAdapter {
     private GameController gameController;
     private MouseInput mouseInput;
 
+    private int mouseX, mouseY;
     private int mxPressed, myPressed;
     private int mxReleased, myReleased;
     private int buttonPressed, buttonReleased;
@@ -36,6 +37,26 @@ public class EngineMouse extends MouseAdapter {
         mouseInput.updateReleased();
 
         System.out.println("Mouse Released at (" + mxReleased + ", " + myReleased + ")");
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+
+        mouseInput.updateMoved();
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    public int getMx() {
+        return mouseX;
+    }
+
+    public int getMy() {
+        return mouseY;
     }
 
     public int getMxPressed() {
@@ -85,4 +106,5 @@ public class EngineMouse extends MouseAdapter {
     public boolean buttonIsReleased(int button) {
         return buttonReleased == button;
     }
+
 }

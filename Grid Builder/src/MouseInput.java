@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 
 public class MouseInput extends MouseAdapter {
@@ -10,7 +11,12 @@ public class MouseInput extends MouseAdapter {
     }
 
     public void updatePressed() {
+        boolean isGridClicked = gameController.worldspace.checkOverlap(getMxPressed(), getMyPressed());
 
+//        if (isGridClicked) {
+////            System.out.println(getMx() + " " + getMy());
+//            gameController.worldspace.displayOverlay(getMxPressed(), getMyPressed(), getMx(), getMy());
+//        }
 
     }
 
@@ -21,6 +27,24 @@ public class MouseInput extends MouseAdapter {
         if (isGridClicked) {
             gameController.worldspace.gridClicked(getMxPressed(), getMyPressed(), getMxReleased(), getMyReleased());
         }
+    }
+
+    public void updateMoved() {
+//        System.out.println("Mouse at (" + getMx() + ", " + getMy() + ")");
+
+        boolean isOnGrid = gameController.worldspace.checkOverlap(getMx(), getMy());
+
+        if (isOnGrid) {
+            gameController.worldspace.onGrid(getMx(), getMy());
+        }
+    }
+
+    public int getMx() {
+        return mouse.getMx();
+    }
+
+    public int getMy() {
+        return mouse.getMy();
     }
 
     public int getMxPressed() {
