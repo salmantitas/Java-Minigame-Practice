@@ -1,5 +1,6 @@
+package com.euhedral.engine;
+
 import java.awt.*;
-import java.util.LinkedList;
 
 public class Panel extends MenuItem{
 

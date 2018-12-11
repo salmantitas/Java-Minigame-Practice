@@ -1,3 +1,8 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
+import com.euhedral.engine.GameState;
+
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
@@ -6,7 +11,7 @@ public class GameController {
     private UIHandler uiHandler;
     private Random r = new Random();
 
-    // Manually set the Window information here
+    // Manually set the com.euhedral.engine.Window information here
     private int gameWidth = Engine.WIDTH;
     private int gameHeight = Engine.HEIGHT;
     private String gameTitle = Engine.TITLE;
@@ -28,7 +33,7 @@ public class GameController {
      * User variables *
      ******************/
 
-    public Grid grid;
+    public Worldspace worldspace;
 
     public GameController() {
 
@@ -46,7 +51,7 @@ public class GameController {
         /*************
          * Game Code *
          *************/
-        grid = new Grid(Engine.intAtWidth640(32),Engine.intAtWidth640(32),5,5, Engine.intAtWidth640(32));
+        worldspace = new Worldspace(Engine.intAtWidth640(32), Engine.intAtWidth640(32),5,5, Engine.intAtWidth640(32));
 
     }
 
@@ -72,6 +77,8 @@ public class GameController {
             /*************
              * Game Code *
              *************/
+
+            worldspace.update();
         }
     }
 
@@ -87,7 +94,7 @@ public class GameController {
              * Game Code *
              *************/
 
-            grid.render(g);
+            worldspace.render(g);
 
         }
 
