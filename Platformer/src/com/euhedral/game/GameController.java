@@ -151,12 +151,14 @@ public class GameController {
 
             Graphics2D g2d = (Graphics2D) g;
 
+            // Camera start
             g2d.translate(cam.getX(), cam.getY());
 
             for (int i = 0; i < objects.size(); i++) {
                 objects.get(i).render(g);
             }
 
+            // Camera end
             g2d.translate(-cam.getX(), -cam.getY());
 
         }
@@ -291,8 +293,10 @@ public class GameController {
                 int g = (pixel >> 8) & 0xff;
                 int b = pixel & 0xff;
 
+                // If white blocks
                 if (r == 255 && g == 255 && b == 255)
                     addObject(new Block(i * blockSize, j * blockSize, ObjectId.Block));
+                // if blue block
                 if (r == 0 && g == 0 && b == 255 && player == null) {
                     player = new Player(i * blockSize, j * blockSize, ObjectId.Player);
                     addObject(player);
