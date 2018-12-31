@@ -17,6 +17,10 @@ public class KeyInput extends KeyAdapter{
         this.gameController = gameController;
         keyboard = engineKeyboard;
 
+        /*************
+         * Game Code *
+         *************/
+
         legalKeysPress = new ArrayList<>();
         legalKeysPress.add(KeyEvent.VK_D);
         legalKeysPress.add(KeyEvent.VK_A);
@@ -28,6 +32,14 @@ public class KeyInput extends KeyAdapter{
     }
 
     public void updatePressed() {
+        /***************
+         * Engine Code *
+         ***************/
+
+        for (int lk: legalKeysPress)
+            if (keyIsPressed(lk))
+                notifyKeyPress(lk);
+
         /*************
          * Game Code *
          *************/
@@ -35,19 +47,21 @@ public class KeyInput extends KeyAdapter{
         if (keyIsPressed(KeyEvent.VK_ESCAPE))
             System.exit(1);
 
-        for (int lk: legalKeysPress)
-            if (keyIsPressed(lk))
-                notifyKeyPress(lk);
+
     }
 
     public void updateReleased() {
+        /***************
+         * Engine Code *
+         ***************/
+
+        for (int lk: legalKeysRelease)
+            if (keyIsReleased(lk))
+                notifyKeyRelease(lk);
+
         /*************
          * Game Code *
          *************/
-
-        for (int lk: legalKeysRelease)
-            if (keyIsPressed(lk))
-                notifyKeyRelease(lk);
 
     }
 
