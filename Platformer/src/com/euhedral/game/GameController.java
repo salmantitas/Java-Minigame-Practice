@@ -4,6 +4,7 @@ import com.euhedral.engine.Engine;
 import com.euhedral.engine.GameState;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Random;
@@ -207,6 +208,27 @@ public class GameController {
             highScore.add(toAddIndex, score);
             updateHighScore = false;
         }
+    }
+
+    public void keyPressed(int key) {
+        if (key == KeyEvent.VK_D)
+            player.setVelX(player.getSpeed());
+
+        if (key == KeyEvent.VK_A)
+            player.setVelX(-player.getSpeed());
+
+        if (key == KeyEvent.VK_W && !player.isJumping()) {
+            player.setVelY(- player.getJumpSpeed());
+            player.setJumping(true);
+        }
+    }
+
+    public void keyReleased(int key) {
+        if (key == KeyEvent.VK_D)
+            player.setVelX(0);
+
+        if (key == KeyEvent.VK_A)
+            player.setVelX(0);
     }
 
     /***************************

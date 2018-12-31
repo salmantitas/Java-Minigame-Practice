@@ -4,15 +4,27 @@ import com.euhedral.engine.EngineKeyboard;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class KeyInput extends KeyAdapter{
 
     private EngineKeyboard keyboard;
     private GameController gameController;
+    private ArrayList<Integer> legalKeysPress;
+    private ArrayList<Integer> legalKeysRelease;
 
     public KeyInput(EngineKeyboard engineKeyboard, GameController gameController) {
         this.gameController = gameController;
         keyboard = engineKeyboard;
+
+        legalKeysPress = new ArrayList<>();
+        legalKeysPress.add(KeyEvent.VK_D);
+        legalKeysPress.add(KeyEvent.VK_A);
+        legalKeysPress.add(KeyEvent.VK_W);
+
+        legalKeysRelease = new ArrayList<>();
+        legalKeysRelease.add(KeyEvent.VK_D);
+        legalKeysRelease.add(KeyEvent.VK_A);
     }
 
     public void updatePressed() {
@@ -20,22 +32,12 @@ public class KeyInput extends KeyAdapter{
          * Game Code *
          *************/
 
-        Player player = gameController.player;
-
         if (keyIsPressed(KeyEvent.VK_ESCAPE))
             System.exit(1);
 
-        if (keyIsPressed(KeyEvent.VK_D))
-            player.setVelX(player.getSpeed());
-
-        if (keyIsPressed(KeyEvent.VK_A))
-            player.setVelX(-player.getSpeed());
-
-        if (keyIsPressed(KeyEvent.VK_W) && !player.isJumping()) {
-                player.setVelY(- player.getJumpSpeed());
-                player.setJumping(true);
-            }
-
+        for (int lk: legalKeysPress)
+            if (keyIsPressed(lk))
+                notifyKeyPress(lk);
     }
 
     public void updateReleased() {
@@ -43,14 +45,9 @@ public class KeyInput extends KeyAdapter{
          * Game Code *
          *************/
 
-        if (keyIsReleased(KeyEvent.VK_D))
-            gameController.player.setVelX(0);
-
-        if (keyIsReleased(KeyEvent.VK_A))
-            gameController.player.setVelX(0);
-
-//        if (keyIsReleased(KeyEvent.VK_W))
-//            gameController.player.setJumping(false);
+        for (int lk: legalKeysRelease)
+            if (keyIsPressed(lk))
+                notifyKeyRelease(lk);
 
     }
 
@@ -60,6 +57,14 @@ public class KeyInput extends KeyAdapter{
 
     private boolean keyIsReleased(int key) {
         return keyboard.keyIsReleased(key);
+    }
+
+    private void notifyKeyPress(int key) {
+        gameController.keyPressed(key);
+    }
+
+    private void notifyKeyRelease(int key) {
+        gameController.keyReleased(key);
     }
 
     /******************
