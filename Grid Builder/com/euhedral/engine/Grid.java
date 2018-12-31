@@ -1,3 +1,5 @@
+package com.euhedral.engine;
+
 import java.awt.*;
 
 public class Grid {
@@ -33,22 +35,23 @@ public class Grid {
     }
 
     public boolean checkOverlap(int mx, int my) {
-        boolean clicked = x < mx && mx < x + (column)*size &&
+        boolean overlap = x < mx && mx < x + (column)*size &&
                 y < my && my < y + (row)*size;
-        if (clicked)
-            System.out.println("The grid has been clicked");
-        return clicked;
+//        if (overlap)
+//            System.out.println("The grid has been clicked");
+        return overlap;
     }
 
     //Assuming this will not be called if the grid has not been clicked.
     public void gridClicked(int mx, int my) {
         int gridX = mouseToGrid(mx, x);
         int gridY = mouseToGrid(my, y);
-        System.out.println("Grid [" + gridX + ", " + gridY + "]");
+        System.out.println("com.euhedral.engine.Grid [" + gridX + ", " + gridY + "]");
     }
 
     protected int mouseToGrid(int mouse, int pos) {
         int result = (mouse - pos)/size ;
+
         return result;
     }
 

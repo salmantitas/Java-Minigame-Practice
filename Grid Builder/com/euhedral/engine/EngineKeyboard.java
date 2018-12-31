@@ -1,6 +1,9 @@
-/*
+package com.euhedral.engine;/*
  * Do not modify
  * */
+
+import com.euhedral.game.GameController;
+import com.euhedral.game.KeyInput;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

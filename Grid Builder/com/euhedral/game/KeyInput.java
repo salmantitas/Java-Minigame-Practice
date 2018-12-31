@@ -1,3 +1,8 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.EngineKeyboard;
+import com.euhedral.game.GameController;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -15,6 +20,18 @@ public class KeyInput extends KeyAdapter{
         /*************
          * Game Code *
          *************/
+
+        if (keyIsPressed(KeyEvent.VK_G))
+            gameController.worldspace.buildStateGrass();
+
+        if (keyIsPressed(KeyEvent.VK_F))
+            gameController.worldspace.buildStateFloor();
+
+        if (keyIsPressed(KeyEvent.VK_D))
+            gameController.worldspace.demolish();
+
+        if (keyIsPressed(KeyEvent.VK_W))
+            gameController.worldspace.buildWall();
 
     }
 

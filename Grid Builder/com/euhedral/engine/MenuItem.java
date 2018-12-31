@@ -1,3 +1,7 @@
+package com.euhedral.engine;
+
+import com.euhedral.engine.GameState;
+
 import java.awt.*;
 import java.util.LinkedList;
 
@@ -42,7 +46,7 @@ public abstract class MenuItem {
         otherStates.add(state);
     }
 
-    protected boolean stateIs(GameState state) {
+    public boolean stateIs(GameState state) {
         boolean temp;
         if (otherStates.isEmpty())
             temp = state == this.renderState;
