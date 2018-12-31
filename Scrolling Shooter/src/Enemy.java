@@ -16,8 +16,8 @@ public abstract class Enemy {
         this.y = y;
         velX = Engine.intAtWidth640(1)/2;
         velY = Engine.intAtWidth640(2)/4;
-        width = Engine.intAtWidth640(64);
-        height = Engine.intAtWidth640(64);
+        width = Engine.intAtWidth640(32);
+        height = width;
         moveRight = false;
         moveLeft = false;
         color = Color.red;

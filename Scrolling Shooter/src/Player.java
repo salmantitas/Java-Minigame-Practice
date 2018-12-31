@@ -21,8 +21,8 @@ public class Player {
         this.power = 1;
         otherMovement = Engine.intAtWidth640(1)/2;
         forwardMovement = Engine.intAtWidth640(2)/2;
-        width = Engine.intAtWidth640(48);
-        height = Engine.intAtWidth640(48);
+        width = Engine.intAtWidth640(24);
+        height = width;
         moveRight = false;
         moveLeft = false;
         moveDown = false;
