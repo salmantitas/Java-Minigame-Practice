@@ -29,7 +29,7 @@ public class GameController {
      ******************/
 
     private Player player;
-    private LinkedList<Enemy> enemies = new LinkedList<>();
+    private LinkedList<AirEnemy> enemies = new LinkedList<>();
 
     private int basicEnemyScore = 100;
     private int basicEnemySpawnTime = 400;
@@ -85,7 +85,7 @@ public class GameController {
 
             player.update();
 
-            for (Enemy enemy: enemies) {
+            for (AirEnemy enemy: enemies) {
                 enemy.update();
             }
 
@@ -111,7 +111,7 @@ public class GameController {
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
                 player.render(g);
 
-                for (Enemy enemy: enemies) {
+                for (AirEnemy enemy: enemies) {
                     enemy.render(g);
                 }
 
@@ -253,7 +253,7 @@ public class GameController {
 
     public void checkCollision() {
         // Player vs enemy collision
-        for (Enemy enemy: enemies) {
+        for (AirEnemy enemy: enemies) {
             if (enemy.getBounds().intersects(player.getBounds())) {
                 score += basicEnemyScore;
                 health -= 30;
@@ -262,7 +262,7 @@ public class GameController {
         }
 
         // Player vs enemy bullet collision
-        for (Enemy enemy: enemies) {
+        for (AirEnemy enemy: enemies) {
             Bullet b = enemy.checkCollision(player);
             if (b != null) {
                 health -= 10;
@@ -270,8 +270,8 @@ public class GameController {
             }
         }
 
-        // Enemy vs player bullet collision
-        for (Enemy enemy: enemies) {
+        // AirEnemy vs player bullet collision
+        for (AirEnemy enemy: enemies) {
             Bullet b = player.checkCollision(enemy);
             if (b != null) {
                 score += basicEnemyScore;
@@ -280,17 +280,17 @@ public class GameController {
             }
         }
 
-        // Enemy vs enemy collision
+        // AirEnemy vs enemy collision
         for (int i = 0; i< enemies.size() - 1; i++) {
-            Enemy enemy1 = enemies.get(i);
-            Enemy enemy2 = enemies.get(i + 1);
+            AirEnemy enemy1 = enemies.get(i);
+            AirEnemy enemy2 = enemies.get(i + 1);
             if (enemy1.getBounds().intersects(enemy2.getBounds())) {
                 enemy2.setX(r.nextInt(Engine.WIDTH - 300) + 150);
             }
         }
     }
 
-    private void destroy(Enemy enemy) {
+    private void destroy(AirEnemy enemy) {
         enemy.setX(+ 300);
         enemy.setY(Engine.HEIGHT + 300);
         enemy.setVelX(0);
@@ -312,7 +312,7 @@ public class GameController {
         }
         System.out.println(variance);
         if (Engine.timer % (basicEnemySpawnTime - variance)== 0) {
-            enemies.add(new BasicEnemy(r.nextInt(Engine.WIDTH - 300) + 150, -300));
+            enemies.add(new BasicAirEnemy(r.nextInt(Engine.WIDTH - 300) + 150, -300));
         }
     }
 

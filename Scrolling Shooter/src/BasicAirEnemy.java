@@ -1,9 +1,8 @@
 import java.awt.*;
-import java.util.LinkedList;
 
-public class BasicEnemy extends Enemy{
+public class BasicAirEnemy extends AirEnemy {
 
-    public BasicEnemy(int x, int y) {
+    public BasicAirEnemy(int x, int y) {
         super(x,y);
     }
 

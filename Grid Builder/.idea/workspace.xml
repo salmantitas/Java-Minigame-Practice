@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d7690c1-4c2b-454b-afcf-f4ca37d4aa9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Scrolling Shooter/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyID.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/Player.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -224,7 +220,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546220930157" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546221479458" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Scrolling Shooter" />
     <property name="settings.editor.selected.configurable" value="com.intellij.jarRepository.settings.RemoteRepositoriesConfigurable" />
   </component>

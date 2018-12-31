@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.LinkedList;
 
-public abstract class Enemy {
+public abstract class AirEnemy {
 
     protected int x, y, velX, velY;
     protected int width, height;
@@ -11,7 +11,7 @@ public abstract class Enemy {
     protected int shootTimer = shootTimerDef;
     protected LinkedList<Bullet> bullets = new LinkedList<>();
 
-    public Enemy(int x, int y) {
+    public AirEnemy(int x, int y) {
         this.x = x;
         this.y = y;
         velX = Engine.intAtWidth640(1)/2;

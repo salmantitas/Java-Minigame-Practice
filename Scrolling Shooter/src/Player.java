@@ -57,7 +57,7 @@ public class Player {
         g.fillRect(x,y,width,height);
     }
 
-    public Bullet checkCollision(Enemy enemy) {
+    public Bullet checkCollision(AirEnemy enemy) {
         Bullet b = null;
         for (Bullet bullet: bullets) {
             if (bullet.getBounds().intersects(enemy.getBounds())) {
