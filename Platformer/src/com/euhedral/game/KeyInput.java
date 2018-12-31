@@ -36,6 +36,9 @@ public class KeyInput extends KeyAdapter{
          * Engine Code *
          ***************/
 
+        if (keyIsPressed(KeyEvent.VK_ESCAPE))
+            System.exit(1);
+
         for (int lk: legalKeysPress)
             if (keyIsPressed(lk))
                 notifyKeyPress(lk);
@@ -43,9 +46,6 @@ public class KeyInput extends KeyAdapter{
         /*************
          * Game Code *
          *************/
-
-        if (keyIsPressed(KeyEvent.VK_ESCAPE))
-            System.exit(1);
 
 
     }
