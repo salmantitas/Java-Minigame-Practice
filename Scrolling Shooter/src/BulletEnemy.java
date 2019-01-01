@@ -1,17 +1,17 @@
 import java.awt.*;
 
-public class PlayerBullet extends Bullet{
+public class BulletEnemy extends Bullet{
 
-    PlayerBullet(int x, int y) {
+    BulletEnemy(int x, int y) {
         super(x, y);
     }
 
     public void update() {
-        y -= vel;
+        y += vel;
     };
 
     public void render(Graphics g) {
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.orange);
         g.fillOval(x,y, width, height);
     };
 }

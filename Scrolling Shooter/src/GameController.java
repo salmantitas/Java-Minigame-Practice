@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -29,7 +30,7 @@ public class GameController {
      ******************/
 
     private Player player;
-    private LinkedList<AirEnemy> enemies = new LinkedList<>();
+    private LinkedList<Enemy> enemies = new LinkedList<>();
 
     private int basicEnemyScore = 100;
     private int basicEnemySpawnTime = 400;
@@ -85,7 +86,7 @@ public class GameController {
 
             player.update();
 
-            for (AirEnemy enemy: enemies) {
+            for (Enemy enemy: enemies) {
                 enemy.update();
             }
 
@@ -111,7 +112,7 @@ public class GameController {
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
                 player.render(g);
 
-                for (AirEnemy enemy: enemies) {
+                for (Enemy enemy: enemies) {
                     enemy.render(g);
                 }
 
@@ -125,6 +126,68 @@ public class GameController {
          ***************/
 
         uiHandler.render(g);
+    }
+
+    public void keyPressed(int key) {
+        /*************
+         * Game Code *
+         *************/
+
+        if (Engine.currentState != GameState.Pause) {
+            if (key == (KeyEvent.VK_LEFT ) || key == (KeyEvent.VK_A))
+                movePlayer('l');
+
+            if (key == (KeyEvent.VK_RIGHT) || key == (KeyEvent.VK_D))
+                movePlayer('r');
+
+            if (key == (KeyEvent.VK_UP) || key == (KeyEvent.VK_W))
+                movePlayer('u');
+
+            if (key == (KeyEvent.VK_DOWN) || key == (KeyEvent.VK_S))
+                movePlayer('d');
+
+            if (key == (KeyEvent.VK_SPACE) || key == (KeyEvent.VK_NUMPAD0))
+                shootPlayer();
+        }
+
+        if (key == KeyEvent.VK_CONTROL)
+            player.switchBullet();
+
+        if (key == (KeyEvent.VK_ESCAPE)) {
+            if (Engine.currentState == GameState.Menu) {
+                System.exit(1);
+            }
+            else {
+                if (Engine.currentState == GameState.Game)
+                    Engine.setState(GameState.Pause);
+                else if (Engine.currentState == GameState.Pause)
+                    Engine.setState(GameState.Game);
+            }
+        }
+
+
+    }
+
+    public void keyReleased(int key) {
+        /*************
+         * Game Code *
+         *************/
+
+        if (key == (KeyEvent.VK_LEFT) || key == (KeyEvent.VK_A))
+            stopMovePlayer('l');
+
+        if (key==(KeyEvent.VK_RIGHT)|| key==(KeyEvent.VK_D))
+            stopMovePlayer('r');
+
+        if (key==(KeyEvent.VK_UP) || key==(KeyEvent.VK_W))
+            stopMovePlayer('u');
+
+        if (key==(KeyEvent.VK_DOWN) || key==(KeyEvent.VK_S))
+            stopMovePlayer('d');
+
+        if (key==(KeyEvent.VK_SPACE) || key==(KeyEvent.VK_NUMPAD0))
+            stopShootPlayer();
+
     }
 
     private void setupHighScore() {
@@ -253,7 +316,7 @@ public class GameController {
 
     public void checkCollision() {
         // Player vs enemy collision
-        for (AirEnemy enemy: enemies) {
+        for (Enemy enemy: enemies) {
             if (enemy.getBounds().intersects(player.getBounds())) {
                 score += basicEnemyScore;
                 health -= 30;
@@ -262,7 +325,7 @@ public class GameController {
         }
 
         // Player vs enemy bullet collision
-        for (AirEnemy enemy: enemies) {
+        for (Enemy enemy: enemies) {
             Bullet b = enemy.checkCollision(player);
             if (b != null) {
                 health -= 10;
@@ -270,8 +333,8 @@ public class GameController {
             }
         }
 
-        // AirEnemy vs player bullet collision
-        for (AirEnemy enemy: enemies) {
+        // EnemyAir vs player bullet collision
+        for (Enemy enemy: enemies) {
             Bullet b = player.checkCollision(enemy);
             if (b != null) {
                 score += basicEnemyScore;
@@ -280,17 +343,17 @@ public class GameController {
             }
         }
 
-        // AirEnemy vs enemy collision
+        // EnemyAir vs enemy collision
         for (int i = 0; i< enemies.size() - 1; i++) {
-            AirEnemy enemy1 = enemies.get(i);
-            AirEnemy enemy2 = enemies.get(i + 1);
+            Enemy enemy1 = enemies.get(i);
+            Enemy enemy2 = enemies.get(i + 1);
             if (enemy1.getBounds().intersects(enemy2.getBounds())) {
                 enemy2.setX(r.nextInt(Engine.WIDTH - 300) + 150);
             }
         }
     }
 
-    private void destroy(AirEnemy enemy) {
+    private void destroy(Enemy enemy) {
         enemy.setX(+ 300);
         enemy.setY(Engine.HEIGHT + 300);
         enemy.setVelX(0);
@@ -312,8 +375,10 @@ public class GameController {
         }
         System.out.println(variance);
         if (Engine.timer % (basicEnemySpawnTime - variance)== 0) {
-            enemies.add(new BasicAirEnemy(r.nextInt(Engine.WIDTH - 300) + 150, -300));
+            enemies.add(new EnemyAirBasic(r.nextInt(Engine.WIDTH - 300) + 150, -300));
         }
+        if (Engine.timer % (basicEnemySpawnTime - variance)*2 ==0)
+            enemies.add(new EnemyGroundBasic(r.nextInt(Engine.WIDTH-300)+ 150, - 300));
     }
 
 

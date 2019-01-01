@@ -12,6 +12,7 @@ public class Player {
     private final int shootTimerDef = 200;
     private int shootTimer = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
+    private boolean airBullet = true;
 
     public Player(int x, int y) {
         this.x = x;
@@ -57,11 +58,12 @@ public class Player {
         g.fillRect(x,y,width,height);
     }
 
-    public Bullet checkCollision(AirEnemy enemy) {
+    public Bullet checkCollision(Enemy  enemy) {
         Bullet b = null;
         for (Bullet bullet: bullets) {
-            if (bullet.getBounds().intersects(enemy.getBounds())) {
-                b = bullet;
+            BulletPlayer bulletPlayer = (BulletPlayer) bullet;
+            if (bulletPlayer.getBounds().intersects(enemy.getBounds()) && bulletPlayer.getId() == enemy.getID()) {
+                b = bulletPlayer;
             }
         }
         return b;
@@ -95,6 +97,10 @@ public class Player {
         this.x = x;
     }
 
+    public void switchBullet() {
+        airBullet = !airBullet;
+    }
+
     // Private Methods
 
     private void move() {
@@ -125,8 +131,12 @@ public class Player {
 
     private void shoot() {
         if (power == 1) {
-            bullets.add(new PlayerBullet(x + width / 2, y));
+            if (airBullet)
+                bullets.add(new BulletPlayerAir(x + width / 2, y));
+            else
+                bullets.add(new BulletPlayerGround(x + width / 2, y));
         }
+        // reset shoot timer to default
         shootTimer = shootTimerDef;
     }
 }

@@ -1,26 +1,9 @@
 import java.awt.*;
-import java.util.LinkedList;
 
-public abstract class AirEnemy {
+public abstract class EnemyGround extends Enemy{
 
-    protected int x, y, velX, velY;
-    protected int width, height;
-    protected boolean moveLeft, moveRight;
-    protected Color color;
-    protected final int shootTimerDef = 300;
-    protected int shootTimer = shootTimerDef;
-    protected LinkedList<Bullet> bullets = new LinkedList<>();
-
-    public AirEnemy(int x, int y) {
-        this.x = x;
-        this.y = y;
-        velX = Engine.intAtWidth640(1)/2;
-        velY = Engine.intAtWidth640(2)/4;
-        width = Engine.intAtWidth640(32);
-        height = width;
-        moveRight = false;
-        moveLeft = false;
-        color = Color.red;
+    public EnemyGround(int x, int y) {
+        super(x,y, ID.Ground);
     }
 
     public abstract void update();
@@ -28,7 +11,7 @@ public abstract class AirEnemy {
     public abstract void render(Graphics g);
 
     protected void shoot() {
-        bullets.add(new EnemyBullet(x + width/2,y));
+        bullets.add(new BulletEnemy(x + width/2,y));
         shootTimer = shootTimerDef;
     }
 

@@ -4,6 +4,7 @@ public abstract class Bullet  {
     protected int x, y, vel;
     protected boolean collided;
     protected int width, height;
+    protected Color color;
 
     Bullet(int x, int y) {
         this.x = x;

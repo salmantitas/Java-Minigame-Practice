@@ -1,72 +1,77 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class KeyInput extends KeyAdapter{
 
     private EngineKeyboard keyboard;
     private GameController gameController;
 
+    private ArrayList<Integer> legalKeysPress;
+    private ArrayList<Integer> legalKeysRelease;
+
     public KeyInput(EngineKeyboard engineKeyboard, GameController gameController) {
         this.gameController = gameController;
         keyboard = engineKeyboard;
-    }
+
+        legalKeysPress = new ArrayList<>();
+        legalKeysRelease = new ArrayList<>();
+
+        /*************
+         * Game Code *
+         *************/
+
+        legalKeysPress.add(KeyEvent.VK_LEFT);
+        legalKeysPress.add(KeyEvent.VK_A);
+        legalKeysPress.add(KeyEvent.VK_RIGHT);
+        legalKeysPress.add(KeyEvent.VK_D);
+        legalKeysPress.add(KeyEvent.VK_UP);
+        legalKeysPress.add(KeyEvent.VK_W);
+        legalKeysPress.add(KeyEvent.VK_DOWN);
+        legalKeysPress.add(KeyEvent.VK_S);
+        legalKeysPress.add(KeyEvent.VK_SPACE);
+        legalKeysPress.add(KeyEvent.VK_NUMPAD0);
+        legalKeysPress.add(KeyEvent.VK_ESCAPE);
+        legalKeysPress.add(KeyEvent.VK_CONTROL);
+
+        for (int i: legalKeysPress)
+            if (i != KeyEvent.VK_ESCAPE)
+                legalKeysRelease.add(i);
+
+
+}
 
     public void updatePressed() {
 
+        /***************
+         * Engine Code *
+         ***************/
+
+        if (keyIsPressed(KeyEvent.VK_ESCAPE))
+            System.exit(1);
+
+        for (int lk: legalKeysPress)
+            if (keyIsPressed(lk))
+                notifyKeyPress(lk);
+
         /*************
          * Game Code *
          *************/
-
-        if (Engine.currentState != GameState.Pause) {
-            if (keyIsPressed(KeyEvent.VK_LEFT ) || keyIsPressed(KeyEvent.VK_A))
-                gameController.movePlayer('l');
-
-            if (keyIsPressed(KeyEvent.VK_RIGHT) || keyIsPressed(KeyEvent.VK_D))
-                gameController.movePlayer('r');
-
-            if (keyIsPressed(KeyEvent.VK_UP) || keyIsPressed(KeyEvent.VK_W))
-                gameController.movePlayer('u');
-
-            if (keyIsPressed(KeyEvent.VK_DOWN) || keyIsPressed(KeyEvent.VK_S))
-                gameController.movePlayer('d');
-
-            if (keyIsPressed(KeyEvent.VK_SPACE) || keyIsPressed(KeyEvent.VK_NUMPAD0))
-                gameController.shootPlayer();
-        }
-
-        if (keyIsPressed(KeyEvent.VK_ESCAPE)) {
-            if (Engine.currentState == GameState.Menu) {
-                System.exit(1);
-            }
-            else {
-                if (Engine.currentState == GameState.Game)
-                    Engine.setState(GameState.Pause);
-                else if (Engine.currentState == GameState.Pause)
-                    Engine.setState(GameState.Game);
-            }
-        }
     }
 
     public void updateReleased() {
+        /***************
+         * Engine Code *
+         ***************/
+
+        for (int lk: legalKeysRelease)
+            if (keyIsReleased(lk))
+                notifyKeyRelease(lk);
 
         /*************
          * Game Code *
          *************/
 
-        if (keyIsReleased(KeyEvent.VK_LEFT) || keyIsReleased(KeyEvent.VK_A))
-            gameController.stopMovePlayer('l');
-
-        if (keyIsReleased(KeyEvent.VK_RIGHT)|| keyIsReleased(KeyEvent.VK_D))
-            gameController.stopMovePlayer('r');
-
-        if (keyIsReleased(KeyEvent.VK_UP) || keyIsReleased(KeyEvent.VK_W))
-            gameController.stopMovePlayer('u');
-
-        if (keyIsReleased(KeyEvent.VK_DOWN) || keyIsReleased(KeyEvent.VK_S))
-            gameController.stopMovePlayer('d');
-
-        if (keyIsReleased(KeyEvent.VK_SPACE) || keyIsReleased(KeyEvent.VK_NUMPAD0))
-            gameController.stopShootPlayer();
     }
 
     private boolean keyIsPressed(int key) {
@@ -75,6 +80,14 @@ public class KeyInput extends KeyAdapter{
 
     private boolean keyIsReleased(int key) {
         return keyboard.keyIsReleased(key);
+    }
+
+    private void notifyKeyPress(int key) {
+        gameController.keyPressed(key);
+    }
+
+    private void notifyKeyRelease(int key) {
+        gameController.keyReleased(key);
     }
 
     /******************

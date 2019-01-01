@@ -1,4 +1,4 @@
-public enum EnemyID {
+public enum ID {
     Air,
     Ground
 }

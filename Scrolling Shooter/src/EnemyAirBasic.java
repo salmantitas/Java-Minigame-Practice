@@ -1,9 +1,14 @@
 import java.awt.*;
 
-public class BasicAirEnemy extends AirEnemy {
+public class EnemyAirBasic extends EnemyAir {
 
-    public BasicAirEnemy(int x, int y) {
+    public EnemyAirBasic(int x, int y) {
         super(x,y);
+        velX = Engine.floatAtWidth640(1)/2;
+        velY = Engine.floatAtWidth640(2)/4;
+        width = Engine.intAtWidth640(32);
+        height = width;
+        color = Color.red;
     }
 
     public void update() {
@@ -25,10 +30,6 @@ public class BasicAirEnemy extends AirEnemy {
 
         g.setColor(color);
         g.fillRect(x,y,width,height);
-    }
-
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
     }
 
     public void setX(int x) {
