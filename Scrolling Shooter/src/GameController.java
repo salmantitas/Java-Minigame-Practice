@@ -110,11 +110,12 @@ public class GameController {
              *************/
 
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
-                player.render(g);
 
                 for (Enemy enemy: enemies) {
                     enemy.render(g);
                 }
+
+                player.render(g);
 
                 drawHealth(g);
                 drawScore(g);
@@ -246,7 +247,7 @@ public class GameController {
     private void drawLives(Graphics g) {
         int x = Engine.intAtWidth640(10);
         int y = x/2;
-        int sep = x*2; //x/5;
+        int sep = x*2;
         int width = Engine.intAtWidth640(16);
         int height = width;
         Color color = Color.GREEN;
@@ -317,10 +318,11 @@ public class GameController {
     public void checkCollision() {
         // Player vs enemy collision
         for (Enemy enemy: enemies) {
-            if (enemy.getBounds().intersects(player.getBounds())) {
-                score += basicEnemyScore;
-                health -= 30;
-                destroy(enemy);
+            if (enemy.getID() == ID.Air)
+                if (enemy.getBounds().intersects(player.getBounds())) {
+                    score += basicEnemyScore;
+                    health -= 30;
+                    destroy(enemy);
             }
         }
 
