@@ -28,7 +28,7 @@ public class GameController {
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
 
-    private BufferedImage level = null;
+    private BufferedImage level1 = null;
 
     /******************
      * User variables *
@@ -131,9 +131,10 @@ public class GameController {
         Engine.menuState();
         setupHighScore();
         player = new Player(gameWidth/2, gameHeight/2);
+        LevelGenerator levelGenerator = new LevelGenerator(this);
         BufferedImageLoader loader = new BufferedImageLoader();
-//        level = loader.loadImage("/level.png");
-
+        level1 = loader.loadImage("res/level1.png");
+        levelGenerator.loadImageLevel(level1);
     }
 
     public void keyPressed(int key) {
