@@ -1,5 +1,8 @@
+import com.euhedral.engine.BufferedImageLoader;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -25,6 +28,8 @@ public class GameController {
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
 
+    private BufferedImage level = null;
+
     /******************
      * User variables *
      ******************/
@@ -49,14 +54,7 @@ public class GameController {
 
         uiHandler = new UIHandler();
 
-        /*************
-         * Game Code *
-         *************/
-
-        Engine.menuState();
-        setupHighScore();
-
-        player = new Player(gameWidth/2, gameHeight/2);
+        initGame();
 
 
     }
@@ -127,6 +125,15 @@ public class GameController {
          ***************/
 
         uiHandler.render(g);
+    }
+
+    private void initGame() {
+        Engine.menuState();
+        setupHighScore();
+        player = new Player(gameWidth/2, gameHeight/2);
+        BufferedImageLoader loader = new BufferedImageLoader();
+//        level = loader.loadImage("/level.png");
+
     }
 
     public void keyPressed(int key) {
