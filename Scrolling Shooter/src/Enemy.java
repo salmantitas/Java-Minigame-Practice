@@ -12,6 +12,8 @@ public abstract class Enemy {
     protected final int shootTimerDef = 300;
     protected int shootTimer = shootTimerDef;
     protected LinkedList<Bullet> bullets = new LinkedList<>();
+    protected boolean inscreen = false;
+    protected Camera cam;
 
     public Enemy(int x, int y, ID id) {
         this.x = x;
@@ -19,9 +21,22 @@ public abstract class Enemy {
         this.id = id;
         moveRight = false;
         moveLeft = false;
+        cam = GameController.getCamera();
     }
 
-    public abstract void update();
+    public void update() {
+        move();
+        shootTimer--;
+        if (!inscreen)
+            inscreen = y > cam.getY();
+        if (inscreen)
+            if (shootTimer <= 0)
+                shoot();
+
+        for (Bullet bullet: bullets) {
+            bullet.update();
+        }
+    }
 
     public abstract void render(Graphics g);
 
@@ -70,4 +85,5 @@ public abstract class Enemy {
         y += velY;
         x = Engine.clamp(x, 0, Engine.WIDTH - width);
     }
+
 }

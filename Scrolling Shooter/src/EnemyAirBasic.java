@@ -11,17 +11,6 @@ public class EnemyAirBasic extends EnemyAir {
         color = Color.red;
     }
 
-    public void update() {
-        move();
-        shootTimer--;
-        if (shootTimer <= 0)
-            shoot();
-
-        for (Bullet bullet: bullets) {
-            bullet.update();
-        }
-    }
-
     public void render(Graphics g) {
 
         for (Bullet bullet: bullets) {

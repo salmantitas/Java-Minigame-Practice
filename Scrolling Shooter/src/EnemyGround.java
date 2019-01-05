@@ -6,8 +6,6 @@ public abstract class EnemyGround extends Enemy{
         super(x,y, ID.Ground);
     }
 
-    public abstract void update();
-
     public abstract void render(Graphics g);
 
     protected void shoot() {

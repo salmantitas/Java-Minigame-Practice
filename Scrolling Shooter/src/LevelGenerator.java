@@ -14,18 +14,21 @@ public class LevelGenerator {
 
         System.out.println("Width, Height: " + w + " " + h);
 
-        for (int j = 0; j < h; j++) {
-            for (int i = 0; i < w; i++) {
-                int pixel = image.getRGB(i,j);
+        for (int j = h - 1; j >= 0; j--) {
+            for (int i = w - 1; i >= 0; i--) {
+                int pixel = image.getRGB(i, j);
                 int r = (pixel >> 16) & 0xff;
                 int g = (pixel >> 8) & 0xff;
                 int b = pixel & 0xff;
 
                 // Game Code//
-
-
+                if (r == 0 && g == 0 && b == 255)
+                    gameController.spawnPlayer(i*32, j*32);
+                if (r == 255 && g == 0 && b ==0)
+                    gameController.spawnEnemy(i*32, j*32, ID.Air);
             }
         }
+    }
 
 
 }

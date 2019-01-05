@@ -6,8 +6,6 @@ public abstract class EnemyAir extends Enemy{
         super(x,y, ID.Air);
     }
 
-    public abstract void update();
-
     public abstract void render(Graphics g);
 
     protected void shoot() {

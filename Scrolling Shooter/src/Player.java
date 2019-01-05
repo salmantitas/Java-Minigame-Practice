@@ -107,8 +107,8 @@ public class Player {
         x += velX;
         y += velY;
 
-        x = Engine.clamp(x, 0, Engine.WIDTH - width);
-        y = Engine.clamp(y, 0, Engine.HEIGHT - height);
+//        x = Engine.clamp(x, 0, Engine.WIDTH - width);
+//        y = Engine.clamp(y, 0, Engine.HEIGHT - height);
 
         if (moveLeft && !moveRight) {
             velX = -otherMovement;
@@ -140,5 +140,11 @@ public class Player {
         shootTimer = shootTimerDef;
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public int getY() {
+        return y;
+    }
 }

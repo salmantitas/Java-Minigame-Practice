@@ -11,17 +11,6 @@ public class EnemyGroundBasic extends EnemyGround {
         color = Color.pink;
     }
 
-    public void update() {
-        move();
-        shootTimer--;
-        if (shootTimer <= 0)
-            shoot();
-
-        for (Bullet bullet: bullets) {
-            bullet.update();
-        }
-    }
-
     public void render(Graphics g) {
 
         for (Bullet bullet: bullets) {

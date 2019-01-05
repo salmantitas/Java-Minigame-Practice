@@ -28,8 +28,6 @@ public class GameController {
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
 
-    private BufferedImage level1 = null;
-
     /******************
      * User variables *
      ******************/
@@ -38,8 +36,15 @@ public class GameController {
     private LinkedList<Enemy> enemies = new LinkedList<>();
 
     private int basicEnemyScore = 100;
-    private int basicEnemySpawnTime = 400;
-    private int basicEnemyIncreaseTime = 2000;
+//    private int basicEnemySpawnTime = 400;
+//    private int basicEnemyIncreaseTime = 2000;
+
+    int level = 1;
+    private boolean levelSpawned = false;
+
+    private BufferedImage level1 = null;
+    private LevelGenerator levelGenerator;
+    public static Camera cam;
 
     public GameController() {
 
@@ -54,9 +59,17 @@ public class GameController {
 
         uiHandler = new UIHandler();
 
-        initGame();
+        initialize();
 
+    }
 
+    private void initialize() {
+        Engine.menuState();
+        setupHighScore();
+        BufferedImageLoader loader = new BufferedImageLoader();
+        level1 = loader.loadImage("/level1.png");
+        levelGenerator = new LevelGenerator(this);
+        spawn();
     }
 
     public void update() {
@@ -82,6 +95,9 @@ public class GameController {
              * Game Code *
              *************/
 
+            if (!levelSpawned)
+                spawn();
+
             player.update();
 
             for (Enemy enemy: enemies) {
@@ -89,7 +105,6 @@ public class GameController {
             }
 
             checkCollision();
-            spawn();
 
 
         }
@@ -109,11 +124,19 @@ public class GameController {
 
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
 
+                Graphics2D g2d = (Graphics2D) g;
+
+                // Camera start
+                g2d.translate(cam.getX(), cam.getY());
+
                 for (Enemy enemy: enemies) {
                     enemy.render(g);
                 }
 
                 player.render(g);
+
+                // Camera end
+                g2d.translate(-cam.getX(), -cam.getY());
 
                 drawHealth(g);
                 drawScore(g);
@@ -125,16 +148,6 @@ public class GameController {
          ***************/
 
         uiHandler.render(g);
-    }
-
-    private void initGame() {
-        Engine.menuState();
-        setupHighScore();
-        player = new Player(gameWidth/2, gameHeight/2);
-        LevelGenerator levelGenerator = new LevelGenerator(this);
-        BufferedImageLoader loader = new BufferedImageLoader();
-        level1 = loader.loadImage("res/level1.png");
-        levelGenerator.loadImageLevel(level1);
     }
 
     public void keyPressed(int key) {
@@ -217,6 +230,7 @@ public class GameController {
         score = 0;
         health = 100;
         enemies.clear();
+        levelSpawned = false;
 
     }
 
@@ -353,7 +367,7 @@ public class GameController {
             }
         }
 
-        // EnemyAir vs enemy collision
+        // enemy vs enemy collision
         for (int i = 0; i< enemies.size() - 1; i++) {
             Enemy enemy1 = enemies.get(i);
             Enemy enemy2 = enemies.get(i + 1);
@@ -364,8 +378,15 @@ public class GameController {
     }
 
     private void destroy(Enemy enemy) {
+//        Iterator<Enemy> it = enemies.iterator();
+//        while (it.hasNext()) {
+//            Enemy e = it.next();
+//            if (e == enemy) {
+//                it.remove();
+//            }
+//        }
         enemy.setX(+ 300);
-        enemy.setY(Engine.HEIGHT + 300);
+        enemy.setY(player.getY() + 1000);
         enemy.setVelX(0);
         enemy.setVelY(0);
     }
@@ -377,18 +398,39 @@ public class GameController {
     }
 
     private void spawn() {
-        int variance = 0;
+        levelSpawned = !levelSpawned;
 
-        // Randomize spawn after score becomes greater than a value
-        if (score > basicEnemyIncreaseTime) {
-            variance = r.nextInt(250);
-        }
-        System.out.println(variance);
-        if (Engine.timer % (basicEnemySpawnTime - variance)== 0) {
-            enemies.add(new EnemyAirBasic(r.nextInt(Engine.WIDTH - 300) + 150, -300));
-        }
-        if (Engine.timer % (basicEnemySpawnTime - variance)*2 ==0)
-            enemies.add(new EnemyGroundBasic(r.nextInt(Engine.WIDTH-300)+ 150, - 300));
+        if (level == 1)
+            levelGenerator.loadImageLevel(level1);
+
+//        int variance = 0;
+//
+//        // Randomize spawn after score becomes greater than a value
+//        if (score > basicEnemyIncreaseTime) {
+//            variance = r.nextInt(250);
+//        }
+//        System.out.println(variance);
+//        if (Engine.timer % (basicEnemySpawnTime - variance)== 0) {
+//            enemies.add(new EnemyAirBasic(r.nextInt(Engine.WIDTH - 300) + 150, -300));
+//        }
+//        if (Engine.timer % (basicEnemySpawnTime - variance)*2 ==0)
+//            enemies.add(new EnemyGroundBasic(r.nextInt(Engine.WIDTH-300)+ 150, - 300));
+    }
+
+    public static Camera getCamera() {
+        return cam;
+    }
+
+    public void spawnPlayer(int width, int height) {
+        player = new Player(width, height);
+//        cam = new Camera(player.getX() - gameWidth/2, player.getY() - gameHeight/2);
+        cam = new Camera(player.getX() - gameWidth/2, player.getY()-3000);
+    }
+
+    public void spawnEnemy(int width, int height, ID id) {
+        if (id == ID.Air)
+            enemies.add(new EnemyAirBasic(width, height));
+        else enemies.add(new EnemyGroundBasic(width,height));
     }
 
 

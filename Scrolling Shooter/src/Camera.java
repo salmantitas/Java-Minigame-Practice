@@ -1,3 +1,5 @@
+import com.euhedral.game.GameObject;
+
 public class Camera {
 
     private float x,y;
@@ -7,9 +9,8 @@ public class Camera {
         this.y = y;
     }
 
-    public void update() {
-        x = Engine.WIDTH/2;
-        y = Engine.HEIGHT/2;
+    public void update(GameObject gameObject) {
+
     }
 
     public float getX() {
