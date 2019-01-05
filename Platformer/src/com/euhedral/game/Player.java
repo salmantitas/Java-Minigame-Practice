@@ -35,9 +35,9 @@ public class Player extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(color);
-        g.fillRect((int) x, (int) y, (int) width, (int) height);
+        g.drawImage(tex.player[0], (int) x, (int) y, null);
 
-        // renderBounds(g);
+//        renderBounds(g);
     }
 
     public void renderBounds(Graphics g) {

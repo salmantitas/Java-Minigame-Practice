@@ -1,5 +1,6 @@
 package com.euhedral.game;
 
+import com.euhedral.engine.BufferedImageLoader;
 import com.euhedral.engine.Engine;
 import com.euhedral.engine.GameState;
 
@@ -36,10 +37,11 @@ public class GameController {
      * User variables *
      ******************/
 
-    private Block block = new Block(-50, -50, ObjectId.Block);
+    private Block block = new Block(-50, -50, 0, ObjectId.Block);
     private float blockSize = block.getWidth();
     private Camera cam;
-    public Player player;
+    private static Texture tex;
+    private Player player;
 
     private BufferedImage level = null;
 
@@ -67,12 +69,10 @@ public class GameController {
     }
 
     private void initGame() {
+        tex = new Texture();
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/level.png");
         loadImageLevel(level);
-//        createLevel();
-//        player = new Player(100, 100, ObjectId.Player);
-//        objects.add(player);
         cam = new Camera(player.getX(), 0);
     }
 
@@ -288,20 +288,6 @@ public class GameController {
         objects.remove(object);
     }
 
-    private void createLevel() {
-        // Floor
-        for (int i = 0; i < Engine.WIDTH * 2 + blockSize; i += blockSize)
-            addObject(new Block(i, Engine.HEIGHT-blockSize*Engine.intAtWidth640(3), ObjectId.Block));
-
-        // Platform
-        for (int i = 0; i < 15; i ++)
-            addObject(new Block(Engine.percWidth(25) + i * blockSize, Engine.percHeight(60), ObjectId.Block));
-
-        // LeftWall
-        for (int i = 0; i < Engine.HEIGHT + blockSize; i += blockSize)
-            addObject(new Block(0, i, ObjectId.Block));
-    }
-
     private void loadImageLevel(BufferedImage image) {
         int w = image.getWidth();
         int h = image.getHeight();
@@ -317,7 +303,10 @@ public class GameController {
 
                 // If white blocks
                 if (r == 255 && g == 255 && b == 255)
-                    addObject(new Block(i * blockSize, j * blockSize, ObjectId.Block));
+                    addObject(new Block(i * blockSize, j * blockSize, 0, ObjectId.Block));
+                // If grey blocks
+                if (r == 128 && g == 128 && b == 128)
+                    addObject(new Block(i * blockSize, j * blockSize, 1, ObjectId.Block));
                 // if blue block
                 if (r == 0 && g == 0 && b == 255 && player == null) {
                     player = new Player(i * blockSize, j * blockSize, ObjectId.Player);
@@ -325,7 +314,9 @@ public class GameController {
                 }
             }
         }
+    }
 
-
+    public static Texture getInstance() {
+        return tex;
     }
 }

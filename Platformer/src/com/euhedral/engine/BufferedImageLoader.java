@@ -1,4 +1,4 @@
-package com.euhedral.game;
+package com.euhedral.engine;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,6 +12,8 @@ public class BufferedImageLoader {
     public BufferedImage loadImage(String path) {
         try {
             image = ImageIO.read(getClass().getResource(path));
+        } catch (NullPointerException e) {
+            System.out.println("null");
         } catch (IOException e) {
             e.printStackTrace();
         }

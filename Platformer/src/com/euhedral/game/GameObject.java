@@ -9,6 +9,7 @@ public abstract class GameObject {
     protected float velX = 0, velY = 0;
     protected boolean falling = true, jumping = false;
     protected Color color;
+    protected Texture tex = GameController.getInstance();
 
     public GameObject(float x, float y, ObjectId id) {
         this.x = x;
