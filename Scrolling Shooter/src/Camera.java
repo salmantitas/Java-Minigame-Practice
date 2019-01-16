@@ -3,6 +3,7 @@ import com.euhedral.game.GameObject;
 public class Camera {
 
     private float x,y;
+    private float marker;
 
     public Camera(float x, float y) {
         this.x = x;
@@ -27,5 +28,13 @@ public class Camera {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public float getMarker() {
+        return marker;
+    }
+
+    public void setMarker(float marker) {
+        this.marker = marker - Engine.HEIGHT;
     }
 }

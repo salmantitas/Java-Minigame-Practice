@@ -23,7 +23,9 @@ public class LevelGenerator {
 
                 // Game Code//
                 if (r == 0 && g == 0 && b == 255)
-                    gameController.spawnPlayer(i*32, j*32);
+                    gameController.spawnPlayer(i*32, j*32, h*32);
+//                if (r == 128 && g == 128 && b == 128)
+//                    gameController.spawnCamera(i*32, j*32);
                 if (r == 255 && g == 0 && b ==0)
                     gameController.spawnEnemy(i*32, j*32, ID.Air);
             }

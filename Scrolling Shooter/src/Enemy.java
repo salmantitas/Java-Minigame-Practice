@@ -28,7 +28,7 @@ public abstract class Enemy {
         move();
         shootTimer--;
         if (!inscreen)
-            inscreen = y > cam.getY();
+            inscreen = y > cam.getMarker() + 256;
         if (inscreen)
             if (shootTimer <= 0)
                 shoot();

@@ -421,10 +421,16 @@ public class GameController {
         return cam;
     }
 
-    public void spawnPlayer(int width, int height) {
-        player = new Player(width, height);
-//        cam = new Camera(player.getX() - gameWidth/2, player.getY() - gameHeight/2);
-        cam = new Camera(player.getX() - gameWidth/2, player.getY()-3000);
+    public void spawnPlayer(int width, int height, int levelHeight) {
+        player = new Player(width,height);
+        // sets the camera's width to center the player horizontally, essentially to 0, and
+        // adjust the height so that player is at the bottom of the screen
+        cam = new Camera(player.getX()-gameWidth/2,-player.getY() + gameHeight - 256);
+        cam.setMarker(player.getY());
+    }
+
+    public void spawnCamera(int width, int height) {
+        cam = new Camera(width,-750); // -700 = 2 fps;
     }
 
     public void spawnEnemy(int width, int height, ID id) {
