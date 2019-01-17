@@ -211,11 +211,15 @@ public class GameController {
     }
 
     public void keyPressed(int key) {
-        if (key == KeyEvent.VK_D)
+        if (key == KeyEvent.VK_D) {
             player.setVelX(player.getSpeed());
+            player.setLeft(false);
+        }
 
-        if (key == KeyEvent.VK_A)
+        if (key == KeyEvent.VK_A) {
             player.setVelX(-player.getSpeed());
+            player.setLeft(true);
+        }
 
         if (key == KeyEvent.VK_W && !player.isJumping()) {
             player.setVelY(- player.getJumpSpeed());

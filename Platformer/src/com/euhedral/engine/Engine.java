@@ -36,6 +36,14 @@ public class Engine extends Canvas {
     public EngineKeyboard keyInput;
     public EngineMouse mouseInput;
 
+    /*
+    * Initializes variables:
+    *   gameController
+    *   keyInput
+    *   mouseInput
+    * Adds the input methods to the appropriate listeners
+    * Creates the window
+    */
     public Engine() {
         // init //
         gameController = new GameController();
@@ -46,14 +54,21 @@ public class Engine extends Canvas {
         addKeyListener(keyInput);
         addMouseListener(mouseInput);
         addMouseMotionListener(mouseInput);
+
         System.out.println("Game initialized");
+
         new Window(WIDTH, HEIGHT, TITLE, this);
     }
 
+    // Calls the gameController's update function
     public void update() {
         gameController.update();
     }
 
+    /*
+    * Gets BufferStrategy and initializes it to 3 if it is null
+    * Fills the screen with the background color and calls the gameController's render function
+    * */
     public void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
@@ -72,6 +87,9 @@ public class Engine extends Canvas {
         bs.show();
     }
 
+    /*
+    * The game loop. Handles the updates and rendering per frame.
+    */
     public void gameLoop() {
         System.out.println("Game loop started");
         long lastTime = System.nanoTime();
@@ -167,6 +185,7 @@ public class Engine extends Canvas {
         return perc(HEIGHT, percentage);
     }
 
+
     public static int intAtWidth640(int var) {
         float factor = 640/var;
         return (int) (WIDTH/factor);
@@ -204,6 +223,9 @@ public class Engine extends Canvas {
      * Utility Functions *
      *********************/
 
+    /*
+    * Returns the variable if it does not exceed max or fall below min
+    */
     public static int clamp(int var, int min, int max) {
         if (var <= min)
             return min;
@@ -215,11 +237,4 @@ public class Engine extends Canvas {
     public static void printTimer() {
         System.out.println(timer);
     }
-
-    // Does not work because Integers aren't objects
-//    public static void swapInt(int x, int y) {
-//        int temp = x;
-//        x = y;
-//        y = temp;
-//    }
 }

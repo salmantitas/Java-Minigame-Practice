@@ -10,12 +10,18 @@ public class Player extends GameObject {
     private final float MAX_SPEED = 10;
     private final float speed = Engine.intAtWidth640(1);
     private final float jumpSpeed = speed * 1.7f;
+    private boolean left = false;
+
+    private Animation playerWalkRight;
+    private Animation playerWalkLeft;
 
     public Player(float x, float y, ObjectId id) {
         super(x, y, id);
         width = Engine.intAtWidth640(32);
         height = width * 2;
         color = Color.BLUE;
+        playerWalkRight = new Animation(30, tex.player[1], tex.player[2], tex.player[3], tex.player[4], tex.player[5], tex.player[6]);
+        playerWalkLeft = new Animation(30, tex.player[7], tex.player[8], tex.player[9], tex.player[10], tex.player[11], tex.player[12]);
     }
 
     @Override
@@ -30,13 +36,27 @@ public class Player extends GameObject {
                 velY = MAX_SPEED;
         }
 
+        playerWalkRight.runAnimation();
+        playerWalkLeft.runAnimation();
+
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(color);
-        g.drawImage(tex.player[0], (int) x, (int) y, null);
 
+        if (velX != 0) {
+            if (velX > 0)
+                playerWalkRight.drawAnimation(g,(int) x, (int) y);
+            if (velX < 0)
+                playerWalkLeft.drawAnimation(g, (int) x, (int) y);
+        }
+        else {
+            if (left)
+                g.drawImage(tex.player[13], (int) x, (int) y, null);
+            else
+                g.drawImage(tex.player[0], (int) x, (int) y, null);
+        }
 //        renderBounds(g);
     }
 
@@ -77,5 +97,9 @@ public class Player extends GameObject {
 
     public float getJumpSpeed() {
         return jumpSpeed;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
     }
 }
