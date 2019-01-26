@@ -15,8 +15,10 @@ public class Camera {
 
         // Game Code
 
-        x = - gameObject.getX() + Engine.WIDTH/2;
-        y = - gameObject.getY() + Engine.HEIGHT/2;
+        if (gameObject != null) {
+            x = -gameObject.getX() + Engine.WIDTH / 2;
+            y = -gameObject.getY() + Engine.HEIGHT / 2;
+        }
     }
 
     public float getX() {

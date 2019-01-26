@@ -7,6 +7,7 @@ import com.euhedral.engine.GameState;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -17,8 +18,8 @@ public class GameController {
     // Manually set the com.Window information here
     private int gameWidth = Engine.WIDTH;
     private int gameHeight = Engine.HEIGHT;
-    private String gameTitle = Engine.TITLE;
-    private Color gameBackground = Engine.BACKGROUND_COLOR;
+    private String gameTitle = "Platformer Tutorial";
+    private Color gameBackground = new Color(25, 191, 224);
 
     // Common game variables
     private int score = 0;
@@ -37,13 +38,16 @@ public class GameController {
      * User variables *
      ******************/
 
+    public final static int MAXLEVEL = 2;
+    public static int LEVEL = 1;
+
     private Block block = new Block(-50, -50, 0, ObjectId.Block);
     private float blockSize = block.getWidth();
     private Camera cam;
     private static Texture tex;
     private Player player;
 
-    private BufferedImage level = null;
+    private BufferedImage level = null, level2 = null, clouds = null;
 
     public LinkedList<GameObject> objects = new LinkedList<>();
 
@@ -72,6 +76,8 @@ public class GameController {
         tex = new Texture();
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/level.png");
+        level2 = loader.loadImage("/level2.png");
+        clouds = loader.loadImage("/clouds.png");
         loadImageLevel(level);
         cam = new Camera(player.getX(), 0);
     }
@@ -105,6 +111,13 @@ public class GameController {
 
                 GameObject object = objects.get(i);
                 objects.get(i).update();
+
+                if (object.getId() == ObjectId.Flag) {
+                    if (player.getBounds().intersects(object.getBounds())) {
+                        // switch level
+                        switchLevel();
+                    }
+                }
 
                 if (object.getId() == ObjectId.Block) {
 
@@ -150,16 +163,22 @@ public class GameController {
              * Game Code *
              *************/
 
+            int cloudNum = 1;
+
             Graphics2D g2d = (Graphics2D) g;
 
-            // Camera start
+            // Camera start //
             g2d.translate(cam.getX(), cam.getY());
+
+            for (int i = 0; i < clouds.getWidth() * cloudNum; i += clouds.getWidth()) {
+                g.drawImage(clouds, 0, 50, null);
+            }
 
             for (int i = 0; i < objects.size(); i++) {
                 objects.get(i).render(g);
             }
 
-            // Camera end
+            // Camera end //
             g2d.translate(-cam.getX(), -cam.getY());
 
         }
@@ -233,6 +252,26 @@ public class GameController {
 
         if (key == KeyEvent.VK_A)
             player.setVelX(0);
+    }
+
+    private void clearLevel() {
+        objects.clear();
+        player = null;
+    }
+
+    public void switchLevel() {
+        clearLevel();
+        cam.setX(0);
+
+        switch (LEVEL){
+            case 1:
+                loadImageLevel(level2);
+                break;
+            case MAXLEVEL:
+                Engine.gameOverState();
+                break;
+        }
+        LEVEL++;
     }
 
     /***************************
@@ -316,6 +355,10 @@ public class GameController {
                     player = new Player(i * blockSize, j * blockSize, ObjectId.Player);
                     addObject(player);
                 }
+                // If yellow blocks
+                if (r == 255 && g == 216 && b == 0)
+                    addObject(new Flag(i * blockSize, j * blockSize, ObjectId.Flag));
+
             }
         }
     }

@@ -93,7 +93,7 @@ public class UIHandler {
     }
 
     public void drawGameOverScreen(Graphics g) {
-        g.setFont(new Font("arial", 1, 200));
+        g.setFont(new Font("arial", 1, Engine.intAtWidth640(90)));
         g.setColor(Color.WHITE);
         g.drawString("GAME OVER", Engine.percWidth(2), Engine.HEIGHT/2);
     }

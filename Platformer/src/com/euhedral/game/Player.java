@@ -14,6 +14,8 @@ public class Player extends GameObject {
 
     private Animation playerWalkRight;
     private Animation playerWalkLeft;
+    private Animation playerJumpRight;
+    private Animation playerJumpLeft;
 
     public Player(float x, float y, ObjectId id) {
         super(x, y, id);
@@ -22,6 +24,9 @@ public class Player extends GameObject {
         color = Color.BLUE;
         playerWalkRight = new Animation(30, tex.player[1], tex.player[2], tex.player[3], tex.player[4], tex.player[5], tex.player[6]);
         playerWalkLeft = new Animation(30, tex.player[7], tex.player[8], tex.player[9], tex.player[10], tex.player[11], tex.player[12]);
+        playerJumpRight = new Animation(30, tex.player_jump[0], tex.player_jump[1], tex.player_jump[2], tex.player_jump[3], tex.player_jump[7], tex.player_jump[8]);
+        playerJumpLeft = new Animation(30, tex.player_jump[9], tex.player_jump[10],
+                tex.player_jump[14], tex.player_jump[15], tex.player_jump[16], tex.player_jump[17]);
     }
 
     @Override
@@ -38,25 +43,35 @@ public class Player extends GameObject {
 
         playerWalkRight.runAnimation();
         playerWalkLeft.runAnimation();
-
+        playerJumpRight.runAnimation();
+        playerJumpLeft.runAnimation();
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(color);
 
-        if (velX != 0) {
-            if (velX > 0)
-                playerWalkRight.drawAnimation(g,(int) x, (int) y);
-            if (velX < 0)
-                playerWalkLeft.drawAnimation(g, (int) x, (int) y);
-        }
-        else {
+        if (jumping) {
             if (left)
-                g.drawImage(tex.player[13], (int) x, (int) y, null);
+                playerJumpLeft.drawAnimation(g, (int) x, (int) y);
             else
-                g.drawImage(tex.player[0], (int) x, (int) y, null);
+                playerJumpRight.drawAnimation(g, (int) x, (int) y);
+        } else {
+            if (velX != 0) {
+                if (velX > 0)
+                    playerWalkRight.drawAnimation(g,(int) x, (int) y);
+                if (velX < 0)
+                    playerWalkLeft.drawAnimation(g, (int) x, (int) y);
+            }
+            else {
+                if (left)
+                    g.drawImage(tex.player[13], (int) x, (int) y, null);
+                else
+                    g.drawImage(tex.player[0], (int) x, (int) y, null);
+            }
         }
+
+
 //        renderBounds(g);
     }
 
