@@ -25,6 +25,7 @@ public class KeyInput extends KeyAdapter{
         legalKeysPress.add(KeyEvent.VK_D);
         legalKeysPress.add(KeyEvent.VK_A);
         legalKeysPress.add(KeyEvent.VK_W);
+        legalKeysPress.add(KeyEvent.VK_R);
 
         legalKeysRelease = new ArrayList<>();
         legalKeysRelease.add(KeyEvent.VK_D);

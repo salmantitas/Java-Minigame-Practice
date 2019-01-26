@@ -7,7 +7,6 @@ import com.euhedral.engine.GameState;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -114,8 +113,13 @@ public class GameController {
 
                 if (object.getId() == ObjectId.Flag) {
                     if (player.getBounds().intersects(object.getBounds())) {
-                        // switch level
                         switchLevel();
+                    }
+                }
+
+                if (object.getId() == ObjectId.Killer) {
+                    if (player.getBounds().intersects(object.getBounds())) {
+                        Engine.gameOverState();
                     }
                 }
 
@@ -205,6 +209,8 @@ public class GameController {
          * Game Code *
          *************/
 
+        LEVEL = 0;
+        generateLevel();
     }
 
     public void checkButtonAction(int mx, int my) {
@@ -244,6 +250,13 @@ public class GameController {
             player.setVelY(- player.getJumpSpeed());
             player.setJumping(true);
         }
+
+        if (key == KeyEvent.VK_R && Engine.currentState == GameState.GameOver) {
+            if (LEVEL == MAXLEVEL) {
+                resetGame();
+            } else
+                generateLevel();
+        }
     }
 
     public void keyReleased(int key) {
@@ -260,10 +273,21 @@ public class GameController {
     }
 
     public void switchLevel() {
+        generateLevel();
+        LEVEL++;
+    }
+
+    public void generateLevel() {
+        if (MAXLEVEL == LEVEL)
+            LEVEL = 0;
+
+        Engine.gameState();
         clearLevel();
         cam.setX(0);
-
-        switch (LEVEL){
+        switch (LEVEL) {
+            case 0:
+                loadImageLevel(level);
+                break;
             case 1:
                 loadImageLevel(level2);
                 break;
@@ -271,7 +295,6 @@ public class GameController {
                 Engine.gameOverState();
                 break;
         }
-        LEVEL++;
     }
 
     /***************************
@@ -358,6 +381,10 @@ public class GameController {
                 // If yellow blocks
                 if (r == 255 && g == 216 && b == 0)
                     addObject(new Flag(i * blockSize, j * blockSize, ObjectId.Flag));
+                // Red blocks
+                if (r == 255 && g == 0 && b ==0 ) {
+                    addObject(new Killer(i * blockSize, j*blockSize, ObjectId.Killer));
+                }
 
             }
         }
