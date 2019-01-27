@@ -9,7 +9,7 @@ public class Player {
     private boolean moveLeft, moveRight, moveUp, moveDown;
     private Color color;
     private boolean canShoot;
-    private final int shootTimerDef = 200;
+    private final int shootTimerDefault = 100;
     private int shootTimer = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
     private boolean airBullet = true;
@@ -20,7 +20,7 @@ public class Player {
         velX = 0;
         velY = 0;
         this.power = 1;
-        otherMovement = Engine.intAtWidth640(1)/2;
+        otherMovement = Engine.intAtWidth640(2)/3;
         forwardMovement = Engine.intAtWidth640(2)/2;
         width = Engine.intAtWidth640(24);
         height = width;
@@ -32,6 +32,7 @@ public class Player {
     }
 
     public void update() {
+        System.out.println("Player at (" + x + ", " + y + ")");
         move();
         shootTimer--;
 
@@ -137,7 +138,7 @@ public class Player {
                 bullets.add(new BulletPlayerGround(x + width / 2, y));
         }
         // reset shoot timer to default
-        shootTimer = shootTimerDef;
+        shootTimer = shootTimerDefault;
     }
 
     public int getX() {

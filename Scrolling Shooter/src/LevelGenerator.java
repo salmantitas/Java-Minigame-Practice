@@ -30,6 +30,9 @@ public class LevelGenerator {
                     gameController.spawnEnemy(i*32, j*32, ID.Air);
             }
         }
+
+        gameController.spawnFlag();
+        gameController.setLevelHeight(h*32);
     }
 
 

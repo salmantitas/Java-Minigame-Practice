@@ -25,7 +25,6 @@ public abstract class Enemy {
     }
 
     public void update() {
-        move();
         shootTimer--;
         if (!inscreen)
             inscreen = y > cam.getMarker() + 256;
@@ -81,9 +80,6 @@ public abstract class Enemy {
 
     // Private Methods
 
-    private void move() {
-        y += velY;
-        x = Engine.clamp(x, 0, Engine.WIDTH - width);
-    }
+    public abstract void move();
 
 }

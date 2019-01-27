@@ -27,7 +27,7 @@ public class EnemyGroundBasic extends EnemyGround {
 
     // Private Methods
 
-    private void move() {
+    public void move() {
         y += velY;
     }
 }

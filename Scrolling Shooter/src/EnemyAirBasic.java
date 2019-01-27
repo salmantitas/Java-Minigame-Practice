@@ -27,7 +27,7 @@ public class EnemyAirBasic extends EnemyAir {
 
     // Private Methods
 
-    private void move() {
+    public void move() {
         y += velY;
     }
 }

@@ -6,6 +6,12 @@ public abstract class EnemyAir extends Enemy{
         super(x,y, ID.Air);
     }
 
+    @Override
+    public void update() {
+        super.update();
+        move();
+    }
+
     public abstract void render(Graphics g);
 
     protected void shoot() {
@@ -45,7 +51,7 @@ public abstract class EnemyAir extends Enemy{
 
     // Private Methods
 
-    private void move() {
+    public void move() {
         y += velY;
         x = Engine.clamp(x, 0, Engine.WIDTH - width);
     }

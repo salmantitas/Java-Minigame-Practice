@@ -27,22 +27,24 @@ public class GameController {
     private LinkedList<Integer> highScore = new LinkedList<>();
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
+    private static int LEVEL = 1;
+    private final int MAXLEVEL = 2;
 
     /******************
      * User variables *
      ******************/
 
     private Player player;
+    private Flag flag;
+
     private LinkedList<Enemy> enemies = new LinkedList<>();
 
     private int basicEnemyScore = 100;
-//    private int basicEnemySpawnTime = 400;
-//    private int basicEnemyIncreaseTime = 2000;
+    private int levelHeight;
 
-    int level = 1;
     private boolean levelSpawned = false;
 
-    private BufferedImage level1 = null;
+    private BufferedImage level1 = null, level2 = null;
     private LevelGenerator levelGenerator;
     public static Camera cam;
 
@@ -68,6 +70,7 @@ public class GameController {
         setupHighScore();
         BufferedImageLoader loader = new BufferedImageLoader();
         level1 = loader.loadImage("/level1.png");
+        level2 = loader.loadImage("/level2.png");
         levelGenerator = new LevelGenerator(this);
         spawn();
     }
@@ -99,6 +102,7 @@ public class GameController {
                 spawn();
 
             player.update();
+            flag.update();
 
             for (Enemy enemy: enemies) {
                 enemy.update();
@@ -106,7 +110,7 @@ public class GameController {
 
             checkCollision();
 
-
+            checkFlag();
         }
     }
 
@@ -133,6 +137,7 @@ public class GameController {
                     enemy.render(g);
                 }
 
+                flag.render(g);
                 player.render(g);
 
                 // Camera end
@@ -220,6 +225,8 @@ public class GameController {
 
     public void resetGame() {
 
+        LEVEL = 1;
+        levelSpawned = false;
         Engine.timer = 0;
 
         /*************
@@ -341,7 +348,7 @@ public class GameController {
         // Player vs enemy collision
         for (Enemy enemy: enemies) {
             if (enemy.getID() == ID.Air)
-                if (enemy.getBounds().intersects(player.getBounds())) {
+                if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds())) {
                     score += basicEnemyScore;
                     health -= 30;
                     destroy(enemy);
@@ -400,8 +407,12 @@ public class GameController {
     private void spawn() {
         levelSpawned = !levelSpawned;
 
-        if (level == 1)
+        if (LEVEL == 1)
             levelGenerator.loadImageLevel(level1);
+
+        if (LEVEL == 2)
+            levelGenerator.loadImageLevel(level2);
+        // Randomize Enemies
 
 //        int variance = 0;
 //
@@ -439,5 +450,30 @@ public class GameController {
         else enemies.add(new EnemyGroundBasic(width,height));
     }
 
+    public void spawnFlag() {
+        flag = new Flag(Engine.WIDTH/2,-Engine.HEIGHT/2, ID.Air);
+    }
+
+    public void respawnFlag() {
+        flag.reset();
+    }
+
+    // if the flag crosses the screen, advance level and if no levels remain, end game
+    public void checkFlag() {
+        if (flag.getY() > levelHeight) {
+            LEVEL++;
+            levelSpawned = false;
+
+            if (LEVEL > MAXLEVEL)
+                Engine.menuState(); // stub
+            else {
+                spawn();
+            }
+        }
+    }
+
+    public void setLevelHeight(int h) {
+        levelHeight = h;
+    }
 
 }

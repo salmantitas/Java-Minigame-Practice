@@ -1,11 +1,12 @@
 import java.awt.*;
 
-public abstract class EnemyGround extends Enemy{
+public abstract class EnemyBoss extends Enemy{
 
-    public EnemyGround(int x, int y) {
-        super(x,y, ID.Ground);
+    public EnemyBoss(int x, int y) {
+        super(x,y, ID.Air);
     }
 
+    @Override
     public void update() {
         super.update();
         move();
@@ -50,8 +51,16 @@ public abstract class EnemyGround extends Enemy{
 
     // Private Methods
 
+    // Needs to override
+
+    @Override
     public void move() {
-        y += velY;
-        x = Engine.clamp(x, 0, Engine.WIDTH - width);
+        if (inscreen) {
+            // todo: define movement behaviour restricted to screen;
+        } else {
+            y += velY;
+            x = Engine.clamp(x, 0, Engine.WIDTH - width);
+        }
+
     }
 }
