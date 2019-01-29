@@ -412,20 +412,6 @@ public class GameController {
 
         if (LEVEL == 2)
             levelGenerator.loadImageLevel(level2);
-        // Randomize Enemies
-
-//        int variance = 0;
-//
-//        // Randomize spawn after score becomes greater than a value
-//        if (score > basicEnemyIncreaseTime) {
-//            variance = r.nextInt(250);
-//        }
-//        System.out.println(variance);
-//        if (Engine.timer % (basicEnemySpawnTime - variance)== 0) {
-//            enemies.add(new EnemyAirBasic(r.nextInt(Engine.WIDTH - 300) + 150, -300));
-//        }
-//        if (Engine.timer % (basicEnemySpawnTime - variance)*2 ==0)
-//            enemies.add(new EnemyGroundBasic(r.nextInt(Engine.WIDTH-300)+ 150, - 300));
     }
 
     public static Camera getCamera() {

@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e7cf07ee-4b1f-4d40-9cfd-9fc1620c5638" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/res/level1 - Copy.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/res/level1 - Copy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/res/level1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/res/level1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/GameController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Camera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+            <state relative-caret-position="306">
+              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -36,10 +35,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-498">
+            <state relative-caret-position="17">
               <caret line="253" column="18" selection-start-line="253" selection-start-column="18" selection-end-line="253" selection-end-column="18" />
             </state>
           </provider>
@@ -48,7 +47,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Block.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
+            <state relative-caret-position="374">
               <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -96,7 +95,6 @@
         <option value="$PROJECT_DIR$/src/com/euhedral/game/ObjectId.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/BufferedImageLoader.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/KeyInput.java" />
-        <option value="$PROJECT_DIR$/src/com/euhedral/game/Camera.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/SpriteSheet.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/GameObject.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Block.java" />
@@ -104,6 +102,7 @@
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Texture.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Player.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/Camera.java" />
       </list>
     </option>
   </component>
@@ -119,7 +118,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -170,6 +168,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -248,7 +247,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13557047" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1375839" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -377,44 +376,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/BufferedImageLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Camera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/SpriteSheet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#172#173#0" expanded="true" />
-            <element signature="e#206#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Texture.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/BufferedImageLoader.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/SpriteSheet.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Texture.java" />
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -427,7 +391,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Block.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
+        <state relative-caret-position="374">
           <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -444,8 +408,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-498">
+        <state relative-caret-position="17">
           <caret line="253" column="18" selection-start-line="253" selection-start-column="18" selection-end-line="253" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Camera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
         </state>
       </provider>
     </entry>
