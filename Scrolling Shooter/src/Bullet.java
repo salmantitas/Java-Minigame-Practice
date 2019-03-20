@@ -12,7 +12,7 @@ public abstract class Bullet  {
         collided = false;
         width = Engine.intAtWidth640(8)/2;
         height = Engine.intAtWidth640(24)/2;
-        vel = Engine.intAtWidth640(2);
+        vel = Engine.intAtWidth640(4);
     }
 
     public abstract void update();

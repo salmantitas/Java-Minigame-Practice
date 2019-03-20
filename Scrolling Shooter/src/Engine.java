@@ -23,6 +23,7 @@ public class Engine extends Canvas {
     public static int HEIGHT = (int) (WIDTH / SCREEN_RATIO);
     public static Color BACKGROUND_COLOR = Color.BLACK;
 
+    private double UPDATE_CAP = 1.0 / 60.0; //
     private boolean gameExit = false;
     public static int timeInSeconds = 0;
     public static int timer = 0;
@@ -68,38 +69,67 @@ public class Engine extends Canvas {
         bs.show();
     }
 
+    /*
+     * Game Loops created from youtube tutorials by Majoolwip: https://youtu.be/4iPEjFUZNsw
+     * Updates the game every second
+     * */
     public void gameLoop() {
         System.out.println("Game loop started");
-        long lastTime = System.nanoTime();
-        final int TARGET_FPS = 60;
-        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
-        long lastFPStime = 0;
+
+        boolean render = false;
+        double firstTime = 0;
+        double lastTime = System.nanoTime() / 1000000000.0; // gets the current nanotime from the system. Divides it to derive the time in seconds
+        double passedTime = 0;
+        double unprocessedTime = 0; // keeps track of time which has been unprocessed, which can be caused by low fps
+
+//        long lastTime = System.nanoTime();
+//        final int TARGET_FPS = 60;
+//        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+//        long lastFPStime = 0;
         int fps = 0;
 
         while (!gameExit) {
-            long now = System.nanoTime();
-            long updateLength = now - lastTime;
-            lastTime = now;
-            double delta = updateLength / ((double) OPTIMAL_TIME);
-            lastFPStime += updateLength;
+            firstTime = System.nanoTime() / 1000000000.0; // updates the firstTime to current time
+            passedTime = firstTime - lastTime; // calculates the time elapsed between the two variables
+            lastTime = firstTime; // updates the lastTime to the latest calculated current time
+            unprocessedTime += passedTime; // idk
 
-//            while (delta >= 1) {
+            // checks if enough time has been left without updating. Ensures that if updates couldn't be made, it will be
+            while (unprocessedTime >= UPDATE_CAP) {
+                unprocessedTime -= UPDATE_CAP;
+                render = true;
                 update();
-//                System.out.println("Updating");
-//                delta--;
-//            }
-            if (!gameExit) {
-                render();
-//                System.out.println("Rendering");
             }
+
+            if (render) {
+                render();
+            } else {
+                //thread.sleep(1); // Puts the thread to sleep for a milisecond to free processor
+            }
+
+//            long now = System.nanoTime();
+//            long updateLength = now - lastTime;
+//            lastTime = now;
+//            double delta = updateLength / ((double) OPTIMAL_TIME);
+//            lastFPStime += updateLength;
+//
+////            while (delta >= 1) {
+//            update();
+////                System.out.println("Updating");
+////                delta--;
+////            }
+//            if (!gameExit) {
+//                render();
+////                System.out.println("Rendering");
+//            }
 
             fps++;
 
-            if (lastFPStime >= 1000000000) // if a second has passed
+            if (lastTime >= 1) // if a second has passed
             {
                 timeInSeconds++;
                 System.out.println("FPS: " + fps);
-                lastFPStime = 0;
+//                lastFPStime = 0;
                 fps = 0;
             }
         }

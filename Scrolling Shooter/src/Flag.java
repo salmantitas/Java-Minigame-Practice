@@ -23,7 +23,7 @@ public class Flag {
 
     public void update() {
         move();
-        System.out.println("Flag at (" + x + ", " + y + ")");
+//        System.out.println("Flag at (" + x + ", " + y + ")");
     }
 
     public void render(Graphics g) {

@@ -4,8 +4,8 @@ public class EnemyAirBasic extends EnemyAir {
 
     public EnemyAirBasic(int x, int y) {
         super(x,y);
-        velX = Engine.floatAtWidth640(1)/2;
-        velY = Engine.floatAtWidth640(2)/4;
+        velX = Engine.floatAtWidth640(1);
+        velY = Engine.floatAtWidth640(2)/2;
         width = Engine.intAtWidth640(32);
         height = width;
         color = Color.red;

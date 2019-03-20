@@ -6,11 +6,14 @@ import java.awt.*;
 
 public class Block extends GameObject {
 
-    public Block(float x, float y, ObjectId id) {
+    private int type;
+
+    public Block(float x, float y, int type, ObjectId id) {
         super(x, y, id);
         width = Engine.intAtWidth640(32);
         height = width;
         color = Color.WHITE;
+        this.type = type;
     }
 
     @Override
@@ -20,8 +23,10 @@ public class Block extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(color);
-        g.drawRect((int) x, (int) y, (int) width, (int) height);
+        if (type == 0) // dirt block
+            g.drawImage(tex.block[0], (int)x, (int)y, null);
+        if (type == 1) // grass block
+            g.drawImage(tex.block[1], (int)x, (int)y, null);
     }
 
     @Override
