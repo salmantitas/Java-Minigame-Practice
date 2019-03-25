@@ -17,15 +17,15 @@ public class Player extends GameObject {
         width = Engine.intAtWidth640(32);
         height = width;
 
-        gravity = Engine.floatAtWidth640(5);
-        riseVelocity = gravity * 2;
+        gravity = Engine.floatAtWidth640(4);
+        riseVelocity = gravity * 1.5f;
     }
 
     @Override
     public void update() {
         y += velY;
 
-        y = Engine.clamp((int) y, 0, Engine.HEIGHT - (int) (1.8 * height));
+//        y = Engine.clamp((int) y, 0, Engine.HEIGHT - (int) (1.8 * height));
         if (gravityAffected) {
             if (jumping) {
                 velY = gravity - riseVelocity;

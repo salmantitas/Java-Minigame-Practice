@@ -40,6 +40,8 @@ public class GameController {
 
     private Player player;
     private boolean collision = false;
+    private static int INTERVAL_ORIGINAL = 30;
+    private int interval = 30;
 
     public GameController() {
 
@@ -54,22 +56,21 @@ public class GameController {
 
         uiHandler = new UIHandler();
 
+        initialize();
+
+    }
+
+    private void initialize() {
         /*************
          * Game Code *
          *************/
 
-        initGame();
-
-    }
-
-    private void initGame() {
+        //Engine.menuState();
+        setupHighScore();
         gameObjects = new ArrayList<>();
 
         player = new Player(Engine.WIDTH/3, Engine.HEIGHT/2);
         gameObjects.add(player);
-
-        // stub
-        gameObjects.add(new Block(Engine.WIDTH/2, Engine.HEIGHT/2));
     }
 
     public void update() {
@@ -100,7 +101,9 @@ public class GameController {
                 gameObject.update();
             }
 
+            spawn();
             checkCollision();
+            score++;
         }
     }
 
@@ -120,6 +123,8 @@ public class GameController {
                 GameObject gameObject = gameObjects.get(i);
                 gameObject.render(g);
             }
+
+            drawScore(g);
         }
 
         /***************
@@ -144,8 +149,15 @@ public class GameController {
          * Game Code *
          *************/
 
+        // stub
         Engine.gameState();
-        initGame();
+
+        updateHighScore();
+        score = 0;
+        interval = INTERVAL_ORIGINAL;
+        gameObjects = new ArrayList<>();
+        player = new Player(Engine.WIDTH/3, Engine.HEIGHT/2);
+        gameObjects.add(player);
         collision = false;
     }
 
@@ -199,7 +211,7 @@ public class GameController {
     private void drawScore(Graphics g) {
         g.setFont(new Font("arial", 1, 20));
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + score, 300, 300);
+        g.drawString("Score: " + score, Engine.percWidth(1), Engine.percHeight(5));
     }
 
     private void drawLives(Graphics g) {
@@ -243,6 +255,10 @@ public class GameController {
 
     private void checkCollision() {
         Rectangle playerBounds = player.getBounds();
+
+        if (player.getY() < 0 || player.getY() > Engine.HEIGHT - 1.8*player.height)
+            collision = true;
+
         for (int i = 0; i < gameObjects.size(); i++) {
             GameObject gameObject = gameObjects.get(i);
             if (gameObject.getId() == ObjectID.Block)
@@ -250,5 +266,17 @@ public class GameController {
                     collision = true;
                 }
         }
+    }
+
+    private void spawn() {
+        if (Engine.timer % interval == 0)
+            gameObjects.add(new Block(randRange(Engine.WIDTH, Engine.WIDTH * 2), randRange(Engine.percHeight(10), Engine.percHeight(90))));
+        if (score == 1000)
+            interval -= 10;
+    }
+
+    public static int randRange(int min, int max) {
+        Random r = new Random();
+        return r.nextInt(max) + min + 1;
     }
 }

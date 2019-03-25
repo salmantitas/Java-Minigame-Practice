@@ -10,7 +10,7 @@ public class Block extends GameObject {
         width = Engine.intAtWidth640(32);
         height = width;
         color = Color.WHITE;
-        velX = 1;
+        velX = 5;
     }
 
     @Override
