@@ -5,6 +5,8 @@ import com.euhedral.engine.GameState;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.security.Key;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -13,7 +15,7 @@ public class GameController {
     private Random r = new Random();
 
     // Manually set the com.euhedral.engine.Window information here
-    private int gameWidth = Engine.WIDTH;
+    private int gameWidth = 1000;
     private int gameHeight = Engine.HEIGHT;
     private String gameTitle = Engine.TITLE;
     private Color gameBackground = Engine.BACKGROUND_COLOR;
@@ -30,9 +32,14 @@ public class GameController {
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
 
+    private ArrayList<GameObject> gameObjects;
+
     /******************
      * User variables *
      ******************/
+
+    private Player player;
+    private boolean collision = false;
 
     public GameController() {
 
@@ -51,7 +58,18 @@ public class GameController {
          * Game Code *
          *************/
 
+        initGame();
 
+    }
+
+    private void initGame() {
+        gameObjects = new ArrayList<>();
+
+        player = new Player(Engine.WIDTH/3, Engine.HEIGHT/2);
+        gameObjects.add(player);
+
+        // stub
+        gameObjects.add(new Block(Engine.WIDTH/2, Engine.HEIGHT/2));
     }
 
     public void update() {
@@ -65,7 +83,7 @@ public class GameController {
 
         if (Engine.currentState == GameState.Game) {
 
-            boolean endGameCondition = false;
+            boolean endGameCondition = collision;
 
             if (endGameCondition) {
                 Engine.gameOverState();
@@ -76,6 +94,13 @@ public class GameController {
             /*************
              * Game Code *
              *************/
+
+            for (int i = 0; i < gameObjects.size(); i++) {
+                GameObject gameObject = gameObjects.get(i);
+                gameObject.update();
+            }
+
+            checkCollision();
         }
     }
 
@@ -91,6 +116,10 @@ public class GameController {
              * Game Code *
              *************/
 
+            for (int i = 0; i < gameObjects.size(); i++) {
+                GameObject gameObject = gameObjects.get(i);
+                gameObject.render(g);
+            }
         }
 
         /***************
@@ -115,6 +144,9 @@ public class GameController {
          * Game Code *
          *************/
 
+        Engine.gameState();
+        initGame();
+        collision = false;
     }
 
     public void keyPressed(int key) {
@@ -122,9 +154,9 @@ public class GameController {
          * Game Code *
          *************/
 
-
-
-
+        if (key == KeyEvent.VK_SPACE) {
+            player.jumping = true;
+        }
     }
 
     public void keyReleased(int key) {
@@ -132,6 +164,9 @@ public class GameController {
          * Game Code *
          *************/
 
+        if (key == KeyEvent.VK_SPACE) {
+            player.jumping = false;
+        }
 
     }
 
@@ -205,4 +240,15 @@ public class GameController {
     /******************
      * User functions *
      ******************/
+
+    private void checkCollision() {
+        Rectangle playerBounds = player.getBounds();
+        for (int i = 0; i < gameObjects.size(); i++) {
+            GameObject gameObject = gameObjects.get(i);
+            if (gameObject.getId() == ObjectID.Block)
+                if (gameObject.getBounds().intersects(playerBounds)) {
+                    collision = true;
+                }
+        }
+    }
 }

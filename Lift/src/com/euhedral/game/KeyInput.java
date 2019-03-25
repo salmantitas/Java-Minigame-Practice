@@ -24,6 +24,10 @@ public class KeyInput extends KeyAdapter{
          * Game Code *
          *************/
 
+        legalKeysPress.add(KeyEvent.VK_SPACE);
+
+        legalKeysRelease.add(KeyEvent.VK_SPACE);
+
 
     }
 
