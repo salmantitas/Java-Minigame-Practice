@@ -3,13 +3,35 @@ import java.util.LinkedList;
 
 public abstract class Enemy {
 
-    protected int x, y;
+    protected int x, y, health;
     protected ID id;
-    protected float velX, velY;
+    protected float velX;
+    protected float velY = Engine.floatAtWidth640(2)/2;;
     protected int width, height;
     protected boolean moveLeft, moveRight;
+
+    public void damage() {
+        this.health--;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public boolean isInscreen() {
+        return inscreen;
+    }
+
+    public void setInscreen(boolean inscreen) {
+        this.inscreen = inscreen;
+    }
+
     protected Color color;
-    protected final int shootTimerDef = 300;
+    protected int shootTimerDef = 300;
     protected int shootTimer = shootTimerDef;
     protected LinkedList<Bullet> bullets = new LinkedList<>();
     protected boolean inscreen = false;
@@ -37,7 +59,13 @@ public abstract class Enemy {
         }
     }
 
-    public abstract void render(Graphics g);
+    public void render(Graphics g) {
+        for (Bullet bullet: bullets) {
+            bullet.render(g);
+        }
+    }
+
+    public abstract void move();
 
     protected void shoot() {
         bullets.add(new BulletEnemy(x + width/2,y));
@@ -77,9 +105,5 @@ public abstract class Enemy {
     public ID getID() {
         return id;
     }
-
-    // Private Methods
-
-    public abstract void move();
 
 }

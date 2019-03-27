@@ -63,7 +63,8 @@ public class Player {
         Bullet b = null;
         for (Bullet bullet: bullets) {
             BulletPlayer bulletPlayer = (BulletPlayer) bullet;
-            if (bulletPlayer.getBounds().intersects(enemy.getBounds()) && bulletPlayer.getId() == enemy.getID()) {
+            if (bulletPlayer.getBounds().intersects(enemy.getBounds()) &&
+                    (bulletPlayer.getId() == enemy.getID() || bulletPlayer.getId() == ID.Air && enemy.getID() == ID.Boss )) {
                 b = bulletPlayer;
             }
         }

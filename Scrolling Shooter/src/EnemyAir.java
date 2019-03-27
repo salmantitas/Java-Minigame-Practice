@@ -12,7 +12,10 @@ public abstract class EnemyAir extends Enemy{
         move();
     }
 
-    public abstract void render(Graphics g);
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
+    }
 
     protected void shoot() {
         bullets.add(new BulletEnemy(x + width/2,y));

@@ -4,18 +4,14 @@ public class EnemyGroundBasic extends EnemyGround {
 
     public EnemyGroundBasic(int x, int y) {
         super(x,y);
-        velX = Engine.floatAtWidth640(1)/2;
-        velY = Engine.floatAtWidth640(2)/4;
         width = Engine.intAtWidth640(32);
         height = 2* width;
         color = Color.pink;
     }
 
+    @Override
     public void render(Graphics g) {
-
-        for (Bullet bullet: bullets) {
-            bullet.render(g);
-        }
+        super.render(g);
 
         g.setColor(color);
         g.fillRect(x,y,width,height);

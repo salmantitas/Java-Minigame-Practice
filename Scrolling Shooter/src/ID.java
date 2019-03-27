@@ -1,4 +1,5 @@
 public enum ID {
     Air,
-    Ground
+    Ground,
+    Boss
 }

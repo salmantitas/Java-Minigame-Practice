@@ -15,7 +15,7 @@ public class Flag {
         this.y = y;
         width = Engine.intAtWidth640(32);
         height = width;
-        velY = Engine.floatAtWidth640(2)/4;
+        velY = Engine.floatAtWidth640(2)/2;
         color = Color.YELLOW;
         this.id = id;
         cam = GameController.getCamera();
@@ -23,6 +23,7 @@ public class Flag {
 
     public void update() {
         move();
+
 //        System.out.println("Flag at (" + x + ", " + y + ")");
     }
 

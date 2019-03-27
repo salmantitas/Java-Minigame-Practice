@@ -27,7 +27,8 @@ public class GameController {
     private LinkedList<Integer> highScore = new LinkedList<>();
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
-    private static int LEVEL = 1;
+    private static int STARTLEVEL = 1;
+    private static int level;
     private final int MAXLEVEL = 2;
 
     /******************
@@ -35,11 +36,17 @@ public class GameController {
      ******************/
 
     private Player player;
+    private EnemyBoss boss;
     private Flag flag;
+
+    private int healthBossDef, healthBoss;
+
+    private boolean bossLives = false;
 
     private LinkedList<Enemy> enemies = new LinkedList<>();
 
     private int basicEnemyScore = 100;
+    private int bossScore = 500;
     private int levelHeight;
 
     private boolean levelSpawned = false;
@@ -110,7 +117,7 @@ public class GameController {
 
             checkCollision();
 
-            checkFlag();
+            checkLevelStatus();
         }
     }
 
@@ -144,6 +151,10 @@ public class GameController {
                 g2d.translate(-cam.getX(), -cam.getY());
 
                 drawHealth(g);
+
+                if (boss.isInscreen()&& boss.isAlive())
+                    drawBossHealth(g);
+
                 drawScore(g);
             }
         }
@@ -225,7 +236,7 @@ public class GameController {
 
     public void resetGame() {
 
-        LEVEL = 1;
+        level = STARTLEVEL;
         levelSpawned = false;
         Engine.timer = 0;
 
@@ -312,6 +323,19 @@ public class GameController {
      * User functions *
      ******************/
 
+    protected void drawBossHealth(Graphics g) {
+        int x = Engine.intAtWidth640(200);
+        int y = x/4;
+        int width = Engine.intAtWidth640(2);
+        int height = width*6;
+        Color backColor = Color.lightGray;
+        Color healthColor = Color.RED;
+        g.setColor(backColor);
+        g.fillRect(x,y, healthBossDef * width * 10, height);
+        g.setColor(healthColor);
+        g.fillRect(x,y, healthBoss * width * 10, height);
+    }
+
     public void movePlayer(char c) {
         if (c == 'l')
             player.moveLeft(true);
@@ -353,6 +377,9 @@ public class GameController {
                     health -= 30;
                     destroy(enemy);
             }
+            else if (enemy.getID() == ID.Boss) {
+                health = -10;
+                }
         }
 
         // Player vs enemy bullet collision
@@ -364,24 +391,34 @@ public class GameController {
             }
         }
 
-        // EnemyAir vs player bullet collision
+        // Enemy vs player bullet collision
         for (Enemy enemy: enemies) {
             Bullet b = player.checkCollision(enemy);
             if (b != null) {
-                score += basicEnemyScore;
-                destroy(enemy);
+                if (enemy.getID() == ID.Boss) {
+                    boss.damage();
+                    healthBoss = boss.getHealth();
+                    if (boss.getHealth() <= 0) {
+                        destroy(boss);
+                        score += bossScore;
+                    }
+                } else {
+                    score += basicEnemyScore;
+                    destroy(enemy);
+                }
                 destroy(b);
             }
         }
 
-        // enemy vs enemy collision
-        for (int i = 0; i< enemies.size() - 1; i++) {
-            Enemy enemy1 = enemies.get(i);
-            Enemy enemy2 = enemies.get(i + 1);
-            if (enemy1.getBounds().intersects(enemy2.getBounds())) {
-                enemy2.setX(r.nextInt(Engine.WIDTH - 300) + 150);
-            }
-        }
+        // Redundant as enemy generation is not random
+//        // enemy vs enemy collision
+//        for (int i = 0; i< enemies.size() - 1; i++) {
+//            Enemy enemy1 = enemies.get(i);
+//            Enemy enemy2 = enemies.get(i + 1);
+//            if (enemy1.getBounds().intersects(enemy2.getBounds())) {
+//                enemy2.setX(r.nextInt(Engine.WIDTH - 300) + 150);
+//            }
+//        }
     }
 
     private void destroy(Enemy enemy) {
@@ -407,10 +444,10 @@ public class GameController {
     private void spawn() {
         levelSpawned = !levelSpawned;
 
-        if (LEVEL == 1)
+        if (level == 1)
             levelGenerator.loadImageLevel(level1);
 
-        if (LEVEL == 2)
+        if (level == 2)
             levelGenerator.loadImageLevel(level2);
     }
 
@@ -436,6 +473,16 @@ public class GameController {
         else enemies.add(new EnemyGroundBasic(width,height));
     }
 
+    public void spawnBoss(int width, int height) {
+        bossLives = true;
+        if (level == 1)
+            boss = new EnemyBoss1(width, height);
+        enemies.add(boss);
+        healthBossDef = boss.getHealth();
+        healthBoss = healthBossDef;
+//        else enemies.add(new EnemyGroundBasic(width,height));
+    }
+
     public void spawnFlag() {
         flag = new Flag(Engine.WIDTH/2,-Engine.HEIGHT/2, ID.Air);
     }
@@ -445,12 +492,14 @@ public class GameController {
     }
 
     // if the flag crosses the screen, advance level and if no levels remain, end game
-    public void checkFlag() {
-        if (flag.getY() > levelHeight) {
-            LEVEL++;
+    public void checkLevelStatus() {
+        bossLives = boss.isAlive();
+        if (flag.getY() > levelHeight && !bossLives) {
+            score += bossScore;
+            level++;
             levelSpawned = false;
 
-            if (LEVEL > MAXLEVEL)
+            if (level > MAXLEVEL)
                 Engine.menuState(); // stub
             else {
                 spawn();

@@ -128,7 +128,7 @@ public class Engine extends Canvas {
             if (lastTime >= 1) // if a second has passed
             {
                 timeInSeconds++;
-                System.out.println("FPS: " + fps);
+//                System.out.println("FPS: " + fps);
 //                lastFPStime = 0;
                 fps = 0;
             }
