@@ -7,6 +7,7 @@ public class EnemyAirBasic extends EnemyAir {
         width = Engine.intAtWidth640(32);
         height = width;
         color = Color.red;
+        health = 1;
     }
 
     @Override

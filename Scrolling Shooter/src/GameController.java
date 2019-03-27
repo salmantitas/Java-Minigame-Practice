@@ -324,16 +324,19 @@ public class GameController {
      ******************/
 
     protected void drawBossHealth(Graphics g) {
-        int x = Engine.intAtWidth640(200);
-        int y = x/4;
-        int width = Engine.intAtWidth640(2);
-        int height = width*6;
+        int startX = Engine.percWidth(35);
+        int endX = Engine.percWidth(65);
+        int diffX = endX - startX;
+
+        int y = Engine.percHeight(14);
+        int width = diffX / healthBossDef;
+        int height = width;
         Color backColor = Color.lightGray;
         Color healthColor = Color.RED;
         g.setColor(backColor);
-        g.fillRect(x,y, healthBossDef * width * 10, height);
+        g.fillRect(startX, y, healthBossDef * width, height);
         g.setColor(healthColor);
-        g.fillRect(x,y, healthBoss * width * 10, height);
+        g.fillRect(startX, y, healthBoss * width, height);
     }
 
     public void movePlayer(char c) {
@@ -393,20 +396,25 @@ public class GameController {
 
         // Enemy vs player bullet collision
         for (Enemy enemy: enemies) {
-            Bullet b = player.checkCollision(enemy);
-            if (b != null) {
-                if (enemy.getID() == ID.Boss) {
-                    boss.damage();
-                    healthBoss = boss.getHealth();
-                    if (boss.getHealth() <= 0) {
-                        destroy(boss);
-                        score += bossScore;
+            if (enemy.inscreen) {
+                Bullet b = player.checkCollision(enemy);
+                if (b != null) {
+                    if (enemy.getID() == ID.Boss) {
+                        boss.damage();
+                        healthBoss = boss.getHealth();
+                        if (boss.getHealth() <= 0) {
+                            destroy(boss);
+                            score += bossScore;
+                        }
+                    } else {
+                        enemy.damage();
+                        if (enemy.getHealth() <= 0) {
+                            destroy(enemy);
+                            score += basicEnemyScore;
+                        }
                     }
-                } else {
-                    score += basicEnemyScore;
-                    destroy(enemy);
+                    destroy(b);
                 }
-                destroy(b);
             }
         }
 

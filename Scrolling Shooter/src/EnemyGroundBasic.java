@@ -7,6 +7,7 @@ public class EnemyGroundBasic extends EnemyGround {
         width = Engine.intAtWidth640(32);
         height = 2* width;
         color = Color.pink;
+        health = 1;
     }
 
     @Override
