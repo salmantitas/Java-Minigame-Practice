@@ -65,7 +65,7 @@ public class GameController {
          * Game Code *
          *************/
 
-        //Engine.menuState();
+        Engine.menuState();
         setupHighScore();
         gameObjects = new ArrayList<>();
 
@@ -148,9 +148,6 @@ public class GameController {
         /*************
          * Game Code *
          *************/
-
-        // stub
-        Engine.gameState();
 
         updateHighScore();
         score = 0;

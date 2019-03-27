@@ -4,13 +4,16 @@ import java.awt.*;
 
 public abstract class GameObject {
 
+    protected Color color;
+    // protected Texture tex;
+
     protected float x, y, width, height;
     protected ObjectID id;
     protected float velX = 0, velY = 0; // sets the initial velocities to 0, so the object is not moving unless stated otherwise.
-    protected boolean gravityAffected = false, jumping = false; // every object is initialized to be not jumping or affected by gravity
+
+    // this can be completely commented out if the game has no functional use of gravity
     protected float gravity = 1f, terminalVel;
-    protected Color color;
-    // protected Texture tex;
+    protected boolean gravityAffected = false, jumping = false; // every object is initialized to be not jumping or affected by gravity
 
     public GameObject(float x, float y, ObjectID id) {
         this.x = x;
