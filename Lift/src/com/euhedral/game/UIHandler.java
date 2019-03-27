@@ -15,7 +15,7 @@ public class UIHandler {
 
     // Common game variables
 
-    int titleX = Engine.percWidth(2);
+    int titleX = Engine.percWidth(10);
     int titleY = Engine.percHeight(20);
     int titleSize = Engine.percWidth(11.5);
     Color titleColor = Color.BLACK;
@@ -26,6 +26,7 @@ public class UIHandler {
     int highScoreButtonY = Engine.percHeight(50);
     int quitButtonY = Engine.percHeight(70);
     int lowestButtonY = Engine.percHeight(80);
+    int gameOverSize = Engine.percWidth(15);
 
     public UIHandler() {
 
@@ -33,14 +34,29 @@ public class UIHandler {
 
         // Main Menu
 
-        // In-Game
+        Button mainMenuPlay = new Button(mainMenuButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Game);
+        addButton(mainMenuPlay);
+
+        Button mainMenuHighScore = new Button(mainMenuButtonX, highScoreButtonY, buttonSize, "High Score", GameState.Menu, GameState.Highscore);
+        addButton(mainMenuHighScore);
+
+        Button mainMenuQuit = new Button(mainMenuButtonX, quitButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
+        addButton(mainMenuQuit);
 
         // Game Over Screen
+        Button gameOverPlay = new Button(backToMenuX, quitButtonY, buttonSize, "Play", GameState.GameOver, GameState.Game);
+        addButton(gameOverPlay);
 
-        // High Score Menu
+        // Game Over Screen -- High Score Menu
+
+        Button backToMenu = new Button(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Highscore, GameState.Menu);
+        backToMenu.addOtherState(GameState.GameOver);
+        addButton(backToMenu);
+
 
     }
 
+    // There appears to be no use of update in the UI Handler
 //    public void update() {
 //
 //    }
@@ -70,8 +86,8 @@ public class UIHandler {
     }
 
     public void checkButtonAction(int mx, int my) {
-        for (com.euhedral.engine.Button button: buttons) {
-            if (button.getRenderState() == Engine.currentState)
+        for (Button button: buttons) {
+            if (button.stateIs(Engine.currentState))
                 if (button.mouseOverlap(mx, my))
                     Engine.setState(button.getTargetSate());
         }
@@ -84,7 +100,7 @@ public class UIHandler {
     private void drawTitle(Graphics g) {
         g.setFont(new Font("arial", 1, 200));
         g.setColor(Color.WHITE);
-        g.drawString(Engine.TITLE, Engine.percWidth(2), titleY);
+        g.drawString(Engine.TITLE, titleX, titleY);
     }
 
     public void drawPause(Graphics g) {
@@ -94,7 +110,7 @@ public class UIHandler {
     }
 
     public void drawGameOverScreen(Graphics g) {
-        g.setFont(new Font("arial", 1, 200));
+        g.setFont(new Font("arial", 1, gameOverSize));
         g.setColor(Color.WHITE);
         g.drawString("GAME OVER", Engine.percWidth(2), Engine.HEIGHT/2);
     }

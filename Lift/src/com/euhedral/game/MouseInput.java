@@ -19,7 +19,7 @@ public class MouseInput extends MouseAdapter {
     }
 
     public void updateReleased() {
-
+        gameController.checkButtonAction(getMxReleased(), getMyReleased());
     }
 
     public void updateMoved() {
