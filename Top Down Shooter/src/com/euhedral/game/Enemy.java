@@ -43,4 +43,18 @@ public class Enemy extends GameObject {
     public Rectangle getBoundsBig() {
         return new Rectangle((int) x - 16, (int) y - 16, 64, 64);
     }
+
+    public void collision() {
+        int constant = 10;
+
+        x += constant * velX;
+        x += constant * velY;
+        velX *= -1;
+        velY *= -1;
+
+//        if (choose == 0) {
+//            velX = r.nextInt(4 - -4) + -4;
+//            velY = r.nextInt(4 - -4) + -4;
+//        }
+    }
 }

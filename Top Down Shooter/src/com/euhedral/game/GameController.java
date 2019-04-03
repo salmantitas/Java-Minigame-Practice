@@ -352,8 +352,8 @@ public class GameController {
             for (int j = 0; j < enemies.size(); j++) {
                 Enemy enemy = enemies.get(j);
                 if (enemy.getBoundsBig().intersects(blocks.get(j).getBounds())) {
-                    enemy.velX -= 10 * enemy.velX;
-                    enemy.velY -= 10 * enemy.velY;
+                    enemy.collision();
+
                 }
             }
         }
