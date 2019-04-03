@@ -2,20 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d09601e-7a89-4281-b955-e836d40e875b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyBoss1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Block.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Box.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/LevelGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/out/production/Scrolling Shooter/level2.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/out/production/Scrolling Shooter/level2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/res/level1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/res/level1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/res/level2.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/res/level2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyAirBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyAirBasic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyBoss.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyGroundBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyGroundBasic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Flag.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/Flag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/ID.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/ID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/LevelGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/LevelGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/Player.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -30,7 +22,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="187">
               <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -42,7 +34,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/Engine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4369">
+            <state relative-caret-position="4743">
               <caret line="282" selection-start-line="282" selection-end-line="282" />
               <folding>
                 <element signature="e#1799#1800#0" expanded="true" />
@@ -78,7 +70,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/MouseInput.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="306">
               <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
               <folding>
                 <element signature="e#506#507#0" expanded="true" />
@@ -106,8 +98,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/UIHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="46" column="65" selection-start-line="46" selection-start-column="65" selection-end-line="46" selection-end-column="65" />
+            <state relative-caret-position="355">
+              <caret line="58" column="61" selection-start-line="43" selection-start-column="32" selection-end-line="60" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -172,8 +164,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,6 +200,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -263,9 +255,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15302013" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15704697" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -427,7 +418,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="187">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -437,7 +428,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/Engine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4369">
+        <state relative-caret-position="4743">
           <caret line="282" selection-start-line="282" selection-end-line="282" />
           <folding>
             <element signature="e#1799#1800#0" expanded="true" />
@@ -471,7 +462,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/MouseInput.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="306">
           <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
           <folding>
             <element signature="e#506#507#0" expanded="true" />
@@ -495,8 +486,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/UIHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="46" column="65" selection-start-line="46" selection-start-column="65" selection-end-line="46" selection-end-column="65" />
+        <state relative-caret-position="355">
+          <caret line="58" column="61" selection-start-line="43" selection-start-column="32" selection-end-line="60" selection-end-column="2" />
         </state>
       </provider>
     </entry>
