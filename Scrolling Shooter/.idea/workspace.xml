@@ -7,14 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37bf829a-0159-4e27-9c38-4832500ea2d6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Block.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Box.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Bullet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/LevelGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lift/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lift/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Top Down Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Top Down Shooter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Top Down Shooter/out/production/Top Down Shooter/level1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Top Down Shooter/out/production/Top Down Shooter/level1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Top Down Shooter/res/level1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Top Down Shooter/res/level1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/GameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/LevelGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/LevelGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Top Down Shooter/src/com/euhedral/game/Player.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

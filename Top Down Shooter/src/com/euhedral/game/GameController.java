@@ -44,8 +44,10 @@ public class GameController {
      ******************/
 
     int posX, posY;
-
-
+    private LinkedList<GameObject> blocks = new LinkedList<>();
+    private LinkedList<GameObject> enemies = new LinkedList<>();
+    private LinkedList<Bullet> playerBullets = new LinkedList<>();
+    private LinkedList<Bullet> enemyBullets = new LinkedList<>();
 
     public GameController() {
 
@@ -237,6 +239,10 @@ public class GameController {
 
     public void addObject(GameObject object) {
         gameObjects.add(object);
+        if (object.getId() == ObjectID.Block)
+            blocks.add(object);
+        if (object.getId() == ObjectID.Enemy)
+            enemies.add(object);
     }
 
     private void updateObjects() {
@@ -311,24 +317,26 @@ public class GameController {
     }
 
     private void checkCollisions() {
-        for (int i = 0; i < gameObjects.size(); i++) {
-            GameObject gameObject = gameObjects.get(i);
+        /*
+        // check collision with player
+        for (int i = 0; i < blocks.size(); i++) {
+            if (player.getBounds().intersects(blocks.get(i).getBounds())) {
+                player.collision(); // glitchy
+            }
+        }
+*/
 
-            if (gameObject.getId() == ObjectID.Block)
-                // check collision with player
-                if (player.getBounds().intersects(gameObject.getBounds())) {
-                    player.collision();
-                } else {
-                    // check collision with bullets
-//                    for (int j = i + 1; j < gameObjects.size(); j++) {
-//                        if (gameObjects.get(j).getId() == ObjectID.Bullet) {
-//                            GameObject bullet = gameObjects.get(j);
-//                            if (bullet.getBounds().intersects(gameObject.getBounds())) {
-//                                gameObjects.remove(bullet);
-//                            }
-//                        }
-//                    }
+        // check collision with bullets
+        for (int i = 0; i < blocks.size(); i++) {
+            for (int j = 0; j < playerBullets.size(); j++) {
+                Bullet bullet = playerBullets.get(j);
+                if (playerBullets.get(j).getBounds().intersects(blocks.get(i).getBounds())) {
+                    gameObjects.remove(bullet);
+                    playerBullets.remove(bullet);
+
+//                    System.out.println("Bullet collision");
                 }
+            }
         }
     }
 
@@ -336,7 +344,9 @@ public class GameController {
         posX = (int) (mx + camera.getX());
         posY = (int) (my + camera.getY());
 
-        addObject(new Bullet(player.getX(), player.getY(), posX, posY));
+        Bullet bullet = new Bullet(player.getX(), player.getY(), posX, posY);
+        addObject(bullet);
+        playerBullets.add(bullet);
 //        player.canShoot(true);
     }
 }

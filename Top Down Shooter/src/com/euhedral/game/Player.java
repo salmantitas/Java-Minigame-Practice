@@ -53,8 +53,9 @@ public class Player extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(color);
-        g.fillRect((int) x, (int) y, width, height);
+//        g.setColor(color);
+//        g.fillRect((int) x, (int) y, width, height);
+        drawDefault(g);
     }
 
     public boolean isUp() {

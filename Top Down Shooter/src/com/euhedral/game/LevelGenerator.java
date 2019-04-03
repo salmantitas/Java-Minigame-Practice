@@ -27,10 +27,15 @@ public class LevelGenerator {
                  * Game Code *
                  *************/
 
+                // Player
                 if (r == 0 && g == 0 && b == 255)
                     gameController.spawnPlayer(i*32, j*32);
+                // Block
                 if (r == 255 && g == 0 && b == 0)
                     gameController.addObject(new Block(i* 32, j * 32 ));
+                // Enemy
+                if (r == 76 && g == 255 && b == 0)
+                    gameController.addObject(new Enemy(i* 32, j * 32 ));
             }
         }
 

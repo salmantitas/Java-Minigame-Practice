@@ -101,4 +101,17 @@ public abstract class GameObject {
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y,  width,  height);
     }
+
+    protected void setColor(Graphics g) {
+        g.setColor(color);
+    }
+
+    protected void drawRect(Graphics g) {
+        g.fillRect((int) x, (int) y, width, height);
+    }
+
+    protected void drawDefault(Graphics g) {
+        setColor(g);
+        drawRect(g);
+    }
 }
