@@ -106,6 +106,7 @@ public class GameController {
              *************/
 
             updateObjects();
+            updateEnemies();
             camera.update(player);
             checkCollisions();
 //            if (player.canShoot()) {
@@ -352,8 +353,23 @@ public class GameController {
             for (int j = 0; j < enemies.size(); j++) {
                 Enemy enemy = enemies.get(j);
                 if (enemy.getBoundsBig().intersects(blocks.get(j).getBounds())) {
-                    enemy.collision();
+                    enemy.collision(blocks.get(i));
 
+                }
+            }
+        }
+
+        // check enemy to bullet collision
+
+        for (int i = 0; i < playerBullets.size(); i++) {
+            Bullet bullet = playerBullets.get(i);
+            for (int j = 0; j < enemies.size(); j++) {
+                Enemy enemy = enemies.get(j);
+
+                if (enemy.getBounds().intersects(bullet.getBounds())) {
+                    playerBullets.remove(bullet);
+                    gameObjects.remove(bullet);
+                    enemy.hp -= 50;
                 }
             }
         }
@@ -367,5 +383,15 @@ public class GameController {
         addObject(bullet);
         playerBullets.add(bullet);
 //        player.canShoot(true);
+    }
+
+    private void updateEnemies() {
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            if (enemy.hp <= 0) {
+                enemies.remove(enemy);
+                gameObjects.remove(enemy);
+            }
+        }
     }
 }

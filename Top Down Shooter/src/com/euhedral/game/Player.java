@@ -116,7 +116,8 @@ public class Player extends GameObject {
         }
 
         else if (getBoundsTop().intersects(blockBounds)) {
-            y = object.y + (int) (0.7 * height);
+            double frac = (double) width/ (double) height;
+            y = object.y + (int) (frac * height);
         }
 
         else if (getBoundsBottom().intersects(blockBounds)) {

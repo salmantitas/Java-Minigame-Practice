@@ -105,19 +105,19 @@ public abstract class GameObject {
     }
 
     public Rectangle getBoundsTop() {
-        return new Rectangle((int) (x + 0.2*width), (int) y,  (int) (0.6* width),  height/2);
+        return new Rectangle((int) (x + 0.2*width), (int) y,  (int) (0.6* width),  height/4);
     }
 
     public Rectangle getBoundsBottom() {
-        return new Rectangle((int) (x + 0.2*width), (int) y + height/2,  (int) (0.6* width),  height/2);
+        return new Rectangle((int) (x + 0.2*width), (int) y + 3*height/4,  (int) (0.6* width),  height/4);
     }
 
     public Rectangle getBoundsLeft() {
-        return new Rectangle((int) x, (int) (y + 0.2*height),  width/2,  (int) (height * 0.6));
+        return new Rectangle((int) x, (int) (y + 0.35*height),  width/4,  (int) (height * 0.3));
     }
 
     public Rectangle getBoundsRight() {
-        return new Rectangle((int) x + width/2, (int) (y + 0.2*height),  width/2,  (int) (height * 0.6));
+        return new Rectangle((int) x + 3*width/4, (int) (y + 0.35*height),  width/4,  (int) (height * 0.3));
     }
 
     protected void setColor(Graphics g) {
@@ -137,12 +137,15 @@ public abstract class GameObject {
         Graphics2D g2d = (Graphics2D) g;
 
         Color boundColor = Color.green;
-        g.setColor(boundColor);
+
+//        g.setColor(Color.white);
 //        g2d.draw(getBounds());
+
+        g.setColor(boundColor);
         g2d.draw(getBoundsTop());
         g2d.draw(getBoundsBottom());
-        g2d.draw(getBoundsRight());
         g2d.draw(getBoundsLeft());
+        g2d.draw(getBoundsRight());
     }
 
 }
