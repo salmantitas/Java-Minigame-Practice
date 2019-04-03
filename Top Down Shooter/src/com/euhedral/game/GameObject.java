@@ -1,5 +1,7 @@
 package com.euhedral.game;
 
+import com.euhedral.engine.Engine;
+
 import java.awt.*;
 
 public abstract class GameObject {
@@ -102,6 +104,22 @@ public abstract class GameObject {
         return new Rectangle((int) x, (int) y,  width,  height);
     }
 
+    public Rectangle getBoundsTop() {
+        return new Rectangle((int) (x + 0.2*width), (int) y,  (int) (0.6* width),  height/2);
+    }
+
+    public Rectangle getBoundsBottom() {
+        return new Rectangle((int) (x + 0.2*width), (int) y + height/2,  (int) (0.6* width),  height/2);
+    }
+
+    public Rectangle getBoundsLeft() {
+        return new Rectangle((int) x, (int) (y + 0.2*height),  width/2,  (int) (height * 0.6));
+    }
+
+    public Rectangle getBoundsRight() {
+        return new Rectangle((int) x + width/2, (int) (y + 0.2*height),  width/2,  (int) (height * 0.6));
+    }
+
     protected void setColor(Graphics g) {
         g.setColor(color);
     }
@@ -114,4 +132,17 @@ public abstract class GameObject {
         setColor(g);
         drawRect(g);
     }
+
+    protected void renderBounds(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        Color boundColor = Color.green;
+        g.setColor(boundColor);
+//        g2d.draw(getBounds());
+        g2d.draw(getBoundsTop());
+        g2d.draw(getBoundsBottom());
+        g2d.draw(getBoundsRight());
+        g2d.draw(getBoundsLeft());
+    }
+
 }

@@ -44,8 +44,8 @@ public class GameController {
      ******************/
 
     int posX, posY;
-    private LinkedList<GameObject> blocks = new LinkedList<>();
-    private LinkedList<GameObject> enemies = new LinkedList<>();
+    private LinkedList<Block> blocks = new LinkedList<>();
+    private LinkedList<Enemy> enemies = new LinkedList<>();
     private LinkedList<Bullet> playerBullets = new LinkedList<>();
     private LinkedList<Bullet> enemyBullets = new LinkedList<>();
 
@@ -239,10 +239,14 @@ public class GameController {
 
     public void addObject(GameObject object) {
         gameObjects.add(object);
-        if (object.getId() == ObjectID.Block)
-            blocks.add(object);
-        if (object.getId() == ObjectID.Enemy)
-            enemies.add(object);
+        if (object.getId() == ObjectID.Block) {
+            Block block = (Block) object;
+            blocks.add(block);
+        }
+        if (object.getId() == ObjectID.Enemy) {
+            Enemy enemy = (Enemy) object;
+            enemies.add(enemy);
+        }
     }
 
     private void updateObjects() {
@@ -317,16 +321,19 @@ public class GameController {
     }
 
     private void checkCollisions() {
-        /*
+
         // check collision with player
+
         for (int i = 0; i < blocks.size(); i++) {
-            if (player.getBounds().intersects(blocks.get(i).getBounds())) {
-                player.collision(); // glitchy
+            Block block = blocks.get(i);
+            if (player.getBounds().intersects(block.getBounds())) {
+                player.collision(block);
             }
         }
-*/
+
 
         // check collision with bullets
+
         for (int i = 0; i < blocks.size(); i++) {
             for (int j = 0; j < playerBullets.size(); j++) {
                 Bullet bullet = playerBullets.get(j);
@@ -335,6 +342,18 @@ public class GameController {
                     playerBullets.remove(bullet);
 
 //                    System.out.println("Bullet collision");
+                }
+            }
+        }
+
+        // check enemy to wall collision
+
+        for (int i = 0; i < blocks.size(); i++) {
+            for (int j = 0; j < enemies.size(); j++) {
+                Enemy enemy = enemies.get(j);
+                if (enemy.getBoundsBig().intersects(blocks.get(j).getBounds())) {
+                    enemy.velX -= 10 * enemy.velX;
+                    enemy.velY -= 10 * enemy.velY;
                 }
             }
         }

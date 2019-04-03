@@ -56,6 +56,8 @@ public class Player extends GameObject {
 //        g.setColor(color);
 //        g.fillRect((int) x, (int) y, width, height);
         drawDefault(g);
+
+        renderBounds(g);
     }
 
     public boolean isUp() {
@@ -102,10 +104,25 @@ public class Player extends GameObject {
      * User functions *
      ******************/
 
-    public void collision() {
-        x -= velX;
-        y -= velY;
-//        velX = 0; velY = 0;
-    }
+    public void collision(GameObject object) {
 
+        Rectangle blockBounds = object.getBounds();
+        if (getBoundsRight().intersects(blockBounds)) {
+            x = object.x - width;
+        }
+
+        else if (getBoundsLeft().intersects(blockBounds)) {
+            x = object.x + width;
+        }
+
+        else if (getBoundsTop().intersects(blockBounds)) {
+            y = object.y + (int) (0.7 * height);
+        }
+
+        else if (getBoundsBottom().intersects(blockBounds)) {
+            y = object.y - height;
+        }
+
+    }
 }
+
