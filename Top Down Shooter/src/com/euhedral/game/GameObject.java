@@ -1,14 +1,11 @@
 package com.euhedral.game;
 
-import com.euhedral.engine.Engine;
+import com.euhedral.engine.Animation;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class GameObject {
-
-    protected Color color;
-    // protected Texture tex;
-
     protected float x, y;
     protected int width, height;
     protected ObjectID id;
@@ -18,11 +15,41 @@ public abstract class GameObject {
     protected float gravity = 1f, terminalVel;
     protected boolean gravityAffected = false, jumping = false; // every object is initialized to be not jumping or affected by gravity
 
+    protected Color color;
+    protected BufferedImage image;
+    protected BufferedImage images[];
+
+    protected Animation anim;
+    protected int animationSpeed = 3;
+    // protected Texture tex;
+
     public GameObject(float x, float y, ObjectID id) {
         this.x = x;
         this.y = y;
         this.id = id;
+
+        initialize();
     }
+
+    public GameObject(float x, float y, BufferedImage image, ObjectID id) {
+        this.x = x;
+        this.y = y;
+        this.id = id;
+        this.image = image;
+
+        initialize();
+    }
+
+    public GameObject(float x, float y, BufferedImage[] images, ObjectID id) {
+        this.x = x;
+        this.y = y;
+        this.id = id;
+        this.images = images;
+
+        initialize();
+    }
+
+    public void initialize() {}
 
     public abstract void update();
 
@@ -129,8 +156,20 @@ public abstract class GameObject {
     }
 
     protected void drawDefault(Graphics g) {
-        setColor(g);
-        drawRect(g);
+        if (images != null) {
+            drawAnimation(g);
+        }
+        else if (image != null) {
+            g.drawImage(image, (int) x, (int) y, null);
+        }
+        else {
+            setColor(g);
+            drawRect(g);
+        }
+    }
+
+    protected void drawAnimation(Graphics g) {
+
     }
 
     protected void renderBounds(Graphics g) {
@@ -148,4 +187,15 @@ public abstract class GameObject {
         g2d.draw(getBoundsRight());
     }
 
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+
+    protected void drawImage(Graphics g, BufferedImage image) {
+        g.drawImage(image, (int) x, (int) y, null);
+    }
 }

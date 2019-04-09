@@ -3,6 +3,7 @@ package com.euhedral.game;
 import com.euhedral.engine.BufferedImageLoader;
 import com.euhedral.engine.Engine;
 import com.euhedral.engine.GameState;
+import com.euhedral.engine.SpriteSheet;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,10 +16,10 @@ public class GameController {
     private Random r = new Random();
 
     // Manually set the com.euhedral.engine.Window information here
-    private int gameWidth = Engine.WIDTH;
+    private int gameWidth = 800;
     private int gameHeight = Engine.HEIGHT;
     private String gameTitle = Engine.TITLE;
-    private Color gameBackground = Engine.BACKGROUND_COLOR;
+    private Color gameBackground = Color.red;
 
     // Common game variables -- Comment out whichever is unnecessary
     private int score = 0;
@@ -33,11 +34,18 @@ public class GameController {
     private boolean updateHighScore = false;
 
     private Player player;
-    private LinkedList<GameObject> gameObjects = new LinkedList<>();
-    private BufferedImageLoader loader;
-    private LevelGenerator levelGenerator;
-    private BufferedImage level1;
     private Camera camera;
+    private LinkedList<GameObject> gameObjects = new LinkedList<>();
+
+    private BufferedImageLoader loader;
+
+    // Level Generation
+
+    private LevelGenerator levelGenerator;
+
+    // Levels
+
+    private BufferedImage level1;
 
     /******************
      * User variables *
@@ -48,6 +56,17 @@ public class GameController {
     private LinkedList<Enemy> enemies = new LinkedList<>();
     private LinkedList<Bullet> playerBullets = new LinkedList<>();
     private LinkedList<Bullet> enemyBullets = new LinkedList<>();
+    int ammo = 5;
+
+    // Graphics
+    private BufferedImage sprite_sheet = null;
+    private SpriteSheet ss;
+    private BufferedImage floor, block, crate;
+
+    // Animations
+
+    private BufferedImage[] player_image = new BufferedImage[3];
+    private BufferedImage[] enemy_image = new BufferedImage[3];
 
     public GameController() {
 
@@ -62,10 +81,13 @@ public class GameController {
 
         uiHandler = new UIHandler();
 
-        initialize();
+        initializeGame();
+        initializeGraphics();
+        initializeAnimations();
+        initializeLevel();
     }
 
-    private void initialize() {
+    private void initializeGame() {
         /*************
          * Game Code *
          *************/
@@ -73,12 +95,36 @@ public class GameController {
         camera = new Camera(0,0);
         loader = new BufferedImageLoader();
         level1 = loader.loadImage("/level1.png");
-
         levelGenerator = new LevelGenerator(this);
-        spawn();
     }
 
-    private void spawn() {
+    private void initializeGraphics() {
+        /*************
+         * Game Code *
+         *************/
+
+        sprite_sheet = loader.loadImage("/sprite_sheet.png");
+        ss = new SpriteSheet(sprite_sheet);
+        floor = ss.grabImage(4,2,32,32);
+        block = ss.grabImage(5,2,32,32);
+        crate = ss.grabImage(6,2,32,32);
+    }
+
+    private void initializeAnimations() {
+        player_image[0] = ss.grabImage(1,1,32,48);
+        player_image[1] = ss.grabImage(2,1,32,48);
+        player_image[2] = ss.grabImage(3,1,32,48);
+
+        enemy_image[0] = ss.grabImage(4,1,32,32);
+        enemy_image[1] = ss.grabImage(5,1,32,32);
+        enemy_image[2] = ss.grabImage(6,1,32,32);
+    }
+
+    private void initializeLevel() {
+        /*************
+         * Game Code *
+         *************/
+
         levelGenerator.loadImageLevel(level1);
     }
 
@@ -109,9 +155,6 @@ public class GameController {
             updateEnemies();
             camera.update(player);
             checkCollisions();
-//            if (player.canShoot()) {
-//                addObject(new Bullet(player.getX(), player.getY(), posX, posY));
-//            }
         }
     }
 
@@ -131,9 +174,13 @@ public class GameController {
 
             g2d.translate(-camera.getX(), -camera.getY());
 
+            drawFloor(g);
             renderObjects(g);
 
             g2d.translate(camera.getX(), camera.getY());
+
+            drawHealth(g);
+            drawAmmo(g);
 
         }
 
@@ -198,7 +245,8 @@ public class GameController {
          * Game Code *
          *************/
 
-        playerShoot(mx, my);
+        if (ammo > 0)
+            playerShoot(mx, my);
     }
 
     public void mouseReleased(int mx, int my) {
@@ -293,7 +341,7 @@ public class GameController {
 
     private void drawHealth(Graphics g) {
         int x = Engine.intAtWidth640(10);
-        int y = x/2;
+        int y = 5*x/2;
         int width = Engine.intAtWidth640(2);
         int height = width*6;
         Color backColor = Color.lightGray;
@@ -316,19 +364,58 @@ public class GameController {
      * User functions *
      ******************/
 
+    public void spawn(int w, int h, ObjectID ID) {
+        /*************
+         * Game Code *
+         *************/
+
+        if (ID == ObjectID.Block) {
+//            Block block = new Block(w,h);
+            addObject(new Block(w, h, block));
+        }
+        else if (ID == ObjectID.Enemy) {
+            addObject(new Enemy(w, h, enemy_image));
+        }
+        else if (ID == ObjectID.Crate) {
+            addObject(new Crate(w,h, crate));
+        }
+
+    }
+
     public void spawnPlayer(int w, int h) {
-        player = new Player(w,h);
+        player = new Player(w,h, player_image);
         addObject(player);
     }
 
     private void checkCollisions() {
 
-        // check collision with player
+        // collision of crate and player
+
+        for (int i = 0; i < gameObjects.size(); i++) {
+            GameObject crate = gameObjects.get(i);
+            if (crate.getId() == ObjectID.Crate) {
+                if (player.getBounds().intersects(crate.getBounds())) {
+                    ammo += 10;
+                    gameObjects.remove(crate);
+                }
+            }
+        }
+
+        //  collision of box and player
 
         for (int i = 0; i < blocks.size(); i++) {
             Block block = blocks.get(i);
             if (player.getBounds().intersects(block.getBounds())) {
                 player.collision(block);
+            }
+        }
+
+        //  collision of enemy and player
+
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            if (player.getBounds().intersects(enemy.getBounds())) {
+                health -= 10;
             }
         }
 
@@ -382,6 +469,7 @@ public class GameController {
         Bullet bullet = new Bullet(player.getX(), player.getY(), posX, posY);
         addObject(bullet);
         playerBullets.add(bullet);
+        ammo--;
 //        player.canShoot(true);
     }
 
@@ -391,6 +479,24 @@ public class GameController {
             if (enemy.hp <= 0) {
                 enemies.remove(enemy);
                 gameObjects.remove(enemy);
+            }
+        }
+    }
+
+    private void drawAmmo(Graphics g) {
+        int posX = Engine.percWidth(1);
+        int posY = Engine.percHeight(5);
+
+        g.setFont(new Font("arial", 1, 20));
+        g.setColor(Color.WHITE);
+        g.drawString("Ammo: " + ammo, posX, posY);
+    }
+
+    private void drawFloor(Graphics g) {
+        int width = 32*72, height = width;
+        for (int i = 0; i < width; i += 32) {
+            for (int j = 0; j < height; j += 32) {
+                g.drawImage(floor, i, j, null);
             }
         }
     }

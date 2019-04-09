@@ -1,20 +1,30 @@
 package com.euhedral.game;
 
-import com.euhedral.engine.Engine;
+import com.euhedral.engine.Animation;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends GameObject {
 
 //    private float riseVelocity;
     private boolean up = false, down = false, left = false, right = false, shoot = false;
+//    private int ammo = 100;
 
     public Player(float x, float y) {
         super(x, y, ObjectID.Player);
-        initialize();
     }
 
-    private void initialize() {
+    public Player(float x, float y, BufferedImage image) {
+        super(x, y, image, ObjectID.Player);
+    }
+
+    public Player(float x, float y, BufferedImage[] images) {
+        super(x, y, images, ObjectID.Player);
+    }
+
+    @Override
+    public void initialize() {
         /*************
          * Game Code *
          *************/
@@ -23,6 +33,8 @@ public class Player extends GameObject {
         width = 32;
         height = 48;
 
+        animationSpeed = 10;
+        anim = new Animation(animationSpeed, images[0], images[1], images[2]);
     }
 
     @Override
@@ -49,15 +61,22 @@ public class Player extends GameObject {
             velX = -5;
         else if (!right)
             velX = 0;
+
+        anim.runAnimation();
     }
 
     @Override
     public void render(Graphics g) {
-//        g.setColor(color);
-//        g.fillRect((int) x, (int) y, width, height);
         drawDefault(g);
+        drawAnimation(g);
+    }
 
-        renderBounds(g);
+    @Override
+    public void drawAnimation(Graphics g) {
+        if (velX == 0 && velY == 0) {
+            drawImage(g, images[0]);
+        } else
+            anim.drawAnimation(g, (int) x, (int) y);
     }
 
     public boolean isUp() {
@@ -123,7 +142,14 @@ public class Player extends GameObject {
         else if (getBoundsBottom().intersects(blockBounds)) {
             y = object.y - height;
         }
-
     }
+
+//    public void reduceAmmo() {
+//        ammo--;
+//    }
+//
+//    public boolean hasAmmo() {
+//        return ammo > 0;
+//    }
 }
 

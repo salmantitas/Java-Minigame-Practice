@@ -3,21 +3,20 @@ package com.euhedral.game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Block extends GameObject {
-
-    public Block(float x, float y) {
-        super(x, y, ObjectID.Block);
+public class Crate extends GameObject {
+    public Crate(float x, float y) {
+        super(x, y, ObjectID.Crate);
     }
 
-    public Block(float x, float y, BufferedImage image) {
-        super(x,y, image, ObjectID.Block);
+    public Crate(float x, float y, BufferedImage image) {
+        super(x, y, image, ObjectID.Crate);
     }
 
     @Override
     public void initialize() {
+        color = Color.cyan;
         width = 32;
         height = width;
-        color = Color.black;
     }
 
     @Override
@@ -27,8 +26,6 @@ public class Block extends GameObject {
 
     @Override
     public void render(Graphics g) {
-            drawDefault(g);
-
+        drawDefault(g);
     }
-
 }

@@ -1,4 +1,4 @@
-package com.euhedral.game;
+package com.euhedral.engine;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,18 +36,6 @@ public class Animation {
         if (count >= frames) {
             count = 0;
         }
-
-//        for (int i = 0; i < frames; i++) {
-//            if (count == i) {
-//                curr = images[i];
-//            }
-//
-//            count++;
-//
-//            // repeat animation once it reaches the last frame
-//            if (count > frames)
-//                count = 0;
-//        }
     }
 
     public void drawAnimation(Graphics g, int x, int y) {

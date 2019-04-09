@@ -1,10 +1,12 @@
 package com.euhedral.game;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class LevelGenerator {
 
     private GameController gameController;
+    private Random random = new Random();
 
     public LevelGenerator(GameController gameController) {
         this.gameController = gameController;
@@ -27,15 +29,23 @@ public class LevelGenerator {
                  * Game Code *
                  *************/
 
+                int choose = random.nextInt(500);
+
+                int posX = i * 32, posY = j * 32;
+
                 // Player
                 if (r == 0 && g == 0 && b == 255)
-                    gameController.spawnPlayer(i*32, j*32);
+                    gameController.spawnPlayer(posX, posY);
                 // Block
-                if (r == 255 && g == 0 && b == 0)
-                    gameController.addObject(new Block(i* 32, j * 32 ));
+                else if (r == 255 && g == 0 && b == 0)
+                    gameController.spawn(posX, posY, ObjectID.Block);
+//                    gameController.addObject(new Block(i* 32, j * 32 ));
                 // Enemy
-                if (r == 76 && g == 255 && b == 0)
-                    gameController.addObject(new Enemy(i* 32, j * 32 ));
+                else if (r == 76 && g == 255 && b == 0)
+                    gameController.spawn(posX, posY, ObjectID.Enemy);
+                else if (choose == 0) {
+                    gameController.spawn(posX, posX, ObjectID.Crate);
+                }
             }
         }
 
