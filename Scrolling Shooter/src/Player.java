@@ -142,6 +142,11 @@ public class Player {
         shootTimer = shootTimerDefault;
     }
 
+    public void decreasePower() {
+        if (power > 1)
+            power--;
+    }
+
     public int getX() {
         return x;
     }
