@@ -49,6 +49,8 @@ public class GameController {
 
     private LinkedList<Enemy> enemies = new LinkedList<>();
 
+    private int TRANSITION_TIMER = 60;
+    private int transitionTimer = TRANSITION_TIMER;
     private int basicEnemyScore = 100;
     private int bossScore = 500;
     private int levelHeight;
@@ -83,7 +85,7 @@ public class GameController {
         level1 = loader.loadImage("/level1.png");
         level2 = loader.loadImage("/level2.png");
         levelGenerator = new LevelGenerator(this);
-        spawn();
+//        spawn();
     }
 
     public void update() {
@@ -92,8 +94,23 @@ public class GameController {
         if (Engine.currentState == GameState.Quit)
             System.exit(1);
 
-        if (Engine.currentState != GameState.Pause && Engine.currentState != GameState.Game)
+        if (Engine.currentState != GameState.Pause && Engine.currentState != GameState.Game && Engine.currentState != GameState.Transition)
             resetGame();
+
+        if (Engine.currentState == GameState.Transition) {
+            /*************
+             * Game Code *
+             *************/
+
+            if (transitionTimer > 0) {
+                transitionTimer--;
+            }
+            else {
+                if (!levelSpawned)
+                spawn();
+            }
+
+        }
 
         if (Engine.currentState == GameState.Game) {
 
@@ -109,8 +126,8 @@ public class GameController {
              * Game Code *
              *************/
 
-            if (!levelSpawned)
-                spawn();
+//            if (!levelSpawned)
+//                spawn();
 
             player.update();
             flag.update();
@@ -129,6 +146,12 @@ public class GameController {
 
         if (Engine.currentState == GameState.Highscore) {
             drawHighScore(g);
+        }
+
+        if (Engine.currentState == GameState.Transition) {
+            g.setFont(new Font("arial", 1, Engine.percWidth(5)));
+            g.setColor(Color.WHITE);
+            g.drawString("Level " + level, Engine.percWidth(40), Engine.percHeight(45));
         }
 
         if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause || Engine.currentState == GameState.GameOver) {
@@ -454,7 +477,9 @@ public class GameController {
     }
 
     private void spawn() {
+        transitionTimer = TRANSITION_TIMER;
         levelSpawned = !levelSpawned;
+        Engine.gameState();
 
         if (level == 1)
             levelGenerator.loadImageLevel(level1);
@@ -511,10 +536,13 @@ public class GameController {
             level++;
             levelSpawned = false;
 
-            if (level > MAXLEVEL)
+            if (level > MAXLEVEL) {
                 Engine.menuState(); // stub
+                resetGame();
+            }
             else {
-                spawn();
+                Engine.transitionState();
+//                spawn();
             }
         }
     }

@@ -35,7 +35,7 @@ public class UIHandler {
         Panel mainMenu = new Panel(0, 0, Engine.percWidth(40), Engine.HEIGHT, GameState.Menu);
         addPanel(mainMenu);
 
-        Button mainMenuPlay = new Button(mainMenuButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Game);
+        Button mainMenuPlay = new Button(mainMenuButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
         mainMenuPlay.setFill();
         addButton(mainMenuPlay);
 

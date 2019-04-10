@@ -13,7 +13,7 @@ public class Player {
     private boolean moveLeft, moveRight, moveUp, moveDown;
     private Color color;
     private boolean canShoot;
-    private final int shootTimerDefault = 30;
+    private final int shootTimerDefault = 20;
     private int shootTimer = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
     private boolean airBullet = true;

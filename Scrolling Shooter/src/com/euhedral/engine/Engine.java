@@ -216,6 +216,10 @@ public class Engine extends Canvas {
         setState(GameState.Game);
     }
 
+    public static void transitionState() {
+        setState(GameState.Transition);
+    }
+
     public static void menuState() {
         setState(GameState.Menu);
     }

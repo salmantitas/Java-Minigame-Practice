@@ -3,60 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="cc44a1b2-2a97-4da2-8c17-38d031f8a883" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Bullet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Bullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletEnemy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletEnemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/BulletEnemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletPlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/BulletPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletPlayerAir.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletPlayerAir.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/BulletPlayerAir.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletPlayerGround.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/BulletPlayerGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/BulletPlayerGround.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Button.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Camera.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Enemy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyAir.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyAir.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/EnemyAir.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyAirBasic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyAirBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/EnemyAirBasic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyBoss.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/EnemyBoss.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyBoss1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyBoss1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/EnemyBoss1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyGround.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/EnemyGround.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyGroundBasic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EnemyGroundBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/EnemyGroundBasic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EngineKeyboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/EngineKeyboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/EngineMouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/EngineMouse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Flag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Flag.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Flag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/GameController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/ID.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/ID.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/ID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/KeyInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/KeyInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/LevelGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/LevelGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/LevelGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/MenuItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/MouseInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/MouseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/MouseInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Panel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/UIHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/UIHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/UIHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Top Down Shooter/META-INF/Top Down Shooter.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/GameObject.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="71">
-              <caret line="246" lean-forward="true" selection-start-line="246" selection-end-line="246" />
+              <caret line="246" selection-start-line="246" selection-end-line="246" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -151,9 +104,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+    <option name="x" value="951" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -162,6 +115,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -203,11 +157,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554855719581" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554856540681" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -259,9 +212,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="762" y="0" width="781" height="830" extended-state="0" />
+    <frame x="761" y="0" width="782" height="831" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3633842" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3739612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -505,7 +458,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="71">
-          <caret line="246" lean-forward="true" selection-start-line="246" selection-end-line="246" />
+          <caret line="246" selection-start-line="246" selection-end-line="246" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

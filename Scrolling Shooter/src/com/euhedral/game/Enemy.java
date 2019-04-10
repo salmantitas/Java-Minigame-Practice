@@ -13,6 +13,12 @@ public abstract class Enemy {
     protected float velY = Engine.floatAtWidth640(2)/2;;
     protected int width, height;
     protected boolean moveLeft, moveRight;
+    protected Color color;
+    protected int shootTimerDef = 250;
+    protected int shootTimer = shootTimerDef;
+    protected LinkedList<Bullet> bullets = new LinkedList<>();
+    protected boolean inscreen = false;
+    protected Camera cam;
 
     public void damage() {
         this.health--;
@@ -33,13 +39,6 @@ public abstract class Enemy {
     public void setInscreen(boolean inscreen) {
         this.inscreen = inscreen;
     }
-
-    protected Color color;
-    protected int shootTimerDef = 300;
-    protected int shootTimer = shootTimerDef;
-    protected LinkedList<Bullet> bullets = new LinkedList<>();
-    protected boolean inscreen = false;
-    protected Camera cam;
 
     public Enemy(int x, int y, ID id) {
         this.x = x;
