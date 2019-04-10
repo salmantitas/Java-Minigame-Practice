@@ -1,3 +1,11 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
+import com.euhedral.engine.GameState;
+import com.euhedral.engine.MenuItem;
+import com.euhedral.engine.Button;
+import com.euhedral.engine.Panel;
+
 import java.awt.*;
 import java.util.LinkedList;
 

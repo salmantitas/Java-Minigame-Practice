@@ -1,3 +1,7 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.EngineKeyboard;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -44,7 +48,7 @@ public class KeyInput extends KeyAdapter{
     public void updatePressed() {
 
         /***************
-         * Engine Code *
+         * com.euhedral.engine.Engine Code *
          ***************/
 
         if (keyIsPressed(KeyEvent.VK_ESCAPE))
@@ -61,7 +65,7 @@ public class KeyInput extends KeyAdapter{
 
     public void updateReleased() {
         /***************
-         * Engine Code *
+         * com.euhedral.engine.Engine Code *
          ***************/
 
         for (int lk: legalKeysRelease)

@@ -1,3 +1,7 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
+
 import java.awt.*;
 import java.util.LinkedList;
 
@@ -32,7 +36,7 @@ public class Player {
     }
 
     public void update() {
-//        System.out.println("Player at (" + x + ", " + y + ")");
+//        System.out.println("com.euhedral.game.Player at (" + x + ", " + y + ")");
         move();
         shootTimer--;
 
@@ -46,9 +50,9 @@ public class Player {
     }
 
     public void render(Graphics g) {
-//        g.fillRect(x + Engine.perc(width,40), y ,Engine.perc(width,12*2),height); // Body
-//        g.fillRect(x, y + Engine.perc(height, 30) ,width, Engine.perc(height,12.5)); // Wingspan
-//        g.fillRect(x + Engine.perc(width,25), y ,width/2, Engine.perc(height,4)); // Fans
+//        g.fillRect(x + com.euhedral.engine.Engine.perc(width,40), y ,com.euhedral.engine.Engine.perc(width,12*2),height); // Body
+//        g.fillRect(x, y + com.euhedral.engine.Engine.perc(height, 30) ,width, com.euhedral.engine.Engine.perc(height,12.5)); // Wingspan
+//        g.fillRect(x + com.euhedral.engine.Engine.perc(width,25), y ,width/2, com.euhedral.engine.Engine.perc(height,4)); // Fans
 
 
         for (Bullet bullet: bullets) {
@@ -110,7 +114,7 @@ public class Player {
         y += velY;
 
         x = Engine.clamp(x, 0, Engine.WIDTH - width);
-//        y = Engine.clamp(y, 0, Engine.HEIGHT - height);
+//        y = com.euhedral.engine.Engine.clamp(y, 0, com.euhedral.engine.Engine.HEIGHT - height);
 
         if (moveLeft && !moveRight) {
             velX = -otherMovement;

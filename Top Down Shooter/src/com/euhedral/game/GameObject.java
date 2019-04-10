@@ -49,7 +49,7 @@ public abstract class GameObject {
         initialize();
     }
 
-    public void initialize() {}
+    protected void initialize() {}
 
     public abstract void update();
 

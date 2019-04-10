@@ -1,5 +1,8 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
+
 import java.awt.*;
-import java.util.LinkedList;
 
 public class Flag {
 
@@ -24,7 +27,7 @@ public class Flag {
     public void update() {
         move();
 
-//        System.out.println("Flag at (" + x + ", " + y + ")");
+//        System.out.println("com.euhedral.game.Flag at (" + x + ", " + y + ")");
     }
 
     public void render(Graphics g) {

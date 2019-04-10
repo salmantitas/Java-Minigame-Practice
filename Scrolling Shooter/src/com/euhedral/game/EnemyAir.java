@@ -1,3 +1,7 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
+
 import java.awt.*;
 
 public abstract class EnemyAir extends Enemy{

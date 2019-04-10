@@ -1,3 +1,5 @@
+package com.euhedral.game;
+
 import java.awt.*;
 
 public class BulletPlayer extends Bullet{

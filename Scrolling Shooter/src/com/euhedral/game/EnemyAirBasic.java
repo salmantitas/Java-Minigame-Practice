@@ -1,19 +1,22 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
+
 import java.awt.*;
 
-public class EnemyGroundBasic extends EnemyGround {
+public class EnemyAirBasic extends EnemyAir {
 
-    public EnemyGroundBasic(int x, int y) {
+    public EnemyAirBasic(int x, int y) {
         super(x,y);
         width = Engine.intAtWidth640(32);
-        height = 2* width;
-        color = Color.pink;
+        height = width;
+        color = Color.red;
         health = 1;
     }
 
     @Override
     public void render(Graphics g) {
         super.render(g);
-
         g.setColor(color);
         g.fillRect(x,y,width,height);
     }

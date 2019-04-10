@@ -1,3 +1,5 @@
+package com.euhedral.engine;
+
 import java.awt.*;
 import java.util.LinkedList;
 
@@ -38,11 +40,11 @@ public abstract class MenuItem {
         this.transparency = transparency;
     }
 
-    protected void addOtherState(GameState state) {
+    public void addOtherState(GameState state) {
         otherStates.add(state);
     }
 
-    protected boolean stateIs(GameState state) {
+    public boolean stateIs(GameState state) {
         boolean temp;
         if (otherStates.isEmpty())
             temp = state == this.renderState;

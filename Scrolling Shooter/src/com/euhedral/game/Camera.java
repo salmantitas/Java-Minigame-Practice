@@ -1,3 +1,6 @@
+package com.euhedral.game;
+
+import com.euhedral.engine.Engine;
 import com.euhedral.game.GameObject;
 
 public class Camera {

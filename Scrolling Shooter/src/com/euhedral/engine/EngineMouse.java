@@ -1,9 +1,11 @@
-/*
+package com.euhedral.engine;/*
  * Do not modify this class
  * */
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import com.euhedral.game.GameController;
+import com.euhedral.game.MouseInput;
 
 public class EngineMouse extends MouseAdapter {
     private GameController gameController;

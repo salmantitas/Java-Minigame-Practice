@@ -1,4 +1,8 @@
+package com.euhedral.game;
+
 import com.euhedral.engine.BufferedImageLoader;
+import com.euhedral.engine.Engine;
+import com.euhedral.engine.GameState;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,7 +14,7 @@ public class GameController {
     private UIHandler uiHandler;
     private Random r = new Random();
 
-    // Manually set the Window information here
+    // Manually set the com.euhedral.engine.Window information here
     private int gameWidth = 1280;
     private int gameHeight = Engine.HEIGHT;
     private String gameTitle = "Scrolling Shooter";
@@ -58,7 +62,7 @@ public class GameController {
     public GameController() {
 
         /******************
-         * Window Setting *
+         * com.euhedral.engine.Window Setting *
          ******************/
         Engine.setTITLE(gameTitle);
         Engine.setWIDTH(gameWidth);
@@ -137,7 +141,7 @@ public class GameController {
 
                 Graphics2D g2d = (Graphics2D) g;
 
-                // Camera start
+                // com.euhedral.game.Camera start
                 g2d.translate(cam.getX(), cam.getY());
 
                 for (Enemy enemy: enemies) {
@@ -147,7 +151,7 @@ public class GameController {
                 flag.render(g);
                 player.render(g);
 
-                // Camera end
+                // com.euhedral.game.Camera end
                 g2d.translate(-cam.getX(), -cam.getY());
 
                 drawHealth(g);
@@ -160,7 +164,7 @@ public class GameController {
         }
 
         /***************
-         * Engine Code *
+         * com.euhedral.engine.Engine Code *
          ***************/
 
         uiHandler.render(g);
@@ -372,7 +376,7 @@ public class GameController {
     }
 
     public void checkCollision() {
-        // Player vs enemy collision
+        // com.euhedral.game.Player vs enemy collision
         for (Enemy enemy: enemies) {
             if (enemy.getID() == ID.Air)
                 if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds())) {
@@ -385,7 +389,7 @@ public class GameController {
                 }
         }
 
-        // Player vs enemy bullet collision
+        // com.euhedral.game.Player vs enemy bullet collision
         for (Enemy enemy: enemies) {
             Bullet b = enemy.checkCollision(player);
             if (b != null) {
@@ -394,7 +398,7 @@ public class GameController {
             }
         }
 
-        // Enemy vs player bullet collision
+        // com.euhedral.game.Enemy vs player bullet collision
         for (Enemy enemy: enemies) {
             if (enemy.inscreen) {
                 Bullet b = player.checkCollision(enemy);
@@ -421,18 +425,18 @@ public class GameController {
         // Redundant as enemy generation is not random
 //        // enemy vs enemy collision
 //        for (int i = 0; i< enemies.size() - 1; i++) {
-//            Enemy enemy1 = enemies.get(i);
-//            Enemy enemy2 = enemies.get(i + 1);
+//            com.euhedral.game.Enemy enemy1 = enemies.get(i);
+//            com.euhedral.game.Enemy enemy2 = enemies.get(i + 1);
 //            if (enemy1.getBounds().intersects(enemy2.getBounds())) {
-//                enemy2.setX(r.nextInt(Engine.WIDTH - 300) + 150);
+//                enemy2.setX(r.nextInt(com.euhedral.engine.Engine.WIDTH - 300) + 150);
 //            }
 //        }
     }
 
     private void destroy(Enemy enemy) {
-//        Iterator<Enemy> it = enemies.iterator();
+//        Iterator<com.euhedral.game.Enemy> it = enemies.iterator();
 //        while (it.hasNext()) {
-//            Enemy e = it.next();
+//            com.euhedral.game.Enemy e = it.next();
 //            if (e == enemy) {
 //                it.remove();
 //            }
@@ -488,7 +492,7 @@ public class GameController {
         enemies.add(boss);
         healthBossDef = boss.getHealth();
         healthBoss = healthBossDef;
-//        else enemies.add(new EnemyGroundBasic(width,height));
+//        else enemies.add(new com.euhedral.game.EnemyGroundBasic(width,height));
     }
 
     public void spawnFlag() {
