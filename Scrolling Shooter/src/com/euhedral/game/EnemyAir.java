@@ -21,10 +21,10 @@ public abstract class EnemyAir extends Enemy{
         super.render(g);
     }
 
-    protected void shoot() {
-        bullets.add(new BulletEnemy(x + width/2,y));
-        shootTimer = shootTimerDef;
-    }
+//    protected void shoot() {
+//        bullets.add(new BulletEnemy(x + width/2,y));
+//        shootTimer = shootTimerDef;
+//    }
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);

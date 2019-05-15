@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cc44a1b2-2a97-4da2-8c17-38d031f8a883" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/engine/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrolling Shooter/src/com/euhedral/game/UIHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -104,9 +99,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="951" />
-    <option name="width" value="978" />
-    <option name="height" value="1039" />
+    <option name="x" value="950" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -212,9 +207,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="761" y="0" width="782" height="831" extended-state="0" />
+    <frame x="760" y="0" width="784" height="832" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3739612" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.39640883" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -223,7 +219,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32808024" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32714286" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

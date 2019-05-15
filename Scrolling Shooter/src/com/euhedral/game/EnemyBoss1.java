@@ -35,10 +35,15 @@ public class EnemyBoss1 extends EnemyBoss{
     @Override
     public void shoot() {
         // left gun
-        bullets.add(new BulletEnemy((int) (1.1 * x), y + height / 2));
+        bullets.add(new BulletEnemy((int) (1.1 * x), y + height / 2, -0.5));
 
         // right gun
-        bullets.add(new BulletEnemy(x + (int) (0.8 * width) , y + height / 2));
+        bullets.add(new BulletEnemy(x + (int) (0.8 * width) , y + height / 2, 0.5));
+
+        // front guns
+        bullets.add(new BulletEnemy((int) (1.1 * x), y + height / 2, 1));
+        bullets.add(new BulletEnemy(x + (int) (0.8 * width) , y + height / 2, 1));
+
         shootTimer = shootTimerDef;
 
 //        System.out.println("Shooting at (" + (x + width/2) + ", " + y + ")" );

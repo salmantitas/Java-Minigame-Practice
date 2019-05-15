@@ -12,6 +12,7 @@ public abstract class Enemy {
     protected float velX;
     protected float velY = Engine.floatAtWidth640(2)/2;;
     protected int width, height;
+    protected int power = 1;
     protected boolean moveLeft, moveRight;
     protected Color color;
     protected int shootTimerDef = 250;
@@ -71,7 +72,12 @@ public abstract class Enemy {
     public abstract void move();
 
     protected void shoot() {
-        bullets.add(new BulletEnemy(x + width/2,y));
+        resetShooter();
+        bullets.add(new BulletEnemy(x + width/2,y, 1));
+//        shootTimer = shootTimerDef;
+    }
+
+    protected void resetShooter() {
         shootTimer = shootTimerDef;
     }
 

@@ -6,12 +6,15 @@ import java.awt.*;
 
 public class EnemyAirBasic extends EnemyAir {
 
-    public EnemyAirBasic(int x, int y) {
+
+
+    public EnemyAirBasic(int x, int y, int power) {
         super(x,y);
         width = Engine.intAtWidth640(32);
         height = width;
         color = Color.red;
         health = 1;
+        this.power = power;
     }
 
     @Override
@@ -19,6 +22,17 @@ public class EnemyAirBasic extends EnemyAir {
         super.render(g);
         g.setColor(color);
         g.fillRect(x,y,width,height);
+    }
+
+    @Override
+    protected void shoot() {
+        if (power == 2) {
+            bullets.add(new BulletEnemy(x + width/2,y, 0.5));
+            bullets.add(new BulletEnemy(x + width/2,y, -0.5));
+            resetShooter();
+        }
+        else
+            super.shoot();
     }
 
     public void setX(int x) {

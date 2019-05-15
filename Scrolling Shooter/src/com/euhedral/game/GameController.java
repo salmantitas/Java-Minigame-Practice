@@ -187,7 +187,7 @@ public class GameController {
         }
 
         /***************
-         * com.euhedral.engine.Engine Code *
+         * Engine Code *
          ***************/
 
         uiHandler.render(g);
@@ -288,7 +288,7 @@ public class GameController {
     }
 
     private void updateHighScore() {
-        if (updateHighScore) {
+//        if (updateHighScore) {
             int toAddIndex = 0;
             for (int hs: highScore) {
                 if (hs > score) {
@@ -297,8 +297,8 @@ public class GameController {
                 else break;
             }
             highScore.add(toAddIndex, score);
-            updateHighScore = false;
-        }
+//            updateHighScore = false;
+//        }
     }
 
     /***************************
@@ -506,7 +506,7 @@ public class GameController {
 
     public void spawnEnemy(int width, int height, ID id) {
         if (id == ID.Air)
-            enemies.add(new EnemyAirBasic(width, height));
+            enemies.add(new EnemyAirBasic(width, height, 1));
         else enemies.add(new EnemyGroundBasic(width,height));
     }
 
@@ -530,11 +530,16 @@ public class GameController {
 
     // if the flag crosses the screen, advance level and if no levels remain, end game
     public void checkLevelStatus() {
-        bossLives = boss.isAlive();
-        if (flag.getY() > levelHeight && !bossLives) {
+        // If the boss is killed, updates the boolean variable and adds the bossScore
+        if (bossLives != boss.isAlive()) {
+            bossLives = boss.isAlive();
             score += bossScore;
+        }
+
+        if (flag.getY() > levelHeight && !bossLives) {
             level++;
             levelSpawned = false;
+            bossLives = false;
 
             if (level > MAXLEVEL) {
                 Engine.menuState(); // stub
