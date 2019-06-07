@@ -1,9 +1,7 @@
 package com.euhedral.game;
 
-import com.euhedral.engine.Engine;
-import com.euhedral.engine.GameState;
+import com.euhedral.engine.*;
 import com.euhedral.engine.MenuItem;
-import com.euhedral.engine.Button;
 import com.euhedral.engine.Panel;
 
 import java.awt.*;
@@ -11,7 +9,8 @@ import java.util.LinkedList;
 
 public class UIHandler {
     private LinkedList<MenuItem> menuItems = new LinkedList<>();
-    private LinkedList<Button> buttons = new LinkedList<>();
+    private LinkedList<NavButton> navButtons = new LinkedList<>();
+    private LinkedList<ActButton> actButtons = new LinkedList<>();
 
     // Common game variables
 
@@ -27,6 +26,8 @@ public class UIHandler {
     int quitButtonY = Engine.percHeight(70);
     int lowestButtonY = Engine.percHeight(80);
 
+    String action = null;
+
     public UIHandler() {
 
         // Game Backdrop
@@ -35,27 +36,45 @@ public class UIHandler {
         Panel mainMenu = new Panel(0, 0, Engine.percWidth(40), Engine.HEIGHT, GameState.Menu);
         addPanel(mainMenu);
 
-        Button mainMenuPlay = new Button(mainMenuButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
+        NavButton mainMenuPlay = new NavButton(mainMenuButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
         mainMenuPlay.setFill();
         addButton(mainMenuPlay);
 
-        Button mainMenuHighScore = new Button(mainMenuButtonX, highScoreButtonY, buttonSize, "High Score", GameState.Menu, GameState.Highscore);
-        mainMenuHighScore.setFill();
-        addButton(mainMenuHighScore);
+//        NavButton mainMenuHighScore = new NavButton(mainMenuButtonX, highScoreButtonY, buttonSize, "High Score", GameState.Menu, GameState.Highscore);
+//        mainMenuHighScore.setFill();
+//        addButton(mainMenuHighScore);
 
-        Button mainMenuQuit = new Button(mainMenuButtonX, quitButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
+        NavButton mainMenuQuit = new NavButton(mainMenuButtonX, quitButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
         mainMenuQuit.setFill();
+        mainMenuQuit.addOtherState(GameState.Transition);
+        mainMenuQuit.addOtherState(GameState.Pause);
         addButton(mainMenuQuit);
 
         // In-Game
 
-        Button backToMenuFromPause = new Button(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
+        NavButton backToMenuFromPause = new NavButton(backToMenuX, lowestButtonY/2, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
         addButton(backToMenuFromPause);
 
-        Button backToMenu = new Button(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Highscore, GameState.Menu);
-        backToMenu.setFill();
-        backToMenu.addOtherState(GameState.GameOver);
-        addButton(backToMenu);
+//        NavButton backToMenu = new NavButton(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Highscore, GameState.Menu);
+//        backToMenu.setFill();
+//        backToMenu.addOtherState(GameState.GameOver);
+//        addButton(backToMenu);
+
+        // Shop
+
+        int healthY = 100, powerY = 200, groundY = 300;
+
+        ActButton go = new ActButton(600, highScoreButtonY, buttonSize, "Go!", GameState.Transition, "go");
+        addButton(go);
+
+        ActButton health = new ActButton(mainMenuButtonX, healthY, buttonSize/2, "Buy Health", GameState.Transition, "health");
+        addButton(health);
+
+        ActButton power = new ActButton(mainMenuButtonX, powerY, buttonSize/2, "Upgrade Power", GameState.Transition, "power");
+        addButton(power);
+
+        ActButton ground = new ActButton(mainMenuButtonX, groundY, buttonSize/2, "Ground Bullets", GameState.Transition, "ground");
+        addButton(ground);
 
         // Game Over Screen -- High Score Menu
 
@@ -83,9 +102,14 @@ public class UIHandler {
                 menuItem.render(g);
         }
 
-        for (Button button: buttons) {
-            if (button.stateIs(Engine.currentState))
-                button.render(g);
+        for (NavButton navButton : navButtons) {
+            if (navButton.stateIs(Engine.currentState))
+                navButton.render(g);
+        }
+
+        for (ActButton actButton : actButtons) {
+            if (actButton.stateIs(Engine.currentState))
+                actButton.render(g);
         }
 
         if (Engine.currentState == GameState.Menu) {
@@ -94,10 +118,18 @@ public class UIHandler {
     }
 
     public void checkButtonAction(int mx, int my) {
-        for (Button button: buttons) {
-            if (button.stateIs(Engine.currentState))
-                if (button.mouseOverlap(mx, my))
-                    Engine.setState(button.getTargetSate());
+        for (NavButton navButton : navButtons) {
+            if (navButton.stateIs(Engine.currentState))
+                if (navButton.mouseOverlap(mx, my))
+                    Engine.setState(navButton.getTargetSate());
+        }
+
+        for (ActButton actButton : actButtons) {
+            if (actButton.stateIs(Engine.currentState)) {
+                if (actButton.mouseOverlap(mx, my)) {
+                    this.action = actButton.getAction();
+                }
+            }
         }
     }
 
@@ -127,20 +159,24 @@ public class UIHandler {
      * UI Functions *
      ****************/
 
-    public void addButton(Button button) {
-        buttons.add(button);
+    public void addButton(NavButton navButton) {
+        navButtons.add(navButton);
+    }
+
+    public void addButton(ActButton actButton) {
+        actButtons.add(actButton);
     }
 
     public void addButton(int x, int y, int size, String text, GameState renderState, GameState targetState) {
-        buttons.add(new Button(x, y, size, text, renderState, targetState));
+        navButtons.add(new NavButton(x, y, size, text, renderState, targetState));
     }
 
     public void addButton(int x, int y, int size, String text, GameState renderState, GameState targetState, Color borderColor, Color textColor) {
-        buttons.add(new Button(x, y, size, text, renderState, targetState, borderColor, textColor));
+        navButtons.add(new NavButton(x, y, size, text, renderState, targetState, borderColor, textColor));
     }
 
     public void addButton(int x, int y, int size, String text, GameState renderState, GameState targetState, Color borderColor, Color textColor, Font font) {
-        buttons.add(new Button(x, y, size, text, renderState, targetState, borderColor, textColor, font));
+        navButtons.add(new NavButton(x, y, size, text, renderState, targetState, borderColor, textColor, font));
     }
 
     public void addPanel(Panel panel) {
@@ -154,6 +190,14 @@ public class UIHandler {
 
     public void addPanel(int x, int y, int width, int height, GameState state, float transparency, Color color) {
         menuItems.add(new Panel(x, y, width, height, state, transparency, color));
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void endAction() {
+        action = null;
     }
 
 }

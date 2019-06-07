@@ -3,6 +3,7 @@ package com.euhedral.game;
 import com.euhedral.engine.Engine;
 
 import java.awt.*;
+import java.util.Random;
 
 public class EnemyAirBasic extends EnemyAir {
 
@@ -13,7 +14,8 @@ public class EnemyAirBasic extends EnemyAir {
         width = Engine.intAtWidth640(32);
         height = width;
         color = Color.red;
-        health = 1;
+        r = new Random();
+        health = r.nextInt(2) + 1;
         this.power = power;
     }
 

@@ -4,7 +4,6 @@ public enum GameState {
     Game,
     Menu,
     Pause,
-    PostLevel,
     Transition,
     GameOver,
     Highscore,

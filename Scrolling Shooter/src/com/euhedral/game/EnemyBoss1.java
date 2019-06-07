@@ -15,7 +15,7 @@ public class EnemyBoss1 extends EnemyBoss{
         this.x = x - width/2;
         color = Color.orange;
         velX = Engine.intAtWidth640(2);
-        health = 20;
+        health = 40;
         left = true;
     }
 

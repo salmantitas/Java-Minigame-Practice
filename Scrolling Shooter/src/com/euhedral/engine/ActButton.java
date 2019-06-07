@@ -2,64 +2,68 @@ package com.euhedral.engine;/*
  * Do not modify
  * */
 
+import com.euhedral.engine.Engine;
+import com.euhedral.engine.GameState;
+
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Button {
+public class ActButton {
     private int x, y, width, height;
     private int size;
     private String text;
     private Font font;
-    private GameState renderState, targetSate;
+    private GameState renderState;
+    private String action;
     private Color backColor, textColor;
     private boolean fill = false;
     private LinkedList<GameState> otherStates = new LinkedList<>();
     private float transparency = 1;
 
-    public Button(int x, int y, int size, String text, GameState renderState, GameState targetSate) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, String action) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.text = text;
         this.renderState = renderState;
-        this.targetSate = targetSate;
+        this.action = action;
         font = new Font("arial", 1, size);
         backColor = Color.BLUE;
         textColor = Color.RED;
     }
 
-    public Button(int x, int y, int size, String text, GameState renderState, GameState targetSate, boolean fill) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, String action, boolean fill) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.text = text;
         this.renderState = renderState;
-        this.targetSate = targetSate;
+        this.action = action;
         font = new Font("arial", 1, size);
         backColor = Color.BLUE;
         textColor = Color.RED;
         this.fill = fill;
     }
 
-    public Button(int x, int y, int size, String text, GameState renderState, GameState targetSate, Color backColor, Color textColor) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, String action, Color backColor, Color textColor) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.text = text;
         this.renderState = renderState;
-        this.targetSate = targetSate;
+        this.action = action;
         font = new Font("arial", 1, size);
         this.backColor = backColor;
         this.textColor = textColor;
     }
 
-    public Button(int x, int y, int size, String text, GameState renderState, GameState targetSate, Color backColor, Color textColor, Font font) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, String action, Color backColor, Color textColor, Font font) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.text = text;
         this.renderState = renderState;
-        this.targetSate = targetSate;
+        this.action = action;
         this.font = font;
         this.backColor = backColor;
         this.textColor = textColor;
@@ -125,8 +129,8 @@ public class Button {
         return renderState;
     }
 
-    public GameState getTargetSate() {
-        return targetSate;
+    public String getAction() {
+        return action;
     }
 
     public void addOtherState(GameState state) {

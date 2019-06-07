@@ -3,6 +3,7 @@ package com.euhedral.game;
 import com.euhedral.engine.Engine;
 
 import java.awt.*;
+import java.util.Random;
 
 public class EnemyGroundBasic extends EnemyGround {
 
@@ -11,7 +12,8 @@ public class EnemyGroundBasic extends EnemyGround {
         width = Engine.intAtWidth640(32);
         height = 2* width;
         color = Color.pink;
-        health = 1;
+        r = new Random();
+        health = r.nextInt(3) + 2;
     }
 
     @Override

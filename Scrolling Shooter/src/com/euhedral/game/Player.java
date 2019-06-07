@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class Player {
 
-    private int x, y, velX, velY, otherMovement, forwardMovement;
+    private int x, y, velX, velY, horizontalMovement, verticalMovement;
     private int width, height;
     private int power;
     private boolean moveLeft, moveRight, moveUp, moveDown;
@@ -24,8 +24,8 @@ public class Player {
         velX = 0;
         velY = 0;
         this.power = 1;
-        otherMovement = Engine.intAtWidth640(2);
-        forwardMovement = Engine.intAtWidth640(2);
+        verticalMovement = Engine.intAtWidth640(2);
+        horizontalMovement = Engine.intAtWidth640(3);
         width = Engine.intAtWidth640(24);
         height = width;
         moveRight = false;
@@ -117,19 +117,19 @@ public class Player {
 //        y = com.euhedral.engine.Engine.clamp(y, 0, com.euhedral.engine.Engine.HEIGHT - height);
 
         if (moveLeft && !moveRight) {
-            velX = -otherMovement;
+            velX = -horizontalMovement;
         }
         else if (moveRight && !moveLeft) {
-            velX = otherMovement;
+            velX = horizontalMovement;
         }
         else if (!moveLeft && !moveRight || (moveLeft && moveRight))
             velX = 0;
 
         if (moveUp && !moveDown) {
-            velY = -forwardMovement;
+            velY = -verticalMovement;
         }
         else if (moveDown && !moveUp ) {
-            velY = otherMovement;
+            velY = horizontalMovement;
         }
         else if (!moveUp && !moveDown|| (moveUp && moveDown))
             velY = 0;
@@ -142,13 +142,22 @@ public class Player {
             else
                 bullets.add(new BulletPlayerGround(x + width / 2, y));
         }
+        if (power == 2) {
+            if (airBullet) {
+                bullets.add(new BulletPlayerAir(x + 8, y));
+                bullets.add(new BulletPlayerAir(x + width - 16, y));
+            }
+            else {
+                bullets.add(new BulletPlayerGround(x + 8, y));
+                bullets.add(new BulletPlayerGround(x + width - 16, y));
+            }
+        }
         // reset shoot timer to default
         shootTimer = shootTimerDefault;
     }
 
-    public void decreasePower() {
-        if (power > 1)
-            power--;
+    public void setPower(int power) {
+        this.power = power;
     }
 
     public int getX() {
@@ -157,5 +166,9 @@ public class Player {
 
     public int getY() {
         return y;
+    }
+
+    public int getPower() {
+        return power;
     }
 }

@@ -23,14 +23,18 @@ public class GameController {
     // Common game variables
     private int score = 0;
     private int scoreX = Engine.percWidth(5);
+    private int powerX = Engine.percWidth(40);
     private int scoreY = Engine.percHeight(15);
     private int scoreSize = Engine.percWidth(4);
     private int lives = 3;
+    private final int maxPower = 5;
+    private int power = 1;
     private final int healthDef = 100;
     private int health = healthDef;
     private LinkedList<Integer> highScore = new LinkedList<>();
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
+    private boolean loadMission = false;
     private static int STARTLEVEL = 1;
     private static int level;
     private final int MAXLEVEL = 2;
@@ -39,7 +43,7 @@ public class GameController {
      * User variables *
      ******************/
 
-    private Player player;
+    private Player player = new Player(0,0);
     private EnemyBoss boss;
     private Flag flag;
 
@@ -56,6 +60,7 @@ public class GameController {
     private int levelHeight;
 
     private boolean levelSpawned = false;
+    private boolean shopping = false;
 
     private BufferedImage level1 = null, level2 = null;
     private LevelGenerator levelGenerator;
@@ -64,7 +69,7 @@ public class GameController {
     public GameController() {
 
         /******************
-         * com.euhedral.engine.Window Setting *
+         * Window Setting *
          ******************/
         Engine.setTITLE(gameTitle);
         Engine.setWIDTH(gameWidth);
@@ -102,18 +107,15 @@ public class GameController {
              * Game Code *
              *************/
 
-            if (transitionTimer > 0) {
-                transitionTimer--;
-            }
-            else {
+            if (loadMission) {
                 if (!levelSpawned)
-                spawn();
+                    spawn();
             }
-
         }
 
         if (Engine.currentState == GameState.Game) {
 
+            loadMission = false;
             boolean endGameCondition = health <= 0;
 
             if (endGameCondition) {
@@ -129,16 +131,23 @@ public class GameController {
 //            if (!levelSpawned)
 //                spawn();
 
-            player.update();
-            flag.update();
-
-            for (Enemy enemy: enemies) {
-                enemy.update();
+            if (shopping) {
+//                shop.update();
             }
 
-            checkCollision();
+            else {
 
-            checkLevelStatus();
+                player.update();
+                flag.update();
+
+                for (Enemy enemy : enemies) {
+                    enemy.update();
+                }
+
+                checkCollision();
+
+                checkLevelStatus();
+            }
         }
     }
 
@@ -152,6 +161,9 @@ public class GameController {
             g.setFont(new Font("arial", 1, Engine.percWidth(5)));
             g.setColor(Color.WHITE);
             g.drawString("Level " + level, Engine.percWidth(40), Engine.percHeight(45));
+            drawHealth(g);
+            drawScore(g);
+            drawPower(g);
         }
 
         if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause || Engine.currentState == GameState.GameOver) {
@@ -162,27 +174,34 @@ public class GameController {
 
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
 
-                Graphics2D g2d = (Graphics2D) g;
-
-                // com.euhedral.game.Camera start
-                g2d.translate(cam.getX(), cam.getY());
-
-                for (Enemy enemy: enemies) {
-                    enemy.render(g);
+                if (shopping) {
+                    // shop.render(g)
                 }
+                else {
 
-                flag.render(g);
-                player.render(g);
+                    Graphics2D g2d = (Graphics2D) g;
 
-                // com.euhedral.game.Camera end
-                g2d.translate(-cam.getX(), -cam.getY());
+                    // com.euhedral.game.Camera start
+                    g2d.translate(cam.getX(), cam.getY());
 
-                drawHealth(g);
+                    for (Enemy enemy : enemies) {
+                        enemy.render(g);
+                    }
 
-                if (boss.isInscreen()&& boss.isAlive())
-                    drawBossHealth(g);
+                    flag.render(g);
+                    player.render(g);
 
-                drawScore(g);
+                    // com.euhedral.game.Camera end
+                    g2d.translate(-cam.getX(), -cam.getY());
+
+                    drawHealth(g);
+
+                    if (boss.isInscreen() && boss.isAlive())
+                        drawBossHealth(g);
+
+                    drawScore(g);
+                    drawPower(g);
+                }
             }
         }
 
@@ -213,23 +232,35 @@ public class GameController {
 
             if (key == (KeyEvent.VK_SPACE) || key == (KeyEvent.VK_NUMPAD0))
                 shootPlayer();
-        }
 
-        if (key == KeyEvent.VK_CONTROL)
-            player.switchBullet();
+            if (key == KeyEvent.VK_CONTROL)
+                player.switchBullet();
 
-        if (key == (KeyEvent.VK_ESCAPE)) {
-            if (Engine.currentState == GameState.Menu) {
-                System.exit(1);
+            if (Engine.currentState == GameState.Game) {
+                if (key == (KeyEvent.VK_P)) {
+                    Engine.pauseState();
+                }
             }
-            else {
-                if (Engine.currentState == GameState.Game)
-                    Engine.setState(GameState.Pause);
-                else if (Engine.currentState == GameState.Pause)
-                    Engine.setState(GameState.Game);
+
+        } else {
+
+            if (Engine.currentState == GameState.Pause) {
+                if (key == KeyEvent.VK_P) {
+                    Engine.gameState();
+                }
+            }
+
+            if (key == (KeyEvent.VK_ESCAPE)) {
+                if (Engine.currentState == GameState.Menu) {
+                    System.exit(1);
+                } else {
+                    if (Engine.currentState == GameState.Game)
+                        Engine.setState(GameState.Pause);
+                    else if (Engine.currentState == GameState.Pause)
+                        Engine.setState(GameState.Game);
+                }
             }
         }
-
 
     }
 
@@ -273,7 +304,8 @@ public class GameController {
 
         updateHighScore();
         score = 0;
-        health = 100;
+        power = 1;
+        health = healthDef;
         enemies.clear();
         levelSpawned = false;
 
@@ -281,6 +313,7 @@ public class GameController {
 
     public void checkButtonAction(int mx, int my) {
         uiHandler.checkButtonAction(mx, my);
+        performAction();
     }
 
     private void enableHighScoreUpdate() {
@@ -288,7 +321,6 @@ public class GameController {
     }
 
     private void updateHighScore() {
-//        if (updateHighScore) {
             int toAddIndex = 0;
             for (int hs: highScore) {
                 if (hs > score) {
@@ -297,9 +329,61 @@ public class GameController {
                 else break;
             }
             highScore.add(toAddIndex, score);
-//            updateHighScore = false;
-//        }
     }
+
+    private void performAction() {
+        if (uiHandler.getAction() == "go") {
+            loadMission = true;
+        } else if (uiHandler.getAction() == "health") {
+            buyHealth();
+        } else if (uiHandler.getAction() == "power") {
+            buyPower();
+        } else if (uiHandler.getAction() == "ground") {
+            buyGround();
+        }
+        uiHandler.endAction();
+    }
+
+    // Shop Functions
+
+    private void buyHealth() {
+        int cost = 500;
+
+        if (score >= cost) {
+            if (health < healthDef) {
+                health += 25;
+                score -= cost;
+                if (health > healthDef)
+                    health = healthDef;
+            } else {
+                System.out.println("Health is full");
+            }
+        } else {
+            System.out.println("Not enough score");
+        }
+    }
+
+    private void buyPower() {
+        int cost = 1000;
+
+        if (score >= cost) {
+            if (player.getPower() < maxPower) {
+                power++;
+                score -= cost;
+                if (power > maxPower)
+                    power--;
+            } else {
+                System.out.println("Max power is reached");
+            }
+        } else {
+            System.out.println("Not enough score");
+        }
+    }
+
+    private void buyGround() {
+
+    }
+
 
     /***************************
      * Render Helper Functions *
@@ -309,6 +393,12 @@ public class GameController {
         g.setFont(new Font("arial", 1, scoreSize));
         g.setColor(Color.WHITE);
         g.drawString("Score: " + score, scoreX, scoreY);
+    }
+
+    private void drawPower(Graphics g) {
+        g.setFont(new Font("arial", 1, scoreSize));
+        g.setColor(Color.WHITE);
+        g.drawString("Power: " + power, powerX, scoreY);
     }
 
     private void drawLives(Graphics g) {
@@ -444,16 +534,6 @@ public class GameController {
                 }
             }
         }
-
-        // Redundant as enemy generation is not random
-//        // enemy vs enemy collision
-//        for (int i = 0; i< enemies.size() - 1; i++) {
-//            com.euhedral.game.Enemy enemy1 = enemies.get(i);
-//            com.euhedral.game.Enemy enemy2 = enemies.get(i + 1);
-//            if (enemy1.getBounds().intersects(enemy2.getBounds())) {
-//                enemy2.setX(r.nextInt(com.euhedral.engine.Engine.WIDTH - 300) + 150);
-//            }
-//        }
     }
 
     private void destroy(Enemy enemy) {
@@ -494,6 +574,7 @@ public class GameController {
 
     public void spawnPlayer(int width, int height, int levelHeight) {
         player = new Player(width,height);
+        player.setPower(power);
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen
         cam = new Camera(player.getX()-gameWidth/2,-player.getY() + gameHeight - 256);

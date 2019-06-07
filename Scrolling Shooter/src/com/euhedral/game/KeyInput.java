@@ -37,6 +37,7 @@ public class KeyInput extends KeyAdapter{
         legalKeysPress.add(KeyEvent.VK_NUMPAD0);
         legalKeysPress.add(KeyEvent.VK_ESCAPE);
         legalKeysPress.add(KeyEvent.VK_CONTROL);
+        legalKeysPress.add(KeyEvent.VK_P);
 
         for (int i: legalKeysPress)
             if (i != KeyEvent.VK_ESCAPE)

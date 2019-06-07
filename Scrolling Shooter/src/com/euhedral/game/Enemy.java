@@ -4,6 +4,7 @@ import com.euhedral.engine.Engine;
 
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Random;
 
 public abstract class Enemy {
 
@@ -20,6 +21,7 @@ public abstract class Enemy {
     protected LinkedList<Bullet> bullets = new LinkedList<>();
     protected boolean inscreen = false;
     protected Camera cam;
+    protected Random r;
 
     public void damage() {
         this.health--;
