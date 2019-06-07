@@ -60,7 +60,7 @@ public class GameController {
     private int levelHeight;
 
     private boolean levelSpawned = false;
-    private boolean shopping = false;
+    private boolean ground = false;
 
     private BufferedImage level1 = null, level2 = null;
     private LevelGenerator levelGenerator;
@@ -128,13 +128,6 @@ public class GameController {
              * Game Code *
              *************/
 
-//            if (!levelSpawned)
-//                spawn();
-
-            if (shopping) {
-//                shop.update();
-            }
-
             else {
 
                 player.update();
@@ -174,10 +167,7 @@ public class GameController {
 
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
 
-                if (shopping) {
-                    // shop.render(g)
-                }
-                else {
+
 
                     Graphics2D g2d = (Graphics2D) g;
 
@@ -201,7 +191,7 @@ public class GameController {
 
                     drawScore(g);
                     drawPower(g);
-                }
+
             }
         }
 
@@ -308,7 +298,7 @@ public class GameController {
         health = healthDef;
         enemies.clear();
         levelSpawned = false;
-
+        uiHandler.ground = false;
     }
 
     public void checkButtonAction(int mx, int my) {
@@ -381,7 +371,12 @@ public class GameController {
     }
 
     private void buyGround() {
-
+        int cost = 2000;
+        if (!ground) {
+            score -= cost;
+            ground = true;
+            uiHandler.ground = true;
+        }
     }
 
 
@@ -575,6 +570,7 @@ public class GameController {
     public void spawnPlayer(int width, int height, int levelHeight) {
         player = new Player(width,height);
         player.setPower(power);
+        player.setGround(ground);
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen
         cam = new Camera(player.getX()-gameWidth/2,-player.getY() + gameHeight - 256);

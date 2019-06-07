@@ -13,6 +13,7 @@ public class Player {
     private boolean moveLeft, moveRight, moveUp, moveDown;
     private Color color;
     private boolean canShoot;
+    private boolean ground = false;
     private final int shootTimerDefault = 20;
     private int shootTimer = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
@@ -104,7 +105,8 @@ public class Player {
     }
 
     public void switchBullet() {
-        airBullet = !airBullet;
+        if (ground)
+            airBullet = !airBullet;
     }
 
     // Private Methods
@@ -170,5 +172,9 @@ public class Player {
 
     public int getPower() {
         return power;
+    }
+
+    public void setGround(Boolean ground) {
+        this.ground = ground;
     }
 }

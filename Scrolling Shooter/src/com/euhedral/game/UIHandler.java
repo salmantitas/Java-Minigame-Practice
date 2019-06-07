@@ -27,6 +27,7 @@ public class UIHandler {
     int lowestButtonY = Engine.percHeight(80);
 
     String action = null;
+    public boolean ground = false;
 
     public UIHandler() {
 
@@ -37,22 +38,21 @@ public class UIHandler {
         addPanel(mainMenu);
 
         NavButton mainMenuPlay = new NavButton(mainMenuButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
+        mainMenuPlay.addOtherState(GameState.GameOver);
         mainMenuPlay.setFill();
         addButton(mainMenuPlay);
-
-//        NavButton mainMenuHighScore = new NavButton(mainMenuButtonX, highScoreButtonY, buttonSize, "High Score", GameState.Menu, GameState.Highscore);
-//        mainMenuHighScore.setFill();
-//        addButton(mainMenuHighScore);
 
         NavButton mainMenuQuit = new NavButton(mainMenuButtonX, quitButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
         mainMenuQuit.setFill();
         mainMenuQuit.addOtherState(GameState.Transition);
         mainMenuQuit.addOtherState(GameState.Pause);
+        mainMenuQuit.addOtherState(GameState.GameOver);
         addButton(mainMenuQuit);
 
         // In-Game
 
         NavButton backToMenuFromPause = new NavButton(backToMenuX, lowestButtonY/2, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
+        backToMenuFromPause.addOtherState(GameState.GameOver);
         addButton(backToMenuFromPause);
 
 //        NavButton backToMenu = new NavButton(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Highscore, GameState.Menu);
@@ -81,7 +81,6 @@ public class UIHandler {
         Panel highScoreMenu = new Panel(0, Engine.percHeight(60), Engine.WIDTH, Engine.HEIGHT, GameState.Highscore);
         highScoreMenu.addOtherState(GameState.GameOver);
         addPanel(highScoreMenu);
-
     }
 
 //    public void update() {
@@ -108,8 +107,12 @@ public class UIHandler {
         }
 
         for (ActButton actButton : actButtons) {
-            if (actButton.stateIs(Engine.currentState))
-                actButton.render(g);
+            if (actButton.stateIs(Engine.currentState)) {
+                if (!ground && actButton.getAction() == "ground") {
+                    actButton.render(g);
+                } else
+                    actButton.render(g);
+            }
         }
 
         if (Engine.currentState == GameState.Menu) {
