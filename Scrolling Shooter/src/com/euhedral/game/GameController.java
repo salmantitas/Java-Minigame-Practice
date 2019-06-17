@@ -322,13 +322,13 @@ public class GameController {
     }
 
     private void performAction() {
-        if (uiHandler.getAction() == "go") {
+        if (uiHandler.getAction() == ActionTag.go) {
             loadMission = true;
-        } else if (uiHandler.getAction() == "health") {
+        } else if (uiHandler.getAction() == ActionTag.health) {
             buyHealth();
-        } else if (uiHandler.getAction() == "power") {
+        } else if (uiHandler.getAction() == ActionTag.power) {
             buyPower();
-        } else if (uiHandler.getAction() == "ground") {
+        } else if (uiHandler.getAction() == ActionTag.ground) {
             buyGround();
         }
         uiHandler.endAction();

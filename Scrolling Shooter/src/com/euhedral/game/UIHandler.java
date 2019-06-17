@@ -25,8 +25,9 @@ public class UIHandler {
     int highScoreButtonY = Engine.percHeight(50);
     int quitButtonY = Engine.percHeight(70);
     int lowestButtonY = Engine.percHeight(80);
+    ActionTag action = null;
 
-    String action = null;
+//    String action = null;
     public boolean ground = false;
 
     public UIHandler() {
@@ -64,16 +65,16 @@ public class UIHandler {
 
         int healthY = 100, powerY = 200, groundY = 300;
 
-        ActButton go = new ActButton(600, highScoreButtonY, buttonSize, "Go!", GameState.Transition, "go");
+        ActButton go = new ActButton(600, highScoreButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
         addButton(go);
 
-        ActButton health = new ActButton(mainMenuButtonX, healthY, buttonSize/2, "Buy Health", GameState.Transition, "health");
+        ActButton health = new ActButton(mainMenuButtonX, healthY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
         addButton(health);
 
-        ActButton power = new ActButton(mainMenuButtonX, powerY, buttonSize/2, "Upgrade Power", GameState.Transition, "power");
+        ActButton power = new ActButton(mainMenuButtonX, powerY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
         addButton(power);
 
-        ActButton ground = new ActButton(mainMenuButtonX, groundY, buttonSize/2, "Ground Bullets", GameState.Transition, "ground");
+        ActButton ground = new ActButton(mainMenuButtonX, groundY, buttonSize/2, "Ground Bullets", GameState.Transition, ActionTag.ground);
         addButton(ground);
 
         // Game Over Screen -- High Score Menu
@@ -108,7 +109,7 @@ public class UIHandler {
 
         for (ActButton actButton : actButtons) {
             if (actButton.stateIs(Engine.currentState)) {
-                if (!ground && actButton.getAction() == "ground") {
+                if (!ground && actButton.getAction() == ActionTag.ground) {
                     actButton.render(g);
                 } else
                     actButton.render(g);
@@ -195,7 +196,7 @@ public class UIHandler {
         menuItems.add(new Panel(x, y, width, height, state, transparency, color));
     }
 
-    public String getAction() {
+    public ActionTag getAction() {
         return action;
     }
 

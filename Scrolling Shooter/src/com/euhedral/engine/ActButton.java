@@ -4,6 +4,7 @@ package com.euhedral.engine;/*
 
 import com.euhedral.engine.Engine;
 import com.euhedral.engine.GameState;
+import com.euhedral.game.ActionTag;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -14,13 +15,13 @@ public class ActButton {
     private String text;
     private Font font;
     private GameState renderState;
-    private String action;
+    private ActionTag action;
     private Color backColor, textColor;
     private boolean fill = false;
     private LinkedList<GameState> otherStates = new LinkedList<>();
     private float transparency = 1;
 
-    public ActButton(int x, int y, int size, String text, GameState renderState, String action) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, ActionTag action) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -32,7 +33,7 @@ public class ActButton {
         textColor = Color.RED;
     }
 
-    public ActButton(int x, int y, int size, String text, GameState renderState, String action, boolean fill) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, ActionTag action, boolean fill) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -45,7 +46,7 @@ public class ActButton {
         this.fill = fill;
     }
 
-    public ActButton(int x, int y, int size, String text, GameState renderState, String action, Color backColor, Color textColor) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, ActionTag action, Color backColor, Color textColor) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -57,7 +58,7 @@ public class ActButton {
         this.textColor = textColor;
     }
 
-    public ActButton(int x, int y, int size, String text, GameState renderState, String action, Color backColor, Color textColor, Font font) {
+    public ActButton(int x, int y, int size, String text, GameState renderState, ActionTag action, Color backColor, Color textColor, Font font) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -129,7 +130,7 @@ public class ActButton {
         return renderState;
     }
 
-    public String getAction() {
+    public ActionTag getAction() {
         return action;
     }
 
