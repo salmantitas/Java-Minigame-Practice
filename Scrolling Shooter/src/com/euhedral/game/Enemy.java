@@ -117,4 +117,8 @@ public abstract class Enemy {
         return id;
     }
 
+    protected void healthRange(int min, int max) {
+        health = r.nextInt(max - min) + min;
+    }
+
 }

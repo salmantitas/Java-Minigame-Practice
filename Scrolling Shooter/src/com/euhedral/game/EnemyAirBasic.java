@@ -5,9 +5,10 @@ import com.euhedral.engine.Engine;
 import java.awt.*;
 import java.util.Random;
 
+/*
+ *  Standard Enemies, flies downwards and shoots a missile at intervals
+ * */
 public class EnemyAirBasic extends EnemyAir {
-
-
 
     public EnemyAirBasic(int x, int y, int power) {
         super(x,y);
@@ -15,7 +16,7 @@ public class EnemyAirBasic extends EnemyAir {
         height = width;
         color = Color.red;
         r = new Random();
-        health = r.nextInt(2) + 1;
+        healthRange(3,5);
         this.power = power;
     }
 

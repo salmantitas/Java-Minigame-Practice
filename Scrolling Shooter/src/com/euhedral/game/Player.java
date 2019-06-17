@@ -14,7 +14,7 @@ public class Player {
     private Color color;
     private boolean canShoot;
     private boolean ground = false;
-    private final int shootTimerDefault = 20;
+    private final int shootTimerDefault = 12;
     private int shootTimer = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
     private boolean airBullet = true;
