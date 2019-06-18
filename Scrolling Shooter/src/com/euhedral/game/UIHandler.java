@@ -18,13 +18,15 @@ public class UIHandler {
     int titleY = Engine.percHeight(20);
     int titleSize = Engine.percWidth(11.5);
     Color titleColor = Color.BLACK;
+
     int buttonSize = Engine.percWidth(5);
-    int mainMenuButtonX = Engine.percWidth(5);
+    int leftButtonX = Engine.percWidth(5);
+    int midButtonX = Engine.percWidth(50);
+    int rightButtonX = Engine.percWidth(80);
     int backToMenuX = Engine.percWidth(38);
     int playButtonY = Engine.percHeight(30);
-    int highScoreButtonY = Engine.percHeight(50);
-    int quitButtonY = Engine.percHeight(70);
-    int lowestButtonY = Engine.percHeight(80);
+    int helpButtonY = Engine.percHeight(50);
+    int lowestButtonY = Engine.percHeight(70);
     ActionTag action = null;
 
 //    String action = null;
@@ -38,22 +40,29 @@ public class UIHandler {
         Panel mainMenu = new Panel(0, 0, Engine.percWidth(40), Engine.HEIGHT, GameState.Menu);
         addPanel(mainMenu);
 
-        NavButton mainMenuPlay = new NavButton(mainMenuButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
+        NavButton mainMenuPlay = new NavButton(leftButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
         mainMenuPlay.addOtherState(GameState.GameOver);
         mainMenuPlay.setFill();
         addButton(mainMenuPlay);
 
-        NavButton mainMenuQuit = new NavButton(mainMenuButtonX, quitButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
+        NavButton mainMenuQuit = new NavButton(leftButtonX, lowestButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
         mainMenuQuit.setFill();
         mainMenuQuit.addOtherState(GameState.Transition);
         mainMenuQuit.addOtherState(GameState.Pause);
         mainMenuQuit.addOtherState(GameState.GameOver);
         addButton(mainMenuQuit);
 
+        NavButton help = new NavButton(leftButtonX, helpButtonY, buttonSize, "Help", GameState.Menu, GameState.Help);
+        help.setFill();
+        addButton(help);
+
+        // Help
+
         // In-Game
 
-        NavButton backToMenuFromPause = new NavButton(backToMenuX, lowestButtonY/2, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
+        NavButton backToMenuFromPause = new NavButton(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
         backToMenuFromPause.addOtherState(GameState.GameOver);
+        backToMenuFromPause.addOtherState(GameState.Help);
         addButton(backToMenuFromPause);
 
 //        NavButton backToMenu = new NavButton(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Highscore, GameState.Menu);
@@ -65,16 +74,16 @@ public class UIHandler {
 
         int healthY = 100, powerY = 200, groundY = 300;
 
-        ActButton go = new ActButton(600, highScoreButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
+        ActButton go = new ActButton(600, helpButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
         addButton(go);
 
-        ActButton health = new ActButton(mainMenuButtonX, healthY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
+        ActButton health = new ActButton(leftButtonX, healthY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
         addButton(health);
 
-        ActButton power = new ActButton(mainMenuButtonX, powerY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
+        ActButton power = new ActButton(leftButtonX, powerY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
         addButton(power);
 
-        ActButton ground = new ActButton(mainMenuButtonX, groundY, buttonSize/2, "Ground Bullets", GameState.Transition, ActionTag.ground);
+        ActButton ground = new ActButton(leftButtonX, groundY, buttonSize/2, "Ground Bullets", GameState.Transition, ActionTag.ground);
         addButton(ground);
 
         // Game Over Screen -- High Score Menu

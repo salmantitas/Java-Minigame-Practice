@@ -150,6 +150,10 @@ public class GameController {
             drawHighScore(g);
         }
 
+        if (Engine.currentState == GameState.Help) {
+            drawHelpText(g);
+        }
+
         if (Engine.currentState == GameState.Transition) {
             g.setFont(new Font("arial", 1, Engine.percWidth(5)));
             g.setColor(Color.WHITE);
@@ -429,6 +433,23 @@ public class GameController {
         for (int i = 0; i < highScoreNumbers; i++) {
             g.drawString("Score " + (i+1) + ": " + highScore.get(i), Engine.percWidth(40), Engine.percHeight( 10 * i + 10));
         }
+    }
+
+    private void drawHelpText(Graphics g) {
+        g.setFont(new Font("arial", 1, 30));
+        g.setColor(Color.WHITE);
+        String help1, help2, help3;
+        help1 = "WASD for movement";
+        help2 = "SPACEBAR to shoot";
+        help3 = "CTRL to switch between air and ground weapons";
+        int helpX, helpY1, helpY2, helpY3;
+        helpX = 200;
+        helpY1 = 100;
+        helpY2 = 200;
+        helpY3 = 300;
+        g.drawString(help1, helpX, helpY1);
+        g.drawString(help2, helpX, helpY2);
+        g.drawString(help3, helpX, helpY3);
     }
 
     /******************
