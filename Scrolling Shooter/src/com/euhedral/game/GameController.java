@@ -376,10 +376,14 @@ public class GameController {
 
     private void buyGround() {
         int cost = 2000;
-        if (!ground) {
-            score -= cost;
-            ground = true;
-            uiHandler.ground = true;
+        if (score >= cost) {
+            if (!ground) {
+                score -= cost;
+                ground = true;
+                uiHandler.ground = true;
+            }
+        } else {
+            System.out.println("Not enough score");
         }
     }
 

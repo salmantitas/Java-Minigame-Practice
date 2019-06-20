@@ -11,23 +11,33 @@ public class UIHandler {
     private LinkedList<MenuItem> menuItems = new LinkedList<>();
     private LinkedList<NavButton> navButtons = new LinkedList<>();
     private LinkedList<ActButton> actButtons = new LinkedList<>();
+    ActionTag action = null;
 
     // Common game variables
+
+    // Title Variables
 
     int titleX = Engine.percWidth(2);
     int titleY = Engine.percHeight(20);
     int titleSize = Engine.percWidth(11.5);
     Color titleColor = Color.BLACK;
 
+    // Button Variables
+
     int buttonSize = Engine.percWidth(5);
+
+    // Vertical Stack
+
     int leftButtonX = Engine.percWidth(5);
-    int midButtonX = Engine.percWidth(50);
+    int midLeftButtonX = Engine.percWidth(38);
+    int midButtonX = Engine.percWidth(45);
+    int midRightButtonX = Engine.percWidth(50);
     int rightButtonX = Engine.percWidth(80);
-    int backToMenuX = Engine.percWidth(38);
-    int playButtonY = Engine.percHeight(30);
-    int helpButtonY = Engine.percHeight(50);
+    int topButtonY = Engine.percHeight(30);
+    int midHeightButtonY = Engine.percHeight(50);
     int lowestButtonY = Engine.percHeight(70);
-    ActionTag action = null;
+
+    // Horizontal Stack
 
 //    String action = null;
     public boolean ground = false;
@@ -40,57 +50,47 @@ public class UIHandler {
         Panel mainMenu = new Panel(0, 0, Engine.percWidth(40), Engine.HEIGHT, GameState.Menu);
         addPanel(mainMenu);
 
-        NavButton mainMenuPlay = new NavButton(leftButtonX, playButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
+        NavButton mainMenuPlay = new NavButton(leftButtonX, lowestButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
         mainMenuPlay.addOtherState(GameState.GameOver);
         mainMenuPlay.setFill();
         addButton(mainMenuPlay);
 
-        NavButton mainMenuQuit = new NavButton(leftButtonX, lowestButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
+        NavButton help = new NavButton(midButtonX, lowestButtonY, buttonSize, "Help", GameState.Menu, GameState.Help);
+        addButton(help);
+
+        NavButton mainMenuQuit = new NavButton(rightButtonX, lowestButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
         mainMenuQuit.setFill();
         mainMenuQuit.addOtherState(GameState.Transition);
         mainMenuQuit.addOtherState(GameState.Pause);
         mainMenuQuit.addOtherState(GameState.GameOver);
         addButton(mainMenuQuit);
 
-        NavButton help = new NavButton(leftButtonX, helpButtonY, buttonSize, "Help", GameState.Menu, GameState.Help);
-        help.setFill();
-        addButton(help);
-
-        // Help
-
         // In-Game
 
-        NavButton backToMenuFromPause = new NavButton(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
-        backToMenuFromPause.addOtherState(GameState.GameOver);
-        backToMenuFromPause.addOtherState(GameState.Help);
-        addButton(backToMenuFromPause);
-
-//        NavButton backToMenu = new NavButton(backToMenuX, lowestButtonY, buttonSize, "Main Menu", GameState.Highscore, GameState.Menu);
-//        backToMenu.setFill();
-//        backToMenu.addOtherState(GameState.GameOver);
-//        addButton(backToMenu);
+        NavButton backToMenu = new NavButton(midLeftButtonX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
+        backToMenu.addOtherState(GameState.GameOver);
+        backToMenu.addOtherState(GameState.Help);
+        addButton(backToMenu);
 
         // Shop
 
-        int healthY = 100, powerY = 200, groundY = 300;
-
-        ActButton go = new ActButton(600, helpButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
+        ActButton go = new ActButton(leftButtonX, lowestButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
         addButton(go);
 
-        ActButton health = new ActButton(leftButtonX, healthY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
+        ActButton health = new ActButton(leftButtonX, topButtonY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
         addButton(health);
 
-        ActButton power = new ActButton(leftButtonX, powerY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
-        addButton(power);
-
-        ActButton ground = new ActButton(leftButtonX, groundY, buttonSize/2, "Ground Bullets", GameState.Transition, ActionTag.ground);
+        ActButton ground = new ActButton(midLeftButtonX, topButtonY, buttonSize/2, "Ground Bullets", GameState.Transition, ActionTag.ground);
         addButton(ground);
 
-        // Game Over Screen -- High Score Menu
+        ActButton power = new ActButton(rightButtonX, topButtonY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
+        addButton(power);
 
-        Panel highScoreMenu = new Panel(0, Engine.percHeight(60), Engine.WIDTH, Engine.HEIGHT, GameState.Highscore);
-        highScoreMenu.addOtherState(GameState.GameOver);
-        addPanel(highScoreMenu);
+        // Game Over
+
+        Panel gameOverPanel = new Panel(0, Engine.percHeight(60), Engine.WIDTH, Engine.HEIGHT, GameState.Highscore);
+        gameOverPanel.addOtherState(GameState.GameOver);
+        addPanel(gameOverPanel);
     }
 
 //    public void update() {

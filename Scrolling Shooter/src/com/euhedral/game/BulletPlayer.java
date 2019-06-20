@@ -7,17 +7,30 @@ import java.awt.*;
 public class BulletPlayer extends Bullet{
 
     protected ID id;
+    private double dir;
 
-    BulletPlayer(int x, int y, ID id) {
+    BulletPlayer(int x, int y, ID id, double dir) {
         super(x, y);
         this.id = id;
+        this.dir = dir;
         width = Engine.intAtWidth640(8)/3;
         height = Engine.intAtWidth640(24)/3;
         vel = Engine.intAtWidth640(5);
     }
 
     public void update() {
-        y -= vel;
+        if (dir == 0.5) {
+            x += vel/2;
+            y -= vel;
+        }
+
+        else if (dir == -0.5) {
+            x -= vel/2;
+            y -= vel;
+        }
+
+        else
+            y -= vel;
     };
 
     public void render(Graphics g) {

@@ -7,7 +7,11 @@ import java.util.LinkedList;
 
 public class Player {
 
-    private int x, y, velX, velY, horizontalMovement, verticalMovement;
+    private int x, y, velX, velY;
+    private int horizontalMovement, verticalMovement;
+    private int minHorizontalMovement, minVerticalMovement;
+    private int maxHorizontalMovement, maxVerticalMovement;
+    private int friction, acceleration;
     private int width, height;
     private int power;
     private boolean moveLeft, moveRight, moveUp, moveDown;
@@ -22,11 +26,17 @@ public class Player {
     public Player(int x, int y) {
         this.x = x;
         this.y = y;
+        acceleration = Engine.intAtWidth640(1);
+        friction = 1;
         velX = 0;
         velY = 0;
         this.power = 1;
         verticalMovement = Engine.intAtWidth640(2);
         horizontalMovement = Engine.intAtWidth640(3);
+        minVerticalMovement = Engine.intAtWidth640(2);
+        minHorizontalMovement = Engine.intAtWidth640(3);
+        maxVerticalMovement = Engine.intAtWidth640(3);
+        maxHorizontalMovement = Engine.intAtWidth640(4);
         width = Engine.intAtWidth640(24);
         height = width;
         moveRight = false;
@@ -111,18 +121,25 @@ public class Player {
 
     // Private Methods
 
+    // This function governs the movement of the player
     private void move() {
         x += velX;
         y += velY;
 
         x = Engine.clamp(x, 0, Engine.WIDTH - width);
-//        y = com.euhedral.engine.Engine.clamp(y, 0, com.euhedral.engine.Engine.HEIGHT - height);
+//        y = com.euhedral.engine.Engine.clamp(y, 0, Engine.HEIGHT - height);
 
         if (moveLeft && !moveRight) {
-            velX = -horizontalMovement;
+            velX -= acceleration;
+            if (velX < maxHorizontalMovement) {
+                velX = -maxHorizontalMovement;
+            }
         }
         else if (moveRight && !moveLeft) {
-            velX = horizontalMovement;
+            velX += acceleration;
+            if (velX > maxHorizontalMovement) {
+                velX = maxHorizontalMovement;
+            }
         }
         else if (!moveLeft && !moveRight || (moveLeft && moveRight))
             velX = 0;
@@ -134,24 +151,34 @@ public class Player {
             velY = horizontalMovement;
         }
         else if (!moveUp && !moveDown|| (moveUp && moveDown))
-            velY = 0;
+//            velY = 0; // stub
+            if (velY > 0) {
+                velY -= friction;
+            } else if (velY < 0) {
+                velY += friction;
+            }
     }
 
     private void shoot() {
-        if (power == 1) {
-            if (airBullet)
-                bullets.add(new BulletPlayerAir(x + width / 2, y));
-            else
-                bullets.add(new BulletPlayerGround(x + width / 2, y));
-        }
-        if (power == 2) {
+        if (power == 5) {
+            // todo
+        } else if (power == 4) {
+            // todo
+        } else if (power == 3) {
+            // todo
+        } else if (power == 2) {
             if (airBullet) {
-                bullets.add(new BulletPlayerAir(x + 8, y));
-                bullets.add(new BulletPlayerAir(x + width - 16, y));
+                bullets.add(new BulletPlayerAir(x + 4, y, 0));
+                bullets.add(new BulletPlayerAir(x + width - 8, y, 0));
+            } else {
+                bullets.add(new BulletPlayerGround(x + 8, y, 0));
+                bullets.add(new BulletPlayerGround(x + width - 16, y, 0));
             }
-            else {
-                bullets.add(new BulletPlayerGround(x + 8, y));
-                bullets.add(new BulletPlayerGround(x + width - 16, y));
+        } else {
+            if (airBullet) {
+                bullets.add(new BulletPlayerAir(x + width / 2, y, 0));
+            } else {
+                bullets.add(new BulletPlayerGround(x + width / 2, y, 0));
             }
         }
         // reset shoot timer to default
