@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import com.euhedral.game.GameController;
 
-public class Engine extends Canvas {
+public class Engine extends Canvas implements Runnable{
 
     /*
     * By Default:
@@ -25,7 +25,7 @@ public class Engine extends Canvas {
     public static Color BACKGROUND_COLOR = Color.BLACK;
 
     private double UPDATE_CAP = 1.0 / 60.0; //
-    private boolean gameExit = false;
+    private boolean running;
     public static int timeInSeconds = 0;
     public static int timer = 0;
 
@@ -48,18 +48,82 @@ public class Engine extends Canvas {
         new Window(WIDTH, HEIGHT, TITLE, this);
     }
 
+    public void start() {
+        if (running) return;
+        running = true;
+        new Thread(this, "EngineMain-Thread").start();
+    }
+
+    private void stop() {
+        if (!running) return;
+        running = false;
+    }
+
+    @Override
+    public void run() {
+//        gameLoop();
+
+        double target = 60.0;
+        double nanosecondsPerCycle =  1000000000.0;
+        long lastTime = System.nanoTime();
+        long timer = System.currentTimeMillis();
+        double unprocessedTime = 0.0;
+        int fps = 0;
+        int tps = 0;
+        boolean render = false;
+        while (running) {
+            long now = System.nanoTime();
+            unprocessedTime += (now - lastTime / nanosecondsPerCycle);
+            lastTime = now;
+
+            if (unprocessedTime >= 1) {
+                update();
+                unprocessedTime--;
+                tps++;
+                render = true;
+            } else {
+                render = false;
+            }
+
+            try {
+                Thread.sleep(1);
+//                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if (render) {
+                render();
+                fps++;
+            }
+
+            if (System.currentTimeMillis() - 1000 > timer) {
+                timer += 1000;
+                System.out.printf("FPS: %d | TPS: %d\n", fps, tps);
+                fps = 0;
+                tps = 0;
+            }
+
+        }
+
+        System.exit(0);
+    }
+
     public void update() {
         gameController.update();
     }
 
+    /*
+    * Pre-renders images using triple buffers and renders them on-screen;
+    * */
     public void render() {
-        BufferStrategy bs = getBufferStrategy();
+        BufferStrategy bs = getBufferStrategy(); // BufferStrategy loads the upcoming frames in memory (prerenders them)
         if (bs == null) {
-            createBufferStrategy(3);
+            createBufferStrategy(3); // pre-renders three frames
             return;
         }
 
-        Graphics g = bs.getDrawGraphics();
+        Graphics g = bs.getDrawGraphics(); //
 
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, WIDTH, WIDTH);
@@ -67,7 +131,7 @@ public class Engine extends Canvas {
         gameController.render(g);
 
         g.dispose();
-        bs.show();
+        bs.show(); //
     }
 
     /*
@@ -83,13 +147,12 @@ public class Engine extends Canvas {
         double passedTime = 0;
         double unprocessedTime = 0; // keeps track of time which has been unprocessed, which can be caused by low fps
 
-//        long lastTime = System.nanoTime();
-//        final int TARGET_FPS = 60;
-//        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
-//        long lastFPStime = 0;
+        final int TARGET_FPS = 60;
+        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+        long lastFPStime = 0;
         int fps = 0;
 
-        while (!gameExit) {
+        while (running) {
             firstTime = System.nanoTime() / 1000000000.0; // updates the firstTime to current time
             passedTime = firstTime - lastTime; // calculates the time elapsed between the two variables
             lastTime = firstTime; // updates the lastTime to the latest calculated current time
@@ -108,29 +171,13 @@ public class Engine extends Canvas {
                 //thread.sleep(1); // Puts the thread to sleep for a milisecond to free processor
             }
 
-//            long now = System.nanoTime();
-//            long updateLength = now - lastTime;
-//            lastTime = now;
-//            double delta = updateLength / ((double) OPTIMAL_TIME);
-//            lastFPStime += updateLength;
-//
-////            while (delta >= 1) {
-//            update();
-////                System.out.println("Updating");
-////                delta--;
-////            }
-//            if (!gameExit) {
-//                render();
-////                System.out.println("Rendering");
-//            }
-
             fps++;
 
             if (lastTime >= 1) // if a second has passed
             {
                 timeInSeconds++;
-//                System.out.println("FPS: " + fps);
-//                lastFPStime = 0;
+                System.out.println("FPS: " + fps);
+                lastFPStime = 0;
                 fps = 0;
             }
         }

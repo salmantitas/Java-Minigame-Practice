@@ -27,13 +27,17 @@ public class Window extends Canvas {
         frame.setResizable(false);
         System.out.println("Disable resize");
 
+        frame.setFocusable(true); // not sure yet
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(engine);
         System.out.println("com.euhedral.engine.Engine added to window");
 
         frame.setVisible(true);
-        engine.gameLoop();
+        frame.requestFocus();
+        engine.start();
+//        engine.gameLoop();
 
     }
 
