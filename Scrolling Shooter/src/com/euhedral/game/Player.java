@@ -1,6 +1,7 @@
 package com.euhedral.game;
 
 import com.euhedral.engine.Engine;
+import com.euhedral.engine.MobileEntity;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -10,13 +11,13 @@ public class Player extends MobileEntity {
     // Shooting Entity
     private boolean canShoot;
     private int shootTimer = 0;
+    private final int shootTimerDefault = 10;
     private LinkedList<Bullet> bullets = new LinkedList<>();
 
     // Personal
     private int levelHeight;
     private int power;
     private boolean ground = false;
-    private final int shootTimerDefault = 12;
     private boolean airBullet = true;
 
     // Test
@@ -26,24 +27,29 @@ public class Player extends MobileEntity {
     public Player(int x, int y, int levelHeight) {
         super(x,y);
         this.levelHeight = levelHeight;
-        acceleration = 0.05f;
-        frictionalForce = 0.9f;
+        width = Engine.intAtWidth640(32);
+        height = width;
+        color = Color.darkGray;
+
         velX = 0;
         velY = 0;
-        this.power = 1;
-        minVerticalMovement = 2;
-        minHorizontalMovement = 3;
+        acceleration = 0.05f;
+        minVerticalMovement = 3;
+        minHorizontalMovement = 4;
         verticalMovement = minVerticalMovement;
         horizontalMovement = minHorizontalMovement;
         maxVerticalMovement = 2*minVerticalMovement;
         maxHorizontalMovement = 2*minHorizontalMovement;
-        width = Engine.intAtWidth640(32);
-        height = width;
+
+        friction = true;
+        frictionalForce = 0.9f;
+
         moveRight = false;
         moveLeft = false;
         moveDown = false;
         moveUp = false;
-        color = Color.darkGray;
+
+        this.power = 1;
     }
 
     public void update() {
@@ -61,18 +67,14 @@ public class Player extends MobileEntity {
     }
 
     public void render(Graphics g) {
-//        g.fillRect(x + com.euhedral.engine.Engine.perc(width,40), y ,com.euhedral.engine.Engine.perc(width,12*2),height); // Body
-//        g.fillRect(x, y + com.euhedral.engine.Engine.perc(height, 30) ,width, com.euhedral.engine.Engine.perc(height,12.5)); // Wingspan
-//        g.fillRect(x + com.euhedral.engine.Engine.perc(width,25), y ,width/2, com.euhedral.engine.Engine.perc(height,4)); // Fans
-
-        g.fillRect(mx, my, 10, 10);
+//        g.fillRect(mx, my, 10, 10);
 
         for (Bullet bullet : bullets) {
             bullet.render(g);
         }
 
         g.setColor(color);
-        g.fillRect(x, y, width, height);
+        g.fillRect(x, y, width, height); //stub
     }
 
     public Bullet checkCollision(Enemy enemy) {
@@ -123,12 +125,17 @@ public class Player extends MobileEntity {
     // Private Methods
 
     // This function governs the movement of the player
-    private void move() {
-        x += velX;
-        y += velY;
+    @Override
+    protected void move() {
+        super.move();
 
-        x = Engine.clamp(x, 0, Engine.WIDTH - 5 * width / 4);
-        y = Engine.clamp(y, 5900, levelHeight + height);
+        int clampOffsetX = - 5 * width / 4;
+        int clampOffsetY = height;
+
+//        System.out.printf("VelX: %f | VelY: %f\n", velX, velY);
+
+        x = Engine.clamp(x, 0, Engine.WIDTH + clampOffsetX);
+        y = Engine.clamp(y, 5900, levelHeight + clampOffsetY);
 
         if (destinationGiven) {
             int positionOffset = 5;
@@ -192,7 +199,7 @@ public class Player extends MobileEntity {
         else if (moveDown && !moveUp) {
 //            velY = horizontalMovement;
             velY += acceleration;
-            velY = Engine.clamp(velY, minVerticalMovement, minVerticalMovement);
+            velY = Engine.clamp(velY, minVerticalMovement, maxVerticalMovement);
 
         }
 

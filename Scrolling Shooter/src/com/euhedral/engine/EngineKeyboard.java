@@ -24,7 +24,7 @@ public class  EngineKeyboard extends KeyAdapter {
 
         keyInput.updatePressed();
 
-        System.out.println(keyPressed + " Key Pressed");
+//        System.out.println(keyPressed + " Key Pressed");
 
     }
 
@@ -33,7 +33,7 @@ public class  EngineKeyboard extends KeyAdapter {
 
         keyInput.updateReleased();
 
-        System.out.println(keyReleased + " Key Released");
+//        System.out.println(keyReleased + " Key Released");
     }
 
     public int getKeyPressed() {

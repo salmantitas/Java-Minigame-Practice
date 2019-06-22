@@ -15,40 +15,58 @@ public class GameController {
     private UIHandler uiHandler;
     private Random r = new Random();
 
-    // Manually set the com.euhedral.engine.Window information here
+    /********************************************
+     * Window Settings - Manually Configurable *
+     *******************************************/
+
     private int gameWidth = 1024;
     private double gameRatio = 4/3;
     private int gameHeight = Engine.HEIGHT;
-    private String gameTitle = "Scrolling Shooter";
+    private String gameTitle = "Aerial Predator";
     private Color gameBackground = Color.BLUE;
 
-    // Common game variables
-    private Texture texture;
-    private SpriteSheet spriteSheet;
-    private Sprite sprite;
+    /****************************************
+     * Common Game Variables                *
+     * Comment Out Whichever is Unnecessary *
+     ****************************************/
 
-    // Camera
-    int offsetHorizontal;
-    int offsetVertical;
-
+    // Score
     private int score = 0;
     private int scoreX = Engine.percWidth(2.5);
-    private int powerX = Engine.percWidth(37);
     private int scoreY = Engine.percHeight(16);
-    private int powerY = scoreY;
     private int scoreSize = Engine.percWidth(3);
-    private int powerSize = scoreSize;
-    private int lives = 3;
-    private final int maxPower = 5;
-    private int power = 1;
+
+    // Vitality
+//    private int lives = 3;
 
     private int healthX = Engine.percWidth(2.5);
     private int healthY = 5 * healthX;
-    private final int healthDef = 100;
-    private int health = healthDef;
+    private final int healthDefault = 100;
+    private int health = healthDefault;
+
+    // Power
+    private int powerX = Engine.percWidth(37);
+    private int powerY = scoreY;
+    private int powerSize = scoreSize;
+    private final int maxPower = 5;
+    private int power = 1;
+
+    // High Score
     private LinkedList<Integer> highScore = new LinkedList<>();
     private int highScoreNumbers = 5;
     private boolean updateHighScore = false;
+
+    // Objects
+
+    private Player player = new Player(0,0, 0);
+
+    // Camera
+    public static Camera cam;
+    int offsetHorizontal;
+    int offsetVertical;
+
+    // Graphics
+
     private boolean loadMission = false;
     private static int STARTLEVEL = 1;
     private static int level;
@@ -58,7 +76,6 @@ public class GameController {
      * User variables *
      ******************/
 
-    private Player player = new Player(0,0, 0);
     private EnemyBoss boss;
     private Flag flag;
 
@@ -70,7 +87,6 @@ public class GameController {
 
     private int TRANSITION_TIMER = 60;
     private int transitionTimer = TRANSITION_TIMER;
-    private int basicEnemyScore = 50;
     private int bossScore = 500;
     private int levelHeight;
 
@@ -79,7 +95,6 @@ public class GameController {
 
     private BufferedImage level1 = null, level2 = null;
     private LevelGenerator levelGenerator;
-    public static Camera cam;
     private boolean keyboardControl = true; // false means mouse Control
 
     public GameController() {
@@ -107,10 +122,6 @@ public class GameController {
         level1 = loader.loadImage("/level1.png");
         level2 = loader.loadImage("/level2.png");
         levelGenerator = new LevelGenerator(this);
-        texture = new Texture("tex");
-        spriteSheet = new SpriteSheet(new Texture("tex"), 32);
-        sprite = new Sprite(spriteSheet, 1 ,1);
-//        spawn();
     }
 
     public void update() {
@@ -168,7 +179,7 @@ public class GameController {
     public void render(Graphics g) {
 
         if (Engine.currentState == GameState.Highscore) {
-            drawHighScore(g);
+//            drawHighScore(g);
         }
 
         if (Engine.currentState == GameState.Transition) {
@@ -359,7 +370,7 @@ public class GameController {
         updateHighScore();
         score = 0;
         power = 1;
-        health = healthDef;
+        health = healthDefault;
         enemies.clear();
         levelSpawned = false;
         uiHandler.ground = false;
@@ -409,11 +420,11 @@ public class GameController {
         int cost = 500;
 
         if (score >= cost) {
-            if (health < healthDef) {
+            if (health < healthDefault) {
                 health += 25;
                 score -= cost;
-                if (health > healthDef)
-                    health = healthDef;
+                if (health > healthDefault)
+                    health = healthDefault;
             } else {
                 System.out.println("Health is full");
             }
@@ -469,7 +480,7 @@ public class GameController {
         g.drawString("Power: " + power, powerX, powerY);
     }
 
-    private void drawLives(Graphics g) {
+/*    private void drawLives(Graphics g) {
         int x = Engine.intAtWidth640(10);
         int y = x/2;
         int sep = x*2;
@@ -481,7 +492,7 @@ public class GameController {
             g.setColor(color);
             g.fillOval(x + sep * i, y, width, height);
         }
-    }
+    }*/
 
     private void drawHealth(Graphics g) {
         int width = Engine.intAtWidth640(2);
@@ -489,18 +500,18 @@ public class GameController {
         Color backColor = Color.lightGray;
         Color healthColor = Color.GREEN;
         g.setColor(backColor);
-        g.fillRect(healthX, healthY, healthDef * width, height);
+        g.fillRect(healthX, healthY, healthDefault * width, height);
         g.setColor(healthColor);
         g.fillRect(healthX, healthY, health * width, height);
     }
 
-    public void drawHighScore(Graphics g) {
+/*    public void drawHighScore(Graphics g) {
         g.setFont(new Font("arial", 1, 20));
         g.setColor(Color.WHITE);
         for (int i = 0; i < highScoreNumbers; i++) {
             g.drawString("Score " + (i+1) + ": " + highScore.get(i), Engine.percWidth(40), Engine.percHeight( 10 * i + 10));
         }
-    }
+    }*/
 
     /******************
      * User functions *
@@ -568,7 +579,7 @@ public class GameController {
         for (Enemy enemy: enemies) {
             if (enemy.getID() == ID.Air)
                 if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds())) {
-                    score += basicEnemyScore;
+                    score += enemy.getScore();
                     health -= 30;
                     destroy(enemy);
             }
@@ -602,7 +613,7 @@ public class GameController {
                         enemy.damage();
                         if (enemy.getHealth() <= 0) {
                             destroy(enemy);
-                            score += basicEnemyScore;
+                            score += enemy.getScore();
                         }
                     }
                     destroy(b);

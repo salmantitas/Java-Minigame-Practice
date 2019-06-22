@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class UIHandler {
     private LinkedList<MenuItem> menuItems = new LinkedList<>();
-    private LinkedList<NavButton> navButtons = new LinkedList<>();
+    private LinkedList<ButtonNav> navButtons = new LinkedList<>();
     private LinkedList<ButtonAction> actButtons = new LinkedList<>();
     ActionTag action = null;
 
@@ -53,16 +53,16 @@ public class UIHandler {
         Panel mainMenu = new Panel(0, 0, Engine.percWidth(40), Engine.HEIGHT, GameState.Menu);
         addPanel(mainMenu);
 
-        NavButton mainMenuPlay = new NavButton(leftButtonX, lowestButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
+        ButtonNav mainMenuPlay = new ButtonNav(leftButtonX, lowestButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
 
         mainMenuPlay.addOtherState(GameState.GameOver);
         mainMenuPlay.setFill();
         addButton(mainMenuPlay);
 
-        NavButton help = new NavButton(midButtonX, lowestButtonY, buttonSize, "Help", GameState.Menu, GameState.Help);
+        ButtonNav help = new ButtonNav(midButtonX, lowestButtonY, buttonSize, "Help", GameState.Menu, GameState.Help);
         addButton(help);
 
-        NavButton mainMenuQuit = new NavButton(rightButtonX, lowestButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
+        ButtonNav mainMenuQuit = new ButtonNav(rightButtonX, lowestButtonY, buttonSize, "Quit", GameState.Menu, GameState.Quit);
         mainMenuQuit.setFill();
         mainMenuQuit.addOtherState(GameState.Transition);
         mainMenuQuit.addOtherState(GameState.Pause);
@@ -71,7 +71,7 @@ public class UIHandler {
 
         // In-Game
 
-        NavButton backToMenu = new NavButton(midLeftButtonX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
+        ButtonNav backToMenu = new ButtonNav(midLeftButtonX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
         backToMenu.addOtherState(GameState.Help);
         backToMenu.addOtherState(GameState.Transition);
         backToMenu.addOtherState(GameState.GameOver);
@@ -124,9 +124,9 @@ public class UIHandler {
                 menuItem.render(g);
         }
 
-        for (NavButton navButton : navButtons) {
-            if (navButton.stateIs(Engine.currentState))
-                navButton.render(g);
+        for (ButtonNav buttonNav : navButtons) {
+            if (buttonNav.stateIs(Engine.currentState))
+                buttonNav.render(g);
         }
 
         for (ButtonAction actButton : actButtons) {
@@ -144,7 +144,7 @@ public class UIHandler {
     }
 
     public void checkHover(int mx, int my) {
-        for (NavButton button: navButtons) {
+        for (ButtonNav button: navButtons) {
             if (button.stateIs(Engine.currentState)) {
                 if (button.mouseOverlap(mx, my)) {
                     button.select();
@@ -162,11 +162,10 @@ public class UIHandler {
     }
 
     public void checkButtonAction(int mx, int my) {
-        for (NavButton navButton : navButtons) {
-            if (navButton.stateIs(Engine.currentState))
-                if (navButton.mouseOverlap(mx, my)) {
-                    System.out.println("Button Clicked");
-                    Engine.setState(navButton.getTargetSate());
+        for (ButtonNav buttonNav : navButtons) {
+            if (buttonNav.stateIs(Engine.currentState))
+                if (buttonNav.mouseOverlap(mx, my)) {
+                    Engine.setState(buttonNav.getTargetSate());
                     break;
                 }
         }
@@ -175,6 +174,7 @@ public class UIHandler {
             if (actButton.stateIs(Engine.currentState)) {
                 if (actButton.mouseOverlap(mx, my)) {
                     this.action = actButton.getAction();
+                    break;
                 }
             }
         }
@@ -183,10 +183,10 @@ public class UIHandler {
     public void chooseSelected() {
         Button selected = null;
 
-        for (NavButton navButton : navButtons) {
-            if (navButton.stateIs(Engine.currentState))
-                if (navButton.isSelected()) {
-                    Engine.setState(navButton.getTargetSate());
+        for (ButtonNav buttonNav : navButtons) {
+            if (buttonNav.stateIs(Engine.currentState))
+                if (buttonNav.isSelected()) {
+                    Engine.setState(buttonNav.getTargetSate());
                     break;
                 }
         }
@@ -285,8 +285,8 @@ public class UIHandler {
      * UI Functions *
      ****************/
 
-    public void addButton(NavButton navButton) {
-        navButtons.add(navButton);
+    public void addButton(ButtonNav buttonNav) {
+        navButtons.add(buttonNav);
     }
 
     public void addButton(ButtonAction actButton) {
@@ -294,15 +294,15 @@ public class UIHandler {
     }
 
     public void addButton(int x, int y, int size, String text, GameState renderState, GameState targetState) {
-        navButtons.add(new NavButton(x, y, size, text, renderState, targetState));
+        navButtons.add(new ButtonNav(x, y, size, text, renderState, targetState));
     }
 
     public void addButton(int x, int y, int size, String text, GameState renderState, GameState targetState, Color borderColor, Color textColor) {
-        navButtons.add(new NavButton(x, y, size, text, renderState, targetState, borderColor, textColor));
+        navButtons.add(new ButtonNav(x, y, size, text, renderState, targetState, borderColor, textColor));
     }
 
     public void addButton(int x, int y, int size, String text, GameState renderState, GameState targetState, Color borderColor, Color textColor, Font font) {
-        navButtons.add(new NavButton(x, y, size, text, renderState, targetState, borderColor, textColor, font));
+        navButtons.add(new ButtonNav(x, y, size, text, renderState, targetState, borderColor, textColor, font));
     }
 
     public void addPanel(Panel panel) {

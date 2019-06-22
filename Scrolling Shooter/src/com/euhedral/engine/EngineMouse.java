@@ -29,7 +29,7 @@ public class EngineMouse extends MouseAdapter {
 
         mouseInput.updatePressed();
 
-        System.out.println("Mouse Pressed at (" + mxPressed + ", " + myPressed + ")");
+//        System.out.println("Mouse Pressed at (" + mxPressed + ", " + myPressed + ")");
         }
 
     public void mouseReleased(MouseEvent e) {
@@ -39,7 +39,7 @@ public class EngineMouse extends MouseAdapter {
 
         mouseInput.updateReleased();
 
-        System.out.println("Mouse Released at (" + mxReleased + ", " + myReleased + ")");
+//        System.out.println("Mouse Released at (" + mxReleased + ", " + myReleased + ")");
     }
 
     public void mouseMoved(MouseEvent e) {

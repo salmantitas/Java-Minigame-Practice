@@ -1,4 +1,4 @@
-package com.euhedral.game;
+package com.euhedral.engine;
 
 import java.awt.*;
 
@@ -27,5 +27,10 @@ public class MobileEntity extends Entity {
     @Override
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
+    }
+
+    protected void move() {
+        x += velX;
+        y += velY;
     }
 }

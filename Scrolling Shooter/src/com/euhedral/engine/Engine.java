@@ -10,15 +10,15 @@ public class Engine extends Canvas implements Runnable{
 
     /*
     * By Default:
-    * VERSION = 0.1
-    * TITLE = "Euhedral com.euhedral.engine.Engine 0.14"
+    * VERSION = 0.171
+    * TITLE = "Euhedral Engine 0.171"
     * SCREEN_RATIO = 4.0/3.0
     * WIDTH = 640
     * HEIGHT = 480
     * BACKGROUND_COLOR = Color.BLACK
     */
     public static double VERSION = 0.144;
-    public static String TITLE = "Euhedral com.euhedral.engine.Engine " + VERSION;
+    public static String TITLE = "Euhedral Engine " + VERSION;
     public static double SCREEN_RATIO = 4.0/3.0;
     public static int WIDTH = 640;
     public static int HEIGHT = (int) (WIDTH / SCREEN_RATIO);
@@ -36,6 +36,14 @@ public class Engine extends Canvas implements Runnable{
     public EngineKeyboard keyInput;
     public EngineMouse mouseInput;
 
+    /*
+     * Initializes variables:
+     *   gameController
+     *   keyInput
+     *   mouseInput
+     * Adds the input methods to the appropriate listeners
+     * Creates the window
+     */
     public Engine() {
         gameController = new GameController();
 
@@ -111,13 +119,18 @@ public class Engine extends Canvas implements Runnable{
         System.exit(0);
     }
 
+    /*
+     * Called every frame to update the game behavior.
+     */
     public void update() {
         gameController.update();
     }
 
     /*
-    * Pre-renders images using triple buffers and renders them on-screen;
-    * */
+     * Called every frame to render graphics on the window.
+     * Pre-renders images using triple buffers and renders them on-screen
+     * Fills the screen with the background color and calls the gameController's render function
+     * */
     public void render() {
         BufferStrategy bs = getBufferStrategy(); // BufferStrategy loads the upcoming frames in memory (prerenders them)
         if (bs == null) {
@@ -136,154 +149,108 @@ public class Engine extends Canvas implements Runnable{
         bs.show(); //
     }
 
-    /*
-     * Game Loops created from youtube tutorials by Majoolwip: https://youtu.be/4iPEjFUZNsw
-     * Updates the game every second
-     * */
-    public void gameLoop() {
-        System.out.println("Game loop started");
-
-        boolean render = false;
-        double firstTime = 0;
-        double lastTime = System.nanoTime() / 1000000000.0; // gets the current nanotime from the system. Divides it to derive the time in seconds
-        double passedTime = 0;
-        double unprocessedTime = 0; // keeps track of time which has been unprocessed, which can be caused by low fps
-
-        final int TARGET_FPS = 60;
-        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
-        long lastFPStime = 0;
-        int fps = 0;
-
-        while (running) {
-            firstTime = System.nanoTime() / 1000000000.0; // updates the firstTime to current time
-            passedTime = firstTime - lastTime; // calculates the time elapsed between the two variables
-            lastTime = firstTime; // updates the lastTime to the latest calculated current time
-            unprocessedTime += passedTime; // idk
-
-            // checks if enough time has been left without updating. Ensures that if updates couldn't be made, it will be
-            while (unprocessedTime >= UPDATE_CAP) {
-                unprocessedTime -= UPDATE_CAP;
-                render = true;
-                update();
-            }
-
-            if (render) {
-                render();
-            } else {
-                //thread.sleep(1); // Puts the thread to sleep for a milisecond to free processor
-            }
-
-            fps++;
-
-            if (lastTime >= 1) // if a second has passed
-            {
-                timeInSeconds++;
-                System.out.println("FPS: " + fps);
-                lastFPStime = 0;
-                fps = 0;
-            }
-        }
-        System.out.println("Game loop exited");
-    }
-
     public static void main(String[] args) {
-        System.out.println("Euhedral com.euhedral.engine.Engine " + VERSION + " Started");
+        System.out.println("Euhedral Engine " + VERSION + " Started");
         new Engine();
     }
 
-    /***************************************
-     * Functions To Adjust Game Properties *
-     ***************************************/
+    /***********************************************
+     * Utility functions To Adjust Game Properties *
+     ***********************************************/
 
+    /*
+     * Manually sets the width to the given value and updates the height according to the
+     * aspect ratio
+     * */
     public static void setWIDTH(int width) {
         WIDTH = width;
         updateHeight();
     }
 
-    public static void setHEIGHT(int height) {
-        HEIGHT = height;
-        updateWidth();
-    }
-
+    /*
+     * Manually updates the aspect ratio of the game
+     * */
     // HEIGHT = WIDTH / SCREEN_RATIO, that is WIDTH * numerator / denominator
-    public void setSCREEN_RATIO(double denominator, double numerator) {
+    public void setRatio(double denominator, double numerator) {
         SCREEN_RATIO = (1.0 * denominator) / (1.0 * numerator);
         updateHeight();
     }
 
+    /*
+     * Updates the width using the aspect ratio and the height
+     * */
     private static void updateWidth() {
         WIDTH = (int) (HEIGHT * SCREEN_RATIO);
     }
 
+    /*
+     * Updates the height using the aspect ratio and the height
+     * */
     private static void updateHeight() {
         HEIGHT = (int) (WIDTH / SCREEN_RATIO);
     }
 
+    /*
+     * Sets the title of the window
+     * */
     public static void setTITLE(String title) {
         TITLE = title;
     }
 
+    /*
+     * Updates the background color of the window to the given color
+     * */
     public static void setBACKGROUND_COLOR(Color color) {
         BACKGROUND_COLOR = color;
     }
 
+    /*
+     * Updates the background color of the window using the rgb values
+     * */
     public static void setBACKGROUND_COLOR(int red, int green, int blue) {
         BACKGROUND_COLOR = new Color(red, green, blue);
     }
 
+    /*
+     * Returns the given percentage of a given parameter
+     * */
     public static int perc(int parameter, double percentage) {
         return  (int) (parameter * percentage/ 100.0);
     }
 
+    /*
+     * Returns the given percentage of the screen width
+     * */
     public static int percWidth(double percentage) {
         return perc(WIDTH, percentage);
     }
 
+    /*
+     * Returns the given percentage of the screen height
+     * */
     public static int percHeight(double percentage) {
         return perc(HEIGHT, percentage);
     }
 
+    /*
+     * Scales the input integer up from what it would have been at screen width of 640
+     * */
     public static int intAtWidth640(int var) {
         float factor = 640/var;
         return (int) (WIDTH/factor);
     }
 
+    /*
+     * Scales the input float up from what it would have been at screen width of 640
+     * */
     public static float floatAtWidth640(int var) {
         float factor = 640/var;
         return (float) (WIDTH/factor);
     }
 
-    /***********************
-     * com.euhedral.engine.GameState Functions *
-     ***********************/
-
-    public static void setState(GameState state) {
-        currentState = state;
-    }
-
-    public static void gameState() {
-        setState(GameState.Game);
-    }
-
-    public static void transitionState() {
-        setState(GameState.Transition);
-    }
-
-    public static void menuState() {
-        setState(GameState.Menu);
-    }
-
-    public static void gameOverState() {
-        setState(GameState.GameOver);
-    }
-
-    public static void pauseState() {
-        setState(GameState.Pause);}
-
-    /*********************
-     * Utility Functions *
-     *********************/
-
+    /*
+     * Limits the given integer between min and max
+     * */
     public static int clamp(int var, int min, int max) {
         if (var <= min)
             return min;
@@ -292,6 +259,9 @@ public class Engine extends Canvas implements Runnable{
         else return var;
     }
 
+    /*
+     * Limits the given float between min and max
+     * */
     public static float clamp(float var, float min, float max) {
         if (var <= min)
             return min;
@@ -303,4 +273,49 @@ public class Engine extends Canvas implements Runnable{
     public static void printTimer() {
         System.out.println(timer);
     }
+
+    /***********************
+     * GameState Functions *
+     ***********************/
+
+    /*
+     * Manually set the GameState
+     * */
+    public static void setState(GameState state) {
+        currentState = state;
+    }
+
+    /*
+     * Set the state to Game
+     * */
+    public static void gameState() {
+        setState(GameState.Game);
+    }
+
+    /*
+     * Set the state to Transition
+     * */
+    public static void transitionState() {
+        setState(GameState.Transition);
+    }
+
+    /*
+     * Set the state to Menu
+     * */
+    public static void menuState() {
+        setState(GameState.Menu);
+    }
+
+    /*
+     * Set the state to GameOver
+     * */
+    public static void gameOverState() {
+        setState(GameState.GameOver);
+    }
+
+    /*
+     * Set the state to Pause
+     * */
+    public static void pauseState() {
+        setState(GameState.Pause);}
 }

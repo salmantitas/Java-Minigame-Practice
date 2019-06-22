@@ -3,17 +3,16 @@ package com.euhedral.engine;/*
  * */
 
 import java.awt.*;
-import java.util.LinkedList;
 
-public class NavButton extends Button {
+public class ButtonNav extends Button {
     private GameState targetSate;
 
-    public NavButton(int x, int y, int size, String text, GameState renderState, GameState targetSate) {
+    public ButtonNav(int x, int y, int size, String text, GameState renderState, GameState targetSate) {
         super(x, y, size, text, renderState);
         this.targetSate = targetSate;
     }
 
-    public NavButton(int x, int y, int size, String text, GameState renderState, GameState targetSate, boolean fill) {
+    public ButtonNav(int x, int y, int size, String text, GameState renderState, GameState targetSate, boolean fill) {
         this(x, y, size, text, renderState, targetSate);
         font = new Font("arial", 1, size);
         backColor = Color.BLUE;
@@ -21,14 +20,14 @@ public class NavButton extends Button {
         this.fill = fill;
     }
 
-    public NavButton(int x, int y, int size, String text, GameState renderState, GameState targetSate, Color backColor, Color textColor) {
+    public ButtonNav(int x, int y, int size, String text, GameState renderState, GameState targetSate, Color backColor, Color textColor) {
         this(x, y, size, text, renderState, targetSate);
         font = new Font("arial", 1, size);
         this.backColor = backColor;
         this.textColor = textColor;
     }
 
-    public NavButton(int x, int y, int size, String text, GameState renderState, GameState targetSate, Color backColor, Color textColor, Font font) {
+    public ButtonNav(int x, int y, int size, String text, GameState renderState, GameState targetSate, Color backColor, Color textColor, Font font) {
         this(x, y, size, text, renderState, targetSate);
         this.font = font;
         this.backColor = backColor;

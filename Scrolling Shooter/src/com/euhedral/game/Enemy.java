@@ -11,7 +11,7 @@ public abstract class Enemy {
     protected int x, y, health;
     protected ID id;
     protected float velX;
-    protected float velY = Engine.floatAtWidth640(20)/17;;
+    protected float velY = 1.95f;
     protected int width, height;
     protected int power = 1;
     protected boolean moveLeft, moveRight;
@@ -22,6 +22,7 @@ public abstract class Enemy {
     protected boolean inscreen = false;
     protected Camera cam;
     protected Random r;
+    protected int score = 50;
 
     public void damage() {
         this.health--;
@@ -97,6 +98,10 @@ public abstract class Enemy {
         return b;
     }
 
+    protected void healthRange(int min, int max) {
+        health = r.nextInt(max - min) + min;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -117,8 +122,8 @@ public abstract class Enemy {
         return id;
     }
 
-    protected void healthRange(int min, int max) {
-        health = r.nextInt(max - min) + min;
+    public int getScore() {
+        return score;
     }
 
 }

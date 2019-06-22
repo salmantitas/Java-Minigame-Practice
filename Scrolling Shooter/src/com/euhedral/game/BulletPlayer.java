@@ -13,9 +13,9 @@ public class BulletPlayer extends Bullet{
         super(x, y);
         this.id = id;
         this.dir = dir;
-        width = Engine.intAtWidth640(8)/3;
-        height = Engine.intAtWidth640(24)/3;
-        vel = Engine.intAtWidth640(5);
+        width = 5;
+        height = width * 3;
+        vel = 12;
     }
 
     public void update() {

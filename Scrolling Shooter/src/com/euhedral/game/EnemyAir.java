@@ -60,6 +60,5 @@ public abstract class EnemyAir extends Enemy{
 
     public void move() {
         y += velY;
-        x = Engine.clamp(x, 0, Engine.WIDTH - width);
     }
 }

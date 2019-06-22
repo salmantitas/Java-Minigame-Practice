@@ -12,7 +12,7 @@ public class Window extends Canvas {
     // is started.
     public Window(int width, int height, String title, Engine engine) {
         JFrame frame = new JFrame(title);
-        System.out.println("com.euhedral.engine.Window created");
+        System.out.println("Window created");
         Dimension dimension = new Dimension(width, height);
         System.out.println("Dimensions set");
 
@@ -32,13 +32,10 @@ public class Window extends Canvas {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(engine);
-        System.out.println("com.euhedral.engine.Engine added to window");
+        System.out.println("Engine added to window");
 
         frame.setVisible(true);
         frame.requestFocus();
         engine.start();
-//        engine.gameLoop();
-
     }
-
 }
