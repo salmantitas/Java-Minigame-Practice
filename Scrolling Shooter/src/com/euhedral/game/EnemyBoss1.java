@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class EnemyBoss1 extends EnemyBoss{
 
-    int distToCover = Engine.HEIGHT/12;
+    int distToCover = Engine.HEIGHT/8;
 
     public EnemyBoss1(int x, int y) {
         super(x,y);

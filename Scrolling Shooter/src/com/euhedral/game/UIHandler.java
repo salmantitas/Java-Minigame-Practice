@@ -87,8 +87,7 @@ public class UIHandler {
         ButtonAction go = new ButtonAction(leftButtonX, lowestButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
         addButton(go);
 
-//        ButtonAction control = new ButtonAction(midLeftButtonX, lowestButtonY, buttonSize, "Switch Control Scheme", GameState.Transition, ActionTag.control);
-//        control.addOtherState(GameState.Pause);
+//        ButtonAction control = new ButtonAction(leftButtonX, lowestButtonY, buttonSize/2, "Switch Control Scheme", GameState.Pause, ActionTag.control);
 //        addButton(control);
 
         // Game Over
