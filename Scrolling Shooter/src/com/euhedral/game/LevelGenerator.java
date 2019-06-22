@@ -16,7 +16,7 @@ public class LevelGenerator {
         int w = image.getWidth();
         int h = image.getHeight();
 
-        System.out.println("Width, Height: " + w + " " + h);
+        System.out.printf("Width: %d, Height: %d\n", w, h);
 
         for (int j = h - 1; j >= 0; j--) {
             for (int i = w - 1; i >= 0; i--) {

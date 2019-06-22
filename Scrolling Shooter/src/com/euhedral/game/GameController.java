@@ -2,6 +2,7 @@ package com.euhedral.game;
 
 import com.euhedral.engine.BufferedImageLoader;
 import com.euhedral.engine.Engine;
+import com.euhedral.engine.Entity;
 import com.euhedral.engine.GameState;
 
 import java.awt.*;
@@ -20,7 +21,7 @@ public class GameController {
      *******************************************/
 
     private int gameWidth = 1024;
-    private double gameRatio = 4/3;
+    private double gameRatio = 4 / 3;
     private int gameHeight = Engine.HEIGHT;
     private String gameTitle = "Aerial Predator";
     private Color gameBackground = Color.BLUE;
@@ -58,7 +59,8 @@ public class GameController {
 
     // Objects
 
-    private Player player = new Player(0,0, 0);
+    private LinkedList<Entity> entities;
+    private Player player = new Player(0, 0, 0);
 
     // Camera
     public static Camera cam;
@@ -66,15 +68,23 @@ public class GameController {
     int offsetVertical;
 
     // Graphics
+    private BufferedImageLoader loader;
 
+    // Level Generation
+    private LevelGenerator levelGenerator;
+
+    // Levels
+    private int levelHeight;
     private boolean loadMission = false;
-    private static int STARTLEVEL = 1;
-    private static int level;
-    private final int MAXLEVEL = 2;
+
 
     /******************
      * User variables *
      ******************/
+
+    private static int STARTLEVEL = 1;
+    private static int level;
+    private final int MAXLEVEL = 2;
 
     private EnemyBoss boss;
     private Flag flag;
@@ -85,16 +95,12 @@ public class GameController {
 
     private LinkedList<Enemy> enemies = new LinkedList<>();
 
-    private int TRANSITION_TIMER = 60;
-    private int transitionTimer = TRANSITION_TIMER;
     private int bossScore = 500;
-    private int levelHeight;
 
     private boolean levelSpawned = false;
     private boolean ground = false;
 
     private BufferedImage level1 = null, level2 = null;
-    private LevelGenerator levelGenerator;
     private boolean keyboardControl = true; // false means mouse Control
 
     public GameController() {
@@ -106,21 +112,47 @@ public class GameController {
 //        Engine.setRatio(gameRatio);
         Engine.setWIDTH(gameWidth);
         Engine.setBACKGROUND_COLOR(gameBackground);
-
         gameHeight = Engine.HEIGHT;
-
         uiHandler = new UIHandler();
-
-        initialize();
-
+        initializeGame();
+        initializeGraphics();
+        initializeAnimations();
+        initializeLevel();
     }
 
-    private void initialize() {
+    /*************************
+     * Initializer Functions *
+     *************************/
+
+    private void initializeGame() {
+        /*************
+         * Game Code *
+         *************/
+
         Engine.menuState();
-        setupHighScore();
-        BufferedImageLoader loader = new BufferedImageLoader();
+    }
+
+    private void initializeGraphics() {
+        /*************
+         * Game Code *
+         *************/
+
+        loader = new BufferedImageLoader();
         level1 = loader.loadImage("/level1.png");
         level2 = loader.loadImage("/level2.png");
+    }
+
+    private void initializeAnimations() {
+        /*************
+         * Game Code *
+         *************/
+    }
+
+    private void initializeLevel() {
+        /*************
+         * Game Code *
+         *************/
+
         levelGenerator = new LevelGenerator(this);
     }
 
@@ -129,7 +161,7 @@ public class GameController {
         Engine.timer++;
 
         if (Engine.currentState == GameState.Quit)
-            System.exit(1);
+            Engine.stop();
 
         if (Engine.currentState != GameState.Pause && Engine.currentState != GameState.Game && Engine.currentState != GameState.Transition)
             resetGame();
@@ -146,13 +178,11 @@ public class GameController {
         }
 
         if (Engine.currentState == GameState.Game) {
-
             loadMission = false;
             boolean endGameCondition = health <= 0;
 
             if (endGameCondition) {
                 Engine.gameOverState();
-                enableHighScoreUpdate();
                 resetGame();
             }
 
@@ -183,6 +213,10 @@ public class GameController {
         }
 
         if (Engine.currentState == GameState.Transition) {
+            /*************
+             * Game Code *
+             *************/
+
             g.setFont(new Font("arial", 1, Engine.percWidth(5)));
             g.setColor(Color.WHITE);
             g.drawString("Level " + level, Engine.percWidth(40), Engine.percHeight(45));
@@ -193,34 +227,21 @@ public class GameController {
 
         if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause || Engine.currentState == GameState.GameOver) {
 
+
             /*************
              * Game Code *
              *************/
 
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
 
-                    Graphics2D g2d = (Graphics2D) g;
+                renderInCamera(g);
+                drawHealth(g);
 
-                    // Camera start
-                    g2d.translate(cam.getX(), cam.getY());
+                if (boss.isInscreen() && boss.isAlive())
+                    drawBossHealth(g);
 
-                    for (Enemy enemy : enemies) {
-                        enemy.render(g);
-                    }
-
-                    flag.render(g);
-                    player.render(g);
-
-                    // Camera end
-                    g2d.translate(-cam.getX(), -cam.getY());
-
-                    drawHealth(g);
-
-                    if (boss.isInscreen() && boss.isAlive())
-                        drawBossHealth(g);
-
-                    drawScore(g);
-                    drawPower(g);
+                drawScore(g);
+                drawPower(g);
 
             }
         }
@@ -231,6 +252,39 @@ public class GameController {
 
         uiHandler.render(g);
     }
+
+    private void renderInCamera(Graphics g) {
+        /*****************
+         * Engine Conde *
+         *****************/
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Camera start
+        g2d.translate(cam.getX(), cam.getY());
+
+        /*************
+         * Game Code *
+         *************/
+
+        for (Enemy enemy : enemies) {
+            enemy.render(g);
+        }
+
+        flag.render(g);
+        player.render(g);
+
+        /*****************
+         * Engine Conde *
+         *****************/
+
+        // Camera end
+        g2d.translate(-cam.getX(), -cam.getY());
+    }
+
+    /************************
+     * User Input Functions *
+     ************************/
 
     public void mouseMoved(int mx, int my) {
         /*************
@@ -254,7 +308,7 @@ public class GameController {
          * Game Code *
          *************/
 
-        if (mouse==MouseEvent.BUTTON1) {
+        if (mouse == MouseEvent.BUTTON1) {
             shootPlayer();
         }
     }
@@ -264,7 +318,7 @@ public class GameController {
          * Game Code *
          *************/
 
-        if (mouse==MouseEvent.BUTTON1) {
+        if (mouse == MouseEvent.BUTTON1) {
             stopShootPlayer();
         }
     }
@@ -288,7 +342,7 @@ public class GameController {
         }
 
         if (Engine.currentState != GameState.Pause) {
-            if (key == (KeyEvent.VK_LEFT ) || key == (KeyEvent.VK_A))
+            if (key == (KeyEvent.VK_LEFT) || key == (KeyEvent.VK_A))
                 movePlayer('l');
 
             if (key == (KeyEvent.VK_RIGHT) || key == (KeyEvent.VK_D))
@@ -337,16 +391,16 @@ public class GameController {
         if (key == (KeyEvent.VK_LEFT) || key == (KeyEvent.VK_A))
             stopMovePlayer('l');
 
-        if (key==(KeyEvent.VK_RIGHT)|| key==(KeyEvent.VK_D))
+        if (key == (KeyEvent.VK_RIGHT) || key == (KeyEvent.VK_D))
             stopMovePlayer('r');
 
-        if (key==(KeyEvent.VK_UP) || key==(KeyEvent.VK_W))
+        if (key == (KeyEvent.VK_UP) || key == (KeyEvent.VK_W))
             stopMovePlayer('u');
 
-        if (key==(KeyEvent.VK_DOWN) || key==(KeyEvent.VK_S))
+        if (key == (KeyEvent.VK_DOWN) || key == (KeyEvent.VK_S))
             stopMovePlayer('d');
 
-        if (key==(KeyEvent.VK_SPACE) || key==(KeyEvent.VK_NUMPAD0))
+        if (key == (KeyEvent.VK_SPACE) || key == (KeyEvent.VK_NUMPAD0))
             stopShootPlayer();
 
     }
@@ -357,20 +411,23 @@ public class GameController {
         }
     }
 
+    /***************************
+     * Game Managing Functions *
+     ***************************/
+
     public void resetGame() {
 
-        level = STARTLEVEL;
-        levelSpawned = false;
         Engine.timer = 0;
+        score = 0;
+        power = 1;
+        health = healthDefault;
 
         /*************
          * Game Code *
          *************/
 
-        updateHighScore();
-        score = 0;
-        power = 1;
-        health = healthDefault;
+        level = STARTLEVEL;
+        levelSpawned = false;
         enemies.clear();
         levelSpawned = false;
         uiHandler.ground = false;
@@ -379,21 +436,6 @@ public class GameController {
     public void checkButtonAction(int mx, int my) {
         uiHandler.checkButtonAction(mx, my);
         performAction();
-    }
-
-    private void enableHighScoreUpdate() {
-        updateHighScore = true;
-    }
-
-    private void updateHighScore() {
-            int toAddIndex = 0;
-            for (int hs: highScore) {
-                if (hs > score) {
-                    toAddIndex++;
-                }
-                else break;
-            }
-            highScore.add(toAddIndex, score);
     }
 
     private void performAction() {
@@ -413,6 +455,71 @@ public class GameController {
             uiHandler.endAction();
         }
     }
+
+    /*******************************
+     * Entity Management Functions *
+     ****************-**************/
+
+    public void addEntity(Entity entity) {
+        entities.add(entity);
+
+        /*************
+         * Game Code *
+         *************/
+    }
+
+    public void removeEntity(Entity entity) {
+        entities.remove(entity);
+
+        /*************
+         * Game Code *
+         *************/
+    }
+
+    private void updateEntities() {
+        for (int i = 0; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
+            entity.update();
+        }
+    }
+
+    private void renderEntities(Graphics g) {
+        for (int i = 0; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
+            entity.render(g);
+        }
+    }
+
+    /***************************
+     * Render Helper Functions *
+     ***************************/
+
+    private void drawScore(Graphics g) {
+        g.setFont(new Font("arial", 1, scoreSize));
+        g.setColor(Color.WHITE);
+        g.drawString("Score: " + score, scoreX, scoreY);
+    }
+
+    private void drawHealth(Graphics g) {
+        int width = Engine.intAtWidth640(2);
+        int height = width * 6;
+        Color backColor = Color.lightGray;
+        Color healthColor = Color.GREEN;
+        g.setColor(backColor);
+        g.fillRect(healthX, healthY, healthDefault * width, height);
+        g.setColor(healthColor);
+        g.fillRect(healthX, healthY, health * width, height);
+    }
+
+    private void drawPower(Graphics g) {
+        g.setFont(new Font("arial", 1, powerSize));
+        g.setColor(Color.WHITE);
+        g.drawString("Power: " + power, powerX, powerY);
+    }
+
+    /******************
+     * User functions *
+     ******************/
 
     // Shop Functions
 
@@ -462,60 +569,6 @@ public class GameController {
             System.out.println("Not enough score");
         }
     }
-
-
-    /***************************
-     * Render Helper Functions *
-     ***************************/
-
-    private void drawScore(Graphics g) {
-        g.setFont(new Font("arial", 1, scoreSize));
-        g.setColor(Color.WHITE);
-        g.drawString("Score: " + score, scoreX, scoreY);
-    }
-
-    private void drawPower(Graphics g) {
-        g.setFont(new Font("arial", 1, powerSize));
-        g.setColor(Color.WHITE);
-        g.drawString("Power: " + power, powerX, powerY);
-    }
-
-/*    private void drawLives(Graphics g) {
-        int x = Engine.intAtWidth640(10);
-        int y = x/2;
-        int sep = x*2;
-        int width = Engine.intAtWidth640(16);
-        int height = width;
-        Color color = Color.GREEN;
-        for (int i = 0; i < lives; i++)
-        {
-            g.setColor(color);
-            g.fillOval(x + sep * i, y, width, height);
-        }
-    }*/
-
-    private void drawHealth(Graphics g) {
-        int width = Engine.intAtWidth640(2);
-        int height = width*6;
-        Color backColor = Color.lightGray;
-        Color healthColor = Color.GREEN;
-        g.setColor(backColor);
-        g.fillRect(healthX, healthY, healthDefault * width, height);
-        g.setColor(healthColor);
-        g.fillRect(healthX, healthY, health * width, height);
-    }
-
-/*    public void drawHighScore(Graphics g) {
-        g.setFont(new Font("arial", 1, 20));
-        g.setColor(Color.WHITE);
-        for (int i = 0; i < highScoreNumbers; i++) {
-            g.drawString("Score " + (i+1) + ": " + highScore.get(i), Engine.percWidth(40), Engine.percHeight( 10 * i + 10));
-        }
-    }*/
-
-    /******************
-     * User functions *
-     ******************/
 
     protected void drawBossHealth(Graphics g) {
         int startX = Engine.percWidth(35);
@@ -575,21 +628,20 @@ public class GameController {
     }
 
     public void checkCollision() {
-        // com.euhedral.game.Player vs enemy collision
-        for (Enemy enemy: enemies) {
+        // Player vs enemy collision
+        for (Enemy enemy : enemies) {
             if (enemy.getID() == ID.Air)
                 if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds())) {
                     score += enemy.getScore();
                     health -= 30;
                     destroy(enemy);
-            }
-            else if (enemy.getID() == ID.Boss) {
-                health = -10;
+                } else if (enemy.getID() == ID.Boss) {
+                    health = -10;
                 }
         }
 
-        // com.euhedral.game.Player vs enemy bullet collision
-        for (Enemy enemy: enemies) {
+        // Player vs enemy bullet collision
+        for (Enemy enemy : enemies) {
             Bullet b = enemy.checkCollision(player);
             if (b != null) {
                 health -= 10;
@@ -597,8 +649,8 @@ public class GameController {
             }
         }
 
-        // com.euhedral.game.Enemy vs player bullet collision
-        for (Enemy enemy: enemies) {
+        // Enemy vs player bullet collision
+        for (Enemy enemy : enemies) {
             if (enemy.inscreen) {
                 Bullet b = player.checkCollision(enemy);
                 if (b != null) {
@@ -630,20 +682,19 @@ public class GameController {
 //                it.remove();
 //            }
 //        }
-        enemy.setX(+ 300);
+        enemy.setX(+300);
         enemy.setY(player.getY() + 1000);
         enemy.setVelX(0);
         enemy.setVelY(0);
     }
 
     private void destroy(Bullet bullet) {
-        bullet.setX(+ 100);
-        bullet.setY(Engine.HEIGHT  + 100);
+        bullet.setX(+100);
+        bullet.setY(Engine.HEIGHT + 100);
         bullet.setVel(0);
     }
 
     private void spawn() {
-        transitionTimer = TRANSITION_TIMER;
         levelSpawned = !levelSpawned;
         Engine.gameState();
 
@@ -659,25 +710,25 @@ public class GameController {
     }
 
     public void spawnPlayer(int width, int height, int levelHeight) {
-        offsetHorizontal = - gameWidth/2 + 32;
+        offsetHorizontal = -gameWidth / 2 + 32;
         offsetVertical = gameHeight - 160;
-        player = new Player(width,height, levelHeight);
+        player = new Player(width, height, levelHeight);
         player.setPower(power);
         player.setGround(ground);
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen
-        cam = new Camera(player.getX() + offsetHorizontal,-player.getY() + offsetVertical);
+        cam = new Camera(player.getX() + offsetHorizontal, -player.getY() + offsetVertical);
         cam.setMarker(player.getY());
     }
 
     public void spawnCamera(int width, int height) {
-        cam = new Camera(width,-750); // -700 = 2 fps;
+        cam = new Camera(width, -750); // -700 = 2 fps;
     }
 
     public void spawnEnemy(int width, int height, ID id) {
         if (id == ID.Air)
             enemies.add(new EnemyAirBasic(width, height, 1));
-        else enemies.add(new EnemyGroundBasic(width,height));
+        else enemies.add(new EnemyGroundBasic(width, height));
     }
 
     public void spawnBoss(int width, int height) {
@@ -691,7 +742,7 @@ public class GameController {
     }
 
     public void spawnFlag() {
-        flag = new Flag(Engine.WIDTH/2,-Engine.HEIGHT/2, ID.Air);
+        flag = new Flag(Engine.WIDTH / 2, -Engine.HEIGHT / 2, ID.Air);
     }
 
     public void respawnFlag() {
@@ -714,8 +765,7 @@ public class GameController {
             if (level > MAXLEVEL) {
                 Engine.menuState(); // stub
                 resetGame();
-            }
-            else {
+            } else {
                 Engine.transitionState();
 //                spawn();
             }

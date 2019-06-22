@@ -10,7 +10,6 @@ public class KeyInput extends KeyAdapter{
 
     private EngineKeyboard keyboard;
     private GameController gameController;
-
     private ArrayList<Integer> legalKeysPress;
     private ArrayList<Integer> legalKeysRelease;
 

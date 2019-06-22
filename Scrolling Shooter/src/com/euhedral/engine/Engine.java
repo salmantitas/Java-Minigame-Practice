@@ -9,23 +9,23 @@ import com.euhedral.game.GameController;
 public class Engine extends Canvas implements Runnable{
 
     /*
-    * By Default:
-    * VERSION = 0.171
-    * TITLE = "Euhedral Engine 0.171"
-    * SCREEN_RATIO = 4.0/3.0
-    * WIDTH = 640
-    * HEIGHT = 480
-    * BACKGROUND_COLOR = Color.BLACK
-    */
-    public static double VERSION = 0.144;
+     * By Default:
+     * VERSION = 0.195
+     * TITLE = "Euhedral Engine 0.195"
+     * SCREEN_RATIO = 4.0/3.0
+     * WIDTH = 640
+     * HEIGHT = 480
+     * BACKGROUND_COLOR = Color.BLACK
+     */
+    public static double VERSION = 0.1951;
     public static String TITLE = "Euhedral Engine " + VERSION;
     public static double SCREEN_RATIO = 4.0/3.0;
     public static int WIDTH = 640;
     public static int HEIGHT = (int) (WIDTH / SCREEN_RATIO);
     public static Color BACKGROUND_COLOR = Color.BLACK;
 
-    private double UPDATE_CAP = 1.0 / 60.0; //
-    private boolean running;
+    private final double UPDATE_CAP = 1.0/60.0; // determines the frequency of game-updates. 1/60 means once every 60 seconds
+    private static boolean running = false;
     public static int timeInSeconds = 0;
     public static int timer = 0;
 
@@ -64,7 +64,7 @@ public class Engine extends Canvas implements Runnable{
         new Thread(this, "EngineMain-Thread").start();
     }
 
-    private void stop() {
+    public static void stop() {
         if (!running) return;
         running = false;
     }
@@ -168,10 +168,19 @@ public class Engine extends Canvas implements Runnable{
     }
 
     /*
-     * Manually updates the aspect ratio of the game
+     * Manually updates the aspect ratio of the game using a double
      * */
     // HEIGHT = WIDTH / SCREEN_RATIO, that is WIDTH * numerator / denominator
-    public void setRatio(double denominator, double numerator) {
+    public static void setRatio(double ratio) {
+        SCREEN_RATIO = ratio;
+        updateHeight();
+    }
+
+    /*
+     * Manually updates the aspect ratio of the game using the numerator and denominator
+     * */
+    // HEIGHT = WIDTH / SCREEN_RATIO, that is WIDTH * numerator / denominator
+    public static void setRatio(double denominator, double numerator) {
         SCREEN_RATIO = (1.0 * denominator) / (1.0 * numerator);
         updateHeight();
     }

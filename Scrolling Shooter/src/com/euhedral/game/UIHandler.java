@@ -20,7 +20,7 @@ public class UIHandler {
 
     // Title Variables
 
-    int titleX = Engine.percWidth(2);
+    int titleX = Engine.percWidth(9);
     int titleY = Engine.percHeight(20);
     int titleSize = Engine.percWidth(11.5);
     Color titleColor = Color.BLACK;
@@ -28,9 +28,6 @@ public class UIHandler {
     // Button Variables
 
     int buttonSize = Engine.percWidth(5);
-
-    // Vertical Stack
-
     int leftButtonX = Engine.percWidth(5);
     int midLeftButtonX = Engine.percWidth(38);
     int midButtonX = Engine.percWidth(45);
@@ -40,9 +37,8 @@ public class UIHandler {
     int midHeightButtonY = Engine.percHeight(50);
     int lowestButtonY = Engine.percHeight(70);
 
-    // Horizontal Stack
+    // User Variables
 
-//    String action = null;
     public boolean ground = false;
 
     public UIHandler() {
@@ -78,7 +74,6 @@ public class UIHandler {
         addButton(backToMenu);
 
         // Transition / Shop
-
 
         ButtonAction health = new ButtonAction(leftButtonX, topButtonY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
         addButton(health);
@@ -248,7 +243,8 @@ public class UIHandler {
      ***************************/
 
     private void drawTitle(Graphics g) {
-        g.setFont(new Font("arial", 1, titleSize));
+        Font font = new Font("arial", 1, titleSize);
+        g.setFont(font);
         g.setColor(titleColor);
         g.drawString(Engine.TITLE, titleX, titleY);
     }

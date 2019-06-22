@@ -15,6 +15,11 @@ public class MobileEntity extends Entity {
     }
 
     @Override
+    protected void initialize() {
+
+    }
+
+    @Override
     public void update() {
 
     }
