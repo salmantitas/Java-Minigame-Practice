@@ -2,14 +2,14 @@ package com.euhedral.game;
 
 import java.awt.*;
 
-public abstract class GameObject {
+public abstract class Entity {
 
-    protected float x, y, width, height;
+    protected int x, y, width, height;
     protected float velX = 0, velY = 0;
-    protected boolean falling = true, jumping = false;
+    protected boolean falling = true, jumping = false, friction = false;
     protected Color color;
 
-    public GameObject(float x, float y) {
+    public Entity(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -24,7 +24,7 @@ public abstract class GameObject {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(int x) {
         this.x = x;
     }
 
@@ -32,7 +32,7 @@ public abstract class GameObject {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(int y) {
         this.y = y;
     }
 

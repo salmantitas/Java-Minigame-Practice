@@ -1,7 +1,6 @@
 package com.euhedral.game;
 
 import com.euhedral.engine.Engine;
-import com.euhedral.game.GameObject;
 
 public class Camera {
 
@@ -13,7 +12,7 @@ public class Camera {
         this.y = y;
     }
 
-    public void update(GameObject gameObject) {
+    public void update(Entity entity) {
 
     }
 

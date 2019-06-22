@@ -7,8 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37bf829a-0159-4e27-9c38-4832500ea2d6" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/euhedral/game/MobileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/euhedral/engine/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/engine/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/UIHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/Player.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,120 +27,66 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="274" column="46" selection-start-line="274" selection-start-column="46" selection-end-line="274" selection-end-column="46" />
+            <state relative-caret-position="233">
+              <caret line="513" column="26" lean-forward="true" selection-start-line="513" selection-start-column="26" selection-end-line="513" selection-end-column="26" />
               <folding>
-                <element signature="e#10148#10149#0" expanded="true" />
-                <element signature="e#15305#15306#0" expanded="true" />
-                <element signature="e#15375#15376#0" expanded="true" />
-                <element signature="e#15450#15451#0" expanded="true" />
-                <element signature="e#18021#18022#0" expanded="true" />
-                <element signature="e#18722#18723#0" expanded="true" />
-                <element signature="e#19386#19387#0" expanded="true" />
-                <element signature="e#19447#19448#0" expanded="true" />
-                <element signature="e#20239#20240#0" expanded="true" />
+                <element signature="e#10138#10139#0" expanded="true" />
+                <element signature="e#15295#15296#0" expanded="true" />
+                <element signature="e#15365#15366#0" expanded="true" />
+                <element signature="e#15440#15441#0" expanded="true" />
+                <element signature="e#18011#18012#0" expanded="true" />
+                <element signature="e#18712#18713#0" expanded="true" />
+                <element signature="e#19376#19377#0" expanded="true" />
+                <element signature="e#19437#19438#0" expanded="true" />
+                <element signature="e#20229#20230#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/UIHandler.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Entity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="232" column="9" selection-start-line="232" selection-start-column="9" selection-end-line="232" selection-end-column="9" />
+            <state relative-caret-position="187">
+              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/MobileEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-51">
+              <caret line="6" column="43" lean-forward="true" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+              <folding>
+                <element signature="e#133#134#0" expanded="true" />
+                <element signature="e#160#161#0" expanded="true" />
+                <element signature="e#254#255#0" expanded="true" />
+                <element signature="e#281#282#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="207" column="78" selection-start-line="207" selection-start-column="78" selection-end-line="207" selection-end-column="78" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7785#7786#0" expanded="true" />
-                <element signature="e#7814#7815#0" expanded="true" />
-                <element signature="e#7845#7846#0" expanded="true" />
+                <element signature="e#3099#3100#0" expanded="true" />
+                <element signature="e#3127#3128#0" expanded="true" />
+                <element signature="e#7536#7537#0" expanded="true" />
+                <element signature="e#7585#7586#0" expanded="true" />
+                <element signature="e#7634#7635#0" expanded="true" />
+                <element signature="e#7685#7686#0" expanded="true" />
+                <element signature="e#7736#7737#0" expanded="true" />
+                <element signature="e#7793#7794#0" expanded="true" />
                 <element signature="e#7874#7875#0" expanded="true" />
-                <element signature="e#9306#9307#0" expanded="true" />
-                <element signature="e#9347#9348#0" expanded="true" />
-                <element signature="e#9400#9401#0" expanded="true" />
-                <element signature="e#9441#9442#0" expanded="true" />
-                <element signature="e#10222#10223#0" expanded="true" />
-                <element signature="e#10258#10259#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/ButtonAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
-              <folding>
-                <element signature="e#536#537#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/KeyInput.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="54" selection-start-line="54" selection-end-line="54" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/Button.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="80" selection-start-line="80" selection-end-line="80" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1745#1746#0" expanded="true" />
-                <element signature="e#1827#1828#0" expanded="true" />
-                <element signature="e#3034#3035#0" expanded="true" />
-                <element signature="e#3068#3069#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/NavButton.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
-              <folding>
-                <element signature="e#1390#1391#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/MouseInput.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
-              <folding>
-                <element signature="e#764#765#0" expanded="true" />
-                <element signature="e#823#824#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/EngineMouse.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -152,16 +103,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>score</find>
-      <find>draw</find>
-      <find>drawh</find>
-      <find>enemyscore</find>
-      <find>user fu</find>
       <find>stop</find>
       <find>give</find>
       <find>render</find>
       <find>rener</find>
-      <find>move()</find>
       <find>destia</find>
       <find>destination:</find>
       <find>keyevent.vk</find>
@@ -182,6 +127,12 @@
       <find>keypre</find>
       <find>mainme</find>
       <find>select</find>
+      <find>ace</find>
+      <find>fricti</find>
+      <find>move()</find>
+      <find>friction</find>
+      <find>// move</find>
+      <find>bos</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,8 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/euhedral/game/GameObject.java" />
-        <option value="$PROJECT_DIR$/src/EnemyFlag.java" />
         <option value="$PROJECT_DIR$/src/EnemyAirBoss.java" />
         <option value="$PROJECT_DIR$/src/Camera.java" />
         <option value="$PROJECT_DIR$/src/Bullet.java" />
@@ -227,25 +176,28 @@
         <option value="$PROJECT_DIR$/src/com/euhedral/game/SpriteSheet.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Sprite.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/EngineKeyboard.java" />
-        <option value="$PROJECT_DIR$/src/com/euhedral/engine/Engine.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/ActButton.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/NavButton.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/LevelGenerator.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Enemy.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/EngineMouse.java" />
-        <option value="$PROJECT_DIR$/src/com/euhedral/game/Player.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/KeyInput.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/ActionTag.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/MouseInput.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/EnemyBoss1.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/Button.java" />
-        <option value="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/UIHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/MobileEntity.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/Entity.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/engine/Engine.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/Player.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
+    <option name="x" value="-25" />
+    <option name="y" value="-23" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
@@ -446,11 +398,11 @@
           <properties />
           <option name="timeStamp" value="99" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/src/com/euhedral/game/EnemyBoss1.java</url>
-          <line>8</line>
-          <properties field="distToCover" class="com.euhedral.game.EnemyBoss1" />
-          <option name="timeStamp" value="96" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/euhedral/game/Player.java</url>
+          <line>176</line>
+          <properties />
+          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -468,43 +420,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="59" selection-start-line="6" selection-start-column="59" selection-end-line="6" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="34" lean-forward="true" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-          <folding>
-            <element signature="e#549#550#0" expanded="true" />
-            <element signature="e#573#574#0" expanded="true" />
-            <element signature="e#606#607#0" expanded="true" />
-            <element signature="e#632#633#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#683#684#0" expanded="true" />
-            <element signature="e#716#717#0" expanded="true" />
-            <element signature="e#742#743#0" expanded="true" />
-            <element signature="e#828#829#0" expanded="true" />
-            <element signature="e#855#856#0" expanded="true" />
-            <element signature="e#894#895#0" expanded="true" />
-            <element signature="e#926#927#0" expanded="true" />
-            <element signature="e#956#957#0" expanded="true" />
-            <element signature="e#983#984#0" expanded="true" />
-            <element signature="e#1022#1023#0" expanded="true" />
-            <element signature="e#1054#1055#0" expanded="true" />
-            <element signature="e#1088#1089#0" expanded="true" />
-            <element signature="e#1118#1119#0" expanded="true" />
-            <element signature="e#1152#1153#0" expanded="true" />
-            <element signature="e#1182#1183#0" expanded="true" />
-            <element signature="e#1229#1230#0" expanded="true" />
-            <element signature="e#1267#1268#0" expanded="true" />
-            <element signature="e#1314#1315#0" expanded="true" />
-            <element signature="e#1352#1353#0" expanded="true" />
-            <element signature="e#1383#1384#0" expanded="true" />
-            <element signature="e#1411#1412#0" expanded="true" />
-            <element signature="e#1443#1444#0" expanded="true" />
-            <element signature="e#1472#1473#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -724,26 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1666">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2982#2983#0" expanded="true" />
-            <element signature="e#6926#6927#0" expanded="true" />
-            <element signature="e#6975#6976#0" expanded="true" />
-            <element signature="e#7024#7025#0" expanded="true" />
-            <element signature="e#7050#7051#0" expanded="true" />
-            <element signature="e#7075#7076#0" expanded="true" />
-            <element signature="e#7101#7102#0" expanded="true" />
-            <element signature="e#7126#7127#0" expanded="true" />
-            <element signature="e#7183#7184#0" expanded="true" />
-            <element signature="e#7264#7265#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Camera.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -755,13 +650,6 @@
             <element signature="e#593#594#0" expanded="true" />
             <element signature="e#688#689#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EnemyBoss1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" column="29" lean-forward="true" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -827,20 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/Engine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="261" column="5" lean-forward="true" selection-start-line="261" selection-start-column="5" selection-end-line="261" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6442#6443#0" expanded="true" />
-            <element signature="e#6495#6496#0" expanded="true" />
-            <element signature="e#7550#7551#0" expanded="true" />
-            <element signature="e#7586#7587#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/KeyInput.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -875,28 +749,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EnemyBoss1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="274" column="46" selection-start-line="274" selection-start-column="46" selection-end-line="274" selection-end-column="46" />
-          <folding>
-            <element signature="e#10148#10149#0" expanded="true" />
-            <element signature="e#15305#15306#0" expanded="true" />
-            <element signature="e#15375#15376#0" expanded="true" />
-            <element signature="e#15450#15451#0" expanded="true" />
-            <element signature="e#18021#18022#0" expanded="true" />
-            <element signature="e#18722#18723#0" expanded="true" />
-            <element signature="e#19386#19387#0" expanded="true" />
-            <element signature="e#19447#19448#0" expanded="true" />
-            <element signature="e#20239#20240#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="102">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/UIHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="232" column="9" selection-start-line="232" selection-start-column="9" selection-end-line="232" selection-end-column="9" />
+        <state relative-caret-position="416">
+          <caret line="233" column="31" selection-start-line="233" selection-start-column="31" selection-end-line="233" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#7785#7786#0" expanded="true" />
@@ -909,6 +772,77 @@
             <element signature="e#9441#9442#0" expanded="true" />
             <element signature="e#10222#10223#0" expanded="true" />
             <element signature="e#10258#10259#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/Engine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="294" column="58" selection-start-line="294" selection-start-column="58" selection-end-line="294" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6442#6443#0" expanded="true" />
+            <element signature="e#6495#6496#0" expanded="true" />
+            <element signature="e#7550#7551#0" expanded="true" />
+            <element signature="e#7586#7587#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/MobileEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="6" column="43" lean-forward="true" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+          <folding>
+            <element signature="e#133#134#0" expanded="true" />
+            <element signature="e#160#161#0" expanded="true" />
+            <element signature="e#254#255#0" expanded="true" />
+            <element signature="e#281#282#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="207" column="78" selection-start-line="207" selection-start-column="78" selection-end-line="207" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3099#3100#0" expanded="true" />
+            <element signature="e#3127#3128#0" expanded="true" />
+            <element signature="e#7536#7537#0" expanded="true" />
+            <element signature="e#7585#7586#0" expanded="true" />
+            <element signature="e#7634#7635#0" expanded="true" />
+            <element signature="e#7685#7686#0" expanded="true" />
+            <element signature="e#7736#7737#0" expanded="true" />
+            <element signature="e#7793#7794#0" expanded="true" />
+            <element signature="e#7874#7875#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="513" column="26" lean-forward="true" selection-start-line="513" selection-start-column="26" selection-end-line="513" selection-end-column="26" />
+          <folding>
+            <element signature="e#10138#10139#0" expanded="true" />
+            <element signature="e#15295#15296#0" expanded="true" />
+            <element signature="e#15365#15366#0" expanded="true" />
+            <element signature="e#15440#15441#0" expanded="true" />
+            <element signature="e#18011#18012#0" expanded="true" />
+            <element signature="e#18712#18713#0" expanded="true" />
+            <element signature="e#19376#19377#0" expanded="true" />
+            <element signature="e#19437#19438#0" expanded="true" />
+            <element signature="e#20229#20230#0" expanded="true" />
           </folding>
         </state>
       </provider>

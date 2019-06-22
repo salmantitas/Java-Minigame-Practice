@@ -7,25 +7,31 @@ import java.util.LinkedList;
 
 public class Player {
 
-    private int x, y, velX, velY;
-    private int levelHeight;
+    // Entity
+    private int x, y, width, height;
+    private float velX, velY;
+    private Color color;
+
+    // Mobile Entity
     private int horizontalMovement, verticalMovement;
     private int minHorizontalMovement, minVerticalMovement;
     private int maxHorizontalMovement, maxVerticalMovement;
-    private int friction, acceleration;
-    private int width, height;
-    private int power;
+    private float frictionalForce, acceleration;
     private boolean moveLeft, moveRight, moveUp, moveDown;
-    private Color color;
+
+    // Shooting Entity
     private boolean canShoot;
-    private boolean ground = false;
-    private final int shootTimerDefault = 12;
     private int shootTimer = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
+
+    // Personal
+    private int levelHeight;
+    private int power;
+    private boolean ground = false;
+    private final int shootTimerDefault = 12;
     private boolean airBullet = true;
 
-    // test
-
+    // Test
     private int mx, my;
     private boolean destinationGiven = false;
 
@@ -33,17 +39,17 @@ public class Player {
         this.x = x;
         this.y = y;
         this.levelHeight = levelHeight;
-        acceleration = Engine.intAtWidth640(1);
-        friction = 1;
+        acceleration = 0.05f;
+        frictionalForce = 0.9f;
         velX = 0;
         velY = 0;
         this.power = 1;
-        verticalMovement = Engine.intAtWidth640(2);
-        horizontalMovement = Engine.intAtWidth640(3);
-        minVerticalMovement = Engine.intAtWidth640(2);
-        minHorizontalMovement = Engine.intAtWidth640(3);
-        maxVerticalMovement = Engine.intAtWidth640(3);
-        maxHorizontalMovement = Engine.intAtWidth640(4);
+        minVerticalMovement = 2;
+        minHorizontalMovement = 3;
+        verticalMovement = minVerticalMovement;
+        horizontalMovement = minHorizontalMovement;
+        maxVerticalMovement = 2*minVerticalMovement;
+        maxHorizontalMovement = 2*minHorizontalMovement;
         width = Engine.intAtWidth640(32);
         height = width;
         moveRight = false;
@@ -61,7 +67,7 @@ public class Player {
         if (canShoot && shootTimer <= 0)
             shoot();
 
-        for (Bullet bullet: bullets) {
+        for (Bullet bullet : bullets) {
             bullet.update();
         }
 
@@ -72,22 +78,22 @@ public class Player {
 //        g.fillRect(x, y + com.euhedral.engine.Engine.perc(height, 30) ,width, com.euhedral.engine.Engine.perc(height,12.5)); // Wingspan
 //        g.fillRect(x + com.euhedral.engine.Engine.perc(width,25), y ,width/2, com.euhedral.engine.Engine.perc(height,4)); // Fans
 
-        g.fillRect(mx,my,10,10);
+        g.fillRect(mx, my, 10, 10);
 
-        for (Bullet bullet: bullets) {
+        for (Bullet bullet : bullets) {
             bullet.render(g);
         }
 
         g.setColor(color);
-        g.fillRect(x,y,width,height);
+        g.fillRect(x, y, width, height);
     }
 
-    public Bullet checkCollision(Enemy  enemy) {
+    public Bullet checkCollision(Enemy enemy) {
         Bullet b = null;
-        for (Bullet bullet: bullets) {
+        for (Bullet bullet : bullets) {
             BulletPlayer bulletPlayer = (BulletPlayer) bullet;
             if (bulletPlayer.getBounds().intersects(enemy.getBounds()) &&
-                    (bulletPlayer.getId() == enemy.getID() || bulletPlayer.getId() == ID.Air && enemy.getID() == ID.Boss )) {
+                    (bulletPlayer.getId() == enemy.getID() || bulletPlayer.getId() == ID.Air && enemy.getID() == ID.Boss)) {
                 b = bulletPlayer;
             }
         }
@@ -143,7 +149,6 @@ public class Player {
                 destinationGiven = false;
             }
             if (Math.abs(mx - x) < positionOffset) {
-                x = mx;
                 moveLeft = false;
                 moveRight = false;
             } else if (mx > x) {
@@ -154,7 +159,6 @@ public class Player {
                 moveRight = false;
             }
             if (Math.abs(my - y) < positionOffset) {
-                y = my;
                 moveUp = false;
                 moveDown = false;
             } else if (my > y) {
@@ -165,31 +169,56 @@ public class Player {
                 moveDown = false;
             }
         }
+
+        // Moving Left
         if (moveLeft && !moveRight) {
-                velX -= acceleration;
-                if (velX < maxHorizontalMovement) {
-                    velX = -maxHorizontalMovement;
-                }
-            } else if (moveRight && !moveLeft) {
-                velX += acceleration;
-                if (velX > maxHorizontalMovement) {
-                    velX = maxHorizontalMovement;
-                }
-            } else if (!moveLeft && !moveRight || (moveLeft && moveRight))
-                velX = 0;
+//            velX = - horizontalMovement; // stub
+            velX -= acceleration;
+            velX = Engine.clamp(velX, -maxHorizontalMovement, -minHorizontalMovement);
+        }
 
-            if (moveUp && !moveDown) {
-                velY = -verticalMovement;
-            } else if (moveDown && !moveUp) {
-                velY = horizontalMovement;
-            } else if (!moveUp && !moveDown || (moveUp && moveDown))
+        // Moving Right
+        else if (moveRight && !moveLeft) {
+//            velX = horizontalMovement; // stub
+            velX += acceleration;
+            velX = Engine.clamp(velX, minHorizontalMovement, maxHorizontalMovement);
+        }
+
+        // Not Moving Left or Right
+        else if (!moveLeft && !moveRight || (moveLeft && moveRight)) {
+//            velX = 0; // stub
+            if (velX > 0) {
+                velX -= frictionalForce;
+            } if (velX < 0) {
+                velX += frictionalForce;
+            }
+        }
+
+        // Moving Up
+        if (moveUp && !moveDown) {
+//            velY = -verticalMovement; // stub
+            velY -= acceleration;
+            velY = Engine.clamp(velY, -maxVerticalMovement, -minVerticalMovement);
+        }
+
+        // Moving Down
+        else if (moveDown && !moveUp) {
+//            velY = horizontalMovement;
+            velY += acceleration;
+            velY = Engine.clamp(velY, minVerticalMovement, minVerticalMovement);
+
+        }
+
+        // Not Moving Up or Down
+        else if (!moveUp && !moveDown || (moveUp && moveDown)) {
 //            velY = 0; // stub
-                if (velY > 0) {
-                    velY -= friction;
-                } else if (velY < 0) {
-                    velY += friction;
-                }
-
+            if (velY > 0) {
+                velY -= frictionalForce;
+            }
+            if (velY < 0) {
+                velY += frictionalForce;
+            }
+        }
     }
 
     private void shoot() {
@@ -219,9 +248,9 @@ public class Player {
     }
 
     public void giveDestination(int mx, int my) {
-        this.mx = mx - width/2;
+        this.mx = mx - width / 2;
         this.my = levelHeight - Engine.percHeight(83.5) + my;
-        System.out.println("Destination: "+ this.my);
+        System.out.println("Destination: " + this.my);
         destinationGiven = true;
     }
 

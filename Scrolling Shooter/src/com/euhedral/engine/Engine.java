@@ -292,6 +292,14 @@ public class Engine extends Canvas implements Runnable{
         else return var;
     }
 
+    public static float clamp(float var, float min, float max) {
+        if (var <= min)
+            return min;
+        if (var >= max)
+            return max;
+        else return var;
+    }
+
     public static void printTimer() {
         System.out.println(timer);
     }

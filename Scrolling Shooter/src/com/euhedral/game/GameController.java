@@ -511,7 +511,7 @@ public class GameController {
         int endX = Engine.percWidth(65);
         int diffX = endX - startX;
 
-        int y = Engine.percHeight(14);
+        int y = Engine.percHeight(28);
         int width = diffX / healthBossDef;
         int height = width;
         Color backColor = Color.lightGray;
