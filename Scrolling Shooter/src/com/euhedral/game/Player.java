@@ -5,19 +5,7 @@ import com.euhedral.engine.Engine;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Player {
-
-    // Entity
-    private int x, y, width, height;
-    private float velX, velY;
-    private Color color;
-
-    // Mobile Entity
-    private int horizontalMovement, verticalMovement;
-    private int minHorizontalMovement, minVerticalMovement;
-    private int maxHorizontalMovement, maxVerticalMovement;
-    private float frictionalForce, acceleration;
-    private boolean moveLeft, moveRight, moveUp, moveDown;
+public class Player extends MobileEntity {
 
     // Shooting Entity
     private boolean canShoot;
@@ -36,8 +24,7 @@ public class Player {
     private boolean destinationGiven = false;
 
     public Player(int x, int y, int levelHeight) {
-        this.x = x;
-        this.y = y;
+        super(x,y);
         this.levelHeight = levelHeight;
         acceleration = 0.05f;
         frictionalForce = 0.9f;
@@ -256,14 +243,6 @@ public class Player {
 
     public void setPower(int power) {
         this.power = power;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public int getMx() {

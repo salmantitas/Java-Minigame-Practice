@@ -4,11 +4,11 @@ import java.awt.*;
 
 public class MobileEntity extends Entity {
 
-    protected float acceleration, friction;
+    protected float acceleration, frictionalForce;
     protected int horizontalMovement, verticalMovement;
     protected int minHorizontalMovement, minVerticalMovement;
     protected int maxHorizontalMovement, maxVerticalMovement;
-    private boolean moveLeft, moveRight, moveUp, moveDown;
+    protected boolean moveLeft, moveRight, moveUp, moveDown;
 
     public MobileEntity(int x, int y) {
         super(x, y);

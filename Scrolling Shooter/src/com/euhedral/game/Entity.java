@@ -20,7 +20,9 @@ public abstract class Entity {
 
     public abstract Rectangle getBounds();
 
-    public float getX() {
+    // Getters & Setters
+
+    public int getX() {
         return x;
     }
 
@@ -28,7 +30,7 @@ public abstract class Entity {
         this.x = x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
