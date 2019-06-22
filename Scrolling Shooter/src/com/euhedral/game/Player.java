@@ -24,6 +24,11 @@ public class Player {
     private LinkedList<Bullet> bullets = new LinkedList<>();
     private boolean airBullet = true;
 
+    // test
+
+    private int mx, my;
+    private boolean destinationGiven = false;
+
     public Player(int x, int y, int levelHeight) {
         this.x = x;
         this.y = y;
@@ -131,34 +136,51 @@ public class Player {
         x = Engine.clamp(x, 0, Engine.WIDTH - 5 * width / 4);
         y = Engine.clamp(y, 5900, levelHeight + height);
 
-        if (moveLeft && !moveRight) {
-            velX -= acceleration;
-            if (velX < maxHorizontalMovement) {
-                velX = -maxHorizontalMovement;
+        if (destinationGiven) {
+            if (x == mx && y == my) {
+                destinationGiven = false;
+            } else {
+                if (x > mx) {
+                    velX = -horizontalMovement;
+                } else if (x < mx) {
+                    velX = horizontalMovement;
+                } else {
+                    velX = 0;
+                }
+                if (y > my) {
+                    velY = -verticalMovement;
+                } else if (y < my) {
+                    velY = verticalMovement;
+                } else {
+                    velY = 0;
+                }
             }
-        }
-        else if (moveRight && !moveLeft) {
-            velX += acceleration;
-            if (velX > maxHorizontalMovement) {
-                velX = maxHorizontalMovement;
-            }
-        }
-        else if (!moveLeft && !moveRight || (moveLeft && moveRight))
-            velX = 0;
+        } else {
+            if (moveLeft && !moveRight) {
+                velX -= acceleration;
+                if (velX < maxHorizontalMovement) {
+                    velX = -maxHorizontalMovement;
+                }
+            } else if (moveRight && !moveLeft) {
+                velX += acceleration;
+                if (velX > maxHorizontalMovement) {
+                    velX = maxHorizontalMovement;
+                }
+            } else if (!moveLeft && !moveRight || (moveLeft && moveRight))
+                velX = 0;
 
-        if (moveUp && !moveDown) {
-            velY = -verticalMovement;
-        }
-        else if (moveDown && !moveUp ) {
-            velY = horizontalMovement;
-        }
-        else if (!moveUp && !moveDown|| (moveUp && moveDown))
+            if (moveUp && !moveDown) {
+                velY = -verticalMovement;
+            } else if (moveDown && !moveUp) {
+                velY = horizontalMovement;
+            } else if (!moveUp && !moveDown || (moveUp && moveDown))
 //            velY = 0; // stub
-            if (velY > 0) {
-                velY -= friction;
-            } else if (velY < 0) {
-                velY += friction;
-            }
+                if (velY > 0) {
+                    velY -= friction;
+                } else if (velY < 0) {
+                    velY += friction;
+                }
+        }
     }
 
     private void shoot() {
@@ -185,6 +207,12 @@ public class Player {
         }
         // reset shoot timer to default
         shootTimer = shootTimerDefault;
+    }
+
+    public void giveDestination(int mx, int my) {
+        this.mx = mx;
+        this.my = my;
+        destinationGiven = true;
     }
 
     public void setPower(int power) {

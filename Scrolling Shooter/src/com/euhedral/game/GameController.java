@@ -32,9 +32,11 @@ public class GameController {
 
     private int score = 0;
     private int scoreX = Engine.percWidth(2.5);
-    private int powerX = Engine.percWidth(33);
-    private int scoreY = Engine.percHeight(15);
-    private int scoreSize = Engine.percWidth(4);
+    private int powerX = Engine.percWidth(37);
+    private int scoreY = Engine.percHeight(16);
+    private int powerY = scoreY;
+    private int scoreSize = Engine.percWidth(3);
+    private int powerSize = scoreSize;
     private int lives = 3;
     private final int maxPower = 5;
     private int power = 1;
@@ -67,7 +69,7 @@ public class GameController {
 
     private int TRANSITION_TIMER = 60;
     private int transitionTimer = TRANSITION_TIMER;
-    private int basicEnemyScore = 100;
+    private int basicEnemyScore = 50;
     private int bossScore = 500;
     private int levelHeight;
 
@@ -413,9 +415,9 @@ public class GameController {
     }
 
     private void drawPower(Graphics g) {
-        g.setFont(new Font("arial", 1, scoreSize));
+        g.setFont(new Font("arial", 1, powerSize));
         g.setColor(Color.WHITE);
-        g.drawString("Power: " + power, powerX, scoreY);
+        g.drawString("Power: " + power, powerX, powerY);
     }
 
     private void drawLives(Graphics g) {
@@ -510,6 +512,10 @@ public class GameController {
             player.moveUp(false);
         else if (c == 'd')
             player.moveDown(false);
+    }
+
+    public void giveDestination(int mx, int my) {
+        player.giveDestination(mx, my);
     }
 
     public void shootPlayer() {

@@ -3,6 +3,7 @@ package com.euhedral.game;
 import com.euhedral.engine.EngineMouse;
 
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MouseInput extends MouseAdapter {
     private GameController gameController;
@@ -14,10 +15,15 @@ public class MouseInput extends MouseAdapter {
     }
 
     public void updatePressed() {
-
+        if (mouse.buttonIsPressed(MouseEvent.BUTTON1)) {
+            gameController.shootPlayer();
+        }
+//        gameController.giveDestination(getMxPressed(), getMyPressed());
     }
 
     public void updateReleased() {
+        if (mouse.buttonIsReleased(MouseEvent.BUTTON1))
+            gameController.stopShootPlayer();
         gameController.checkButtonAction(getMxReleased(), getMyReleased());
     }
 
