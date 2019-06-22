@@ -270,6 +270,10 @@ public class GameController {
             if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) {
                 uiHandler.chooseSelected();
             }
+
+            if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
+//                uiHandler.keyboardSelection();
+            }
         }
 
         if (Engine.currentState != GameState.Pause) {

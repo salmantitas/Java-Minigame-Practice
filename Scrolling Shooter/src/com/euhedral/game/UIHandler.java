@@ -16,6 +16,8 @@ public class UIHandler {
 
     // Common game variables
 
+    private int selectedButton = -1;
+
     // Title Variables
 
     int titleX = Engine.percWidth(2);
@@ -198,6 +200,38 @@ public class UIHandler {
                     }
                 }
             }
+        }
+    }
+
+    public void keyboardSelection() {
+        int totalButtons = navButtons.size() + actButtons.size();
+        Button button;
+
+        if (selectedButton < 0) {
+            selectedButton = 0;
+        } else {
+            if (selectedButton < navButtons.size()) {
+                button = navButtons.get(selectedButton);
+                button.deselect();
+            } else if (selectedButton < totalButtons) {
+                button = actButtons.get(navButtons.size() - selectedButton);
+                button.deselect();
+            }
+            selectedButton++;
+        }
+        if (selectedButton < navButtons.size()) {
+            button = navButtons.get(selectedButton);
+            if (button.getRenderState() == Engine.currentState) {
+                button.select();
+            }
+        } else if (selectedButton < totalButtons) {
+            button = actButtons.get(selectedButton);
+            if (button.getRenderState() == Engine.currentState) {
+                button = actButtons.get(navButtons.size() - selectedButton);
+                button.select();
+            }
+        } else {
+            selectedButton = 0;
         }
     }
 
