@@ -8,6 +8,7 @@ import java.util.LinkedList;
 public class Player {
 
     private int x, y, velX, velY;
+    private int levelHeight;
     private int horizontalMovement, verticalMovement;
     private int minHorizontalMovement, minVerticalMovement;
     private int maxHorizontalMovement, maxVerticalMovement;
@@ -23,9 +24,10 @@ public class Player {
     private LinkedList<Bullet> bullets = new LinkedList<>();
     private boolean airBullet = true;
 
-    public Player(int x, int y) {
+    public Player(int x, int y, int levelHeight) {
         this.x = x;
         this.y = y;
+        this.levelHeight = levelHeight;
         acceleration = Engine.intAtWidth640(1);
         friction = 1;
         velX = 0;
@@ -37,7 +39,7 @@ public class Player {
         minHorizontalMovement = Engine.intAtWidth640(3);
         maxVerticalMovement = Engine.intAtWidth640(3);
         maxHorizontalMovement = Engine.intAtWidth640(4);
-        width = Engine.intAtWidth640(24);
+        width = Engine.intAtWidth640(32);
         height = width;
         moveRight = false;
         moveLeft = false;
@@ -126,8 +128,8 @@ public class Player {
         x += velX;
         y += velY;
 
-        x = Engine.clamp(x, 0, Engine.WIDTH - width);
-//        y = com.euhedral.engine.Engine.clamp(y, 0, Engine.HEIGHT - height);
+        x = Engine.clamp(x, 0, Engine.WIDTH - 5 * width / 4);
+        y = Engine.clamp(y, 5900, levelHeight + height);
 
         if (moveLeft && !moveRight) {
             velX -= acceleration;

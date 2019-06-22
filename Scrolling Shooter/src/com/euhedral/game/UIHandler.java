@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class UIHandler {
     private LinkedList<MenuItem> menuItems = new LinkedList<>();
     private LinkedList<NavButton> navButtons = new LinkedList<>();
-    private LinkedList<ActButton> actButtons = new LinkedList<>();
+    private LinkedList<ButtonAction> actButtons = new LinkedList<>();
     ActionTag action = null;
 
     // Common game variables
@@ -74,16 +74,16 @@ public class UIHandler {
 
         // Shop
 
-        ActButton go = new ActButton(leftButtonX, lowestButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
+        ButtonAction go = new ButtonAction(leftButtonX, lowestButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
         addButton(go);
 
-        ActButton health = new ActButton(leftButtonX, topButtonY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
+        ButtonAction health = new ButtonAction(leftButtonX, topButtonY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
         addButton(health);
 
-        ActButton ground = new ActButton(midLeftButtonX, topButtonY, buttonSize/2, "Ground Bullets", GameState.Transition, ActionTag.ground);
+        ButtonAction ground = new ButtonAction(midLeftButtonX, topButtonY, buttonSize/2, "Ground Bullets", GameState.Transition, ActionTag.ground);
         addButton(ground);
 
-        ActButton power = new ActButton(rightButtonX, topButtonY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
+        ButtonAction power = new ButtonAction(rightButtonX, topButtonY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
         addButton(power);
 
         // Game Over
@@ -116,7 +116,7 @@ public class UIHandler {
                 navButton.render(g);
         }
 
-        for (ActButton actButton : actButtons) {
+        for (ButtonAction actButton : actButtons) {
             if (actButton.stateIs(Engine.currentState)) {
                 if (!ground && actButton.getAction() == ActionTag.ground) {
                     actButton.render(g);
@@ -137,7 +137,7 @@ public class UIHandler {
                     Engine.setState(navButton.getTargetSate());
         }
 
-        for (ActButton actButton : actButtons) {
+        for (ButtonAction actButton : actButtons) {
             if (actButton.stateIs(Engine.currentState)) {
                 if (actButton.mouseOverlap(mx, my)) {
                     this.action = actButton.getAction();
@@ -176,7 +176,7 @@ public class UIHandler {
         navButtons.add(navButton);
     }
 
-    public void addButton(ActButton actButton) {
+    public void addButton(ButtonAction actButton) {
         actButtons.add(actButton);
     }
 

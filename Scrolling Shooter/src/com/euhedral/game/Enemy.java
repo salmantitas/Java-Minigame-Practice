@@ -11,7 +11,7 @@ public abstract class Enemy {
     protected int x, y, health;
     protected ID id;
     protected float velX;
-    protected float velY = Engine.floatAtWidth640(2)/2;;
+    protected float velY = Engine.floatAtWidth640(20)/17;;
     protected int width, height;
     protected int power = 1;
     protected boolean moveLeft, moveRight;
@@ -55,7 +55,7 @@ public abstract class Enemy {
     public void update() {
         shootTimer--;
         if (!inscreen)
-            inscreen = y > cam.getMarker() + 256;
+            inscreen = y > cam.getMarker() + 160;
         if (inscreen)
             if (shootTimer <= 0)
                 shoot();

@@ -15,7 +15,8 @@ public class GameController {
     private Random r = new Random();
 
     // Manually set the com.euhedral.engine.Window information here
-    private int gameWidth = 1280;
+    private int gameWidth = 1024;
+    private double gameRatio = 4/3;
     private int gameHeight = Engine.HEIGHT;
     private String gameTitle = "Scrolling Shooter";
     private Color gameBackground = Color.BLUE;
@@ -25,14 +26,21 @@ public class GameController {
     private SpriteSheet spriteSheet;
     private Sprite sprite;
 
+    // Camera
+    int offsetHorizontal;
+    int offsetVertical;
+
     private int score = 0;
-    private int scoreX = Engine.percWidth(5);
-    private int powerX = Engine.percWidth(40);
+    private int scoreX = Engine.percWidth(2.5);
+    private int powerX = Engine.percWidth(33);
     private int scoreY = Engine.percHeight(15);
     private int scoreSize = Engine.percWidth(4);
     private int lives = 3;
     private final int maxPower = 5;
     private int power = 1;
+
+    private int healthX = Engine.percWidth(2.5);
+    private int healthY = 5 * healthX;
     private final int healthDef = 100;
     private int health = healthDef;
     private LinkedList<Integer> highScore = new LinkedList<>();
@@ -47,7 +55,7 @@ public class GameController {
      * User variables *
      ******************/
 
-    private Player player = new Player(0,0);
+    private Player player = new Player(0,0, 0);
     private EnemyBoss boss;
     private Flag flag;
 
@@ -76,6 +84,7 @@ public class GameController {
          * Window Setting *
          ******************/
         Engine.setTITLE(gameTitle);
+//        Engine.setRatio(gameRatio);
         Engine.setWIDTH(gameWidth);
         Engine.setBACKGROUND_COLOR(gameBackground);
 
@@ -178,11 +187,9 @@ public class GameController {
 
             if (Engine.currentState == GameState.Game || Engine.currentState == GameState.Pause ) {
 
-
-
                     Graphics2D g2d = (Graphics2D) g;
 
-                    // com.euhedral.game.Camera start
+                    // Camera start
                     g2d.translate(cam.getX(), cam.getY());
 
                     for (Enemy enemy : enemies) {
@@ -192,7 +199,7 @@ public class GameController {
                     flag.render(g);
                     player.render(g);
 
-                    // com.euhedral.game.Camera end
+                    // Camera end
                     g2d.translate(-cam.getX(), -cam.getY());
 
                     drawHealth(g);
@@ -426,16 +433,14 @@ public class GameController {
     }
 
     private void drawHealth(Graphics g) {
-        int x = Engine.intAtWidth640(10);
-        int y = x/2;
         int width = Engine.intAtWidth640(2);
         int height = width*6;
         Color backColor = Color.lightGray;
         Color healthColor = Color.GREEN;
         g.setColor(backColor);
-        g.fillRect(x,y, healthDef * width, height);
+        g.fillRect(healthX, healthY, healthDef * width, height);
         g.setColor(healthColor);
-        g.fillRect(x,y, health * width, height);
+        g.fillRect(healthX, healthY, health * width, height);
     }
 
     public void drawHighScore(Graphics g) {
@@ -600,12 +605,14 @@ public class GameController {
     }
 
     public void spawnPlayer(int width, int height, int levelHeight) {
-        player = new Player(width,height);
+        offsetHorizontal = - gameWidth/2 + 32;
+        offsetVertical = gameHeight - 160;
+        player = new Player(width,height, levelHeight);
         player.setPower(power);
         player.setGround(ground);
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen
-        cam = new Camera(player.getX()-gameWidth/2,-player.getY() + gameHeight - 256);
+        cam = new Camera(player.getX() + offsetHorizontal,-player.getY() + offsetVertical);
         cam.setMarker(player.getY());
     }
 

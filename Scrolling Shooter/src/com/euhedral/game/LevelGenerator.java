@@ -1,5 +1,7 @@
 package com.euhedral.game;
 
+import com.euhedral.engine.Engine;
+
 import java.awt.image.BufferedImage;
 
 public class LevelGenerator {
