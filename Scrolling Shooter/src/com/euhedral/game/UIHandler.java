@@ -1,6 +1,7 @@
 package com.euhedral.game;
 
 import com.euhedral.engine.*;
+import com.euhedral.engine.Button;
 import com.euhedral.engine.MenuItem;
 import com.euhedral.engine.Panel;
 
@@ -51,6 +52,7 @@ public class UIHandler {
         addPanel(mainMenu);
 
         NavButton mainMenuPlay = new NavButton(leftButtonX, lowestButtonY, buttonSize, "Play", GameState.Menu, GameState.Transition);
+
         mainMenuPlay.addOtherState(GameState.GameOver);
         mainMenuPlay.setFill();
         addButton(mainMenuPlay);
@@ -68,8 +70,9 @@ public class UIHandler {
         // In-Game
 
         NavButton backToMenu = new NavButton(midLeftButtonX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
-        backToMenu.addOtherState(GameState.GameOver);
         backToMenu.addOtherState(GameState.Help);
+        backToMenu.addOtherState(GameState.Transition);
+        backToMenu.addOtherState(GameState.GameOver);
         addButton(backToMenu);
 
         // Transition / Shop
@@ -102,6 +105,10 @@ public class UIHandler {
 //    }
 
     public void render(Graphics g) {
+        if (Engine.currentState == GameState.Help) {
+            drawHelpText(g);
+        }
+
         if (Engine.currentState == GameState.Pause) {
             drawPause(g);
         }
@@ -155,8 +162,11 @@ public class UIHandler {
     public void checkButtonAction(int mx, int my) {
         for (NavButton navButton : navButtons) {
             if (navButton.stateIs(Engine.currentState))
-                if (navButton.mouseOverlap(mx, my))
+                if (navButton.mouseOverlap(mx, my)) {
+                    System.out.println("Button Clicked");
                     Engine.setState(navButton.getTargetSate());
+                    break;
+                }
         }
 
         for (ButtonAction actButton : actButtons) {
@@ -166,6 +176,37 @@ public class UIHandler {
                 }
             }
         }
+    }
+
+    public void chooseSelected() {
+        Button selected = null;
+
+        for (NavButton navButton : navButtons) {
+            if (navButton.stateIs(Engine.currentState))
+                if (navButton.isSelected()) {
+                    Engine.setState(navButton.getTargetSate());
+                    break;
+                }
+        }
+
+        if (selected == null) {
+
+            for (ButtonAction actButton : actButtons) {
+                if (actButton.stateIs(Engine.currentState)) {
+                    if (actButton.isSelected()) {
+                        this.action = actButton.getAction();
+                    }
+                }
+            }
+        }
+    }
+
+    public ActionTag getAction() {
+        return action;
+    }
+
+    public void endAction() {
+        action = null;
     }
 
     /***************************
@@ -188,6 +229,22 @@ public class UIHandler {
         g.setFont(new Font("arial", 1, 200));
         g.setColor(Color.WHITE);
         g.drawString("GAME OVER", Engine.percWidth(2), Engine.HEIGHT/2);
+    }
+
+    private void drawHelpText(Graphics g) {
+        g.setFont(new Font("arial", 1, 30));
+        g.setColor(Color.WHITE);
+        String[] help = new String[5];
+        int lineHeightInPixel = 80;
+        help[0] = "W-A-S-D for movement";
+        help[1] = "SPACEBAR to shoot";
+        help[2] = "CTRL to switch between air and ground weapons";
+        help[3] = "ESC or P in-game to pause or resume";
+        help[4] = "ESC from menu to quit";
+        int helpX = 200;
+        for (int i = 0; i < help.length; i++) {
+            g.drawString(help[i], helpX, (i+1)*lineHeightInPixel);
+        }
     }
 
     /****************
@@ -225,14 +282,6 @@ public class UIHandler {
 
     public void addPanel(int x, int y, int width, int height, GameState state, float transparency, Color color) {
         menuItems.add(new Panel(x, y, width, height, state, transparency, color));
-    }
-
-    public ActionTag getAction() {
-        return action;
-    }
-
-    public void endAction() {
-        action = null;
     }
 
 }

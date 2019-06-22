@@ -114,6 +114,7 @@ public class GameController {
     }
 
     public void update() {
+//        System.out.println(Engine.currentState);
         Engine.timer++;
 
         if (Engine.currentState == GameState.Quit)
@@ -168,10 +169,6 @@ public class GameController {
 
         if (Engine.currentState == GameState.Highscore) {
             drawHighScore(g);
-        }
-
-        if (Engine.currentState == GameState.Help) {
-            drawHelpText(g);
         }
 
         if (Engine.currentState == GameState.Transition) {
@@ -265,6 +262,15 @@ public class GameController {
         /*************
          * Game Code *
          *************/
+
+        if (Engine.currentState != GameState.Game) {
+            // Keyboard to Navigate buttons
+
+            // Enter/Spacebar to select selected
+            if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) {
+                uiHandler.chooseSelected();
+            }
+        }
 
         if (Engine.currentState != GameState.Pause) {
             if (key == (KeyEvent.VK_LEFT ) || key == (KeyEvent.VK_A))
@@ -376,18 +382,21 @@ public class GameController {
     }
 
     private void performAction() {
-        if (uiHandler.getAction() == ActionTag.go) {
-            loadMission = true;
-        } else if (uiHandler.getAction() == ActionTag.control) {
-            keyboardControl = !keyboardControl;
-        } else if (uiHandler.getAction() == ActionTag.health) {
-            buyHealth();
-        } else if (uiHandler.getAction() == ActionTag.power) {
-            buyPower();
-        } else if (uiHandler.getAction() == ActionTag.ground) {
-            buyGround();
+        ActionTag action = uiHandler.getAction();
+        if (action != null) {
+            if (action == ActionTag.go) {
+                loadMission = true;
+            } else if (action == ActionTag.control) {
+                keyboardControl = !keyboardControl;
+            } else if (action == ActionTag.health) {
+                buyHealth();
+            } else if (action == ActionTag.power) {
+                buyPower();
+            } else if (action == ActionTag.ground) {
+                buyGround();
+            }
+            uiHandler.endAction();
         }
-        uiHandler.endAction();
     }
 
     // Shop Functions
@@ -487,23 +496,6 @@ public class GameController {
         for (int i = 0; i < highScoreNumbers; i++) {
             g.drawString("Score " + (i+1) + ": " + highScore.get(i), Engine.percWidth(40), Engine.percHeight( 10 * i + 10));
         }
-    }
-
-    private void drawHelpText(Graphics g) {
-        g.setFont(new Font("arial", 1, 30));
-        g.setColor(Color.WHITE);
-        String help1, help2, help3;
-        help1 = "WASD for movement";
-        help2 = "SPACEBAR to shoot";
-        help3 = "CTRL to switch between air and ground weapons";
-        int helpX, helpY1, helpY2, helpY3;
-        helpX = 200;
-        helpY1 = 100;
-        helpY2 = 200;
-        helpY3 = 300;
-        g.drawString(help1, helpX, helpY1);
-        g.drawString(help2, helpX, helpY2);
-        g.drawString(help3, helpX, helpY3);
     }
 
     /******************

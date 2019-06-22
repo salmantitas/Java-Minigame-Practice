@@ -111,6 +111,10 @@ public class Button {
         setSelected(false);
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
     private void setSelected(boolean b) {
         selected = b;
     }
