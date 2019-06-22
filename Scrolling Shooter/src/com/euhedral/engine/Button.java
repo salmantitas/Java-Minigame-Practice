@@ -9,7 +9,8 @@ public class Button {
     protected String text;
     protected Font font;
     protected GameState renderState;
-    protected Color backColor, textColor;
+    protected boolean selected = false;
+    protected Color backColor, textColor, selectedColor;
     protected boolean fill = false;
     protected LinkedList<GameState> otherStates = new LinkedList<>();
     protected float transparency = 1;
@@ -22,6 +23,7 @@ public class Button {
         this.renderState = renderState;
         font = new Font("arial", 1, size);
         backColor = Color.BLUE;
+        selectedColor = Color.GREEN;
         textColor = Color.RED;
     }
 
@@ -44,7 +46,9 @@ public class Button {
             g.fill3DRect(x,y,width,height, true);
         else g.draw3DRect(x, y, width, height, true);
 
-        g.setColor(textColor);
+        if (selected)
+            g.setColor(selectedColor);
+        else g.setColor(textColor);
         g.drawString(text, x + Engine.perc(width, 5), y + Engine.perc(height, 75));
 
         if (transparency < 1) {
@@ -97,5 +101,17 @@ public class Button {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void select() {
+        setSelected(true);
+    }
+
+    public void deselect() {
+        setSelected(false);
+    }
+
+    private void setSelected(boolean b) {
+        selected = b;
     }
 }

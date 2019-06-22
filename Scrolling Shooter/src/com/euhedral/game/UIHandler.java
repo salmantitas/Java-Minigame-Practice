@@ -134,6 +134,24 @@ public class UIHandler {
         }
     }
 
+    public void checkHover(int mx, int my) {
+        for (NavButton button: navButtons) {
+            if (button.stateIs(Engine.currentState)) {
+                if (button.mouseOverlap(mx, my)) {
+                    button.select();
+                } else button.deselect();
+            }
+        }
+
+        for (ButtonAction button: actButtons) {
+            if (button.stateIs(Engine.currentState)) {
+                if (button.mouseOverlap(mx, my)) {
+                    button.select();
+                } else button.deselect();
+            }
+        }
+    }
+
     public void checkButtonAction(int mx, int my) {
         for (NavButton navButton : navButtons) {
             if (navButton.stateIs(Engine.currentState))

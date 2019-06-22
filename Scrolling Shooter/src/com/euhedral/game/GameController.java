@@ -229,6 +229,7 @@ public class GameController {
          * Game Code *
          *************/
 
+        uiHandler.checkHover(mx, my);
         giveDestination(mx, my);
     }
 
