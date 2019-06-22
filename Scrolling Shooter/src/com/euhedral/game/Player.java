@@ -72,6 +72,7 @@ public class Player {
 //        g.fillRect(x, y + com.euhedral.engine.Engine.perc(height, 30) ,width, com.euhedral.engine.Engine.perc(height,12.5)); // Wingspan
 //        g.fillRect(x + com.euhedral.engine.Engine.perc(width,25), y ,width/2, com.euhedral.engine.Engine.perc(height,4)); // Fans
 
+        g.fillRect(mx,my,10,10);
 
         for (Bullet bullet: bullets) {
             bullet.render(g);
@@ -137,26 +138,34 @@ public class Player {
         y = Engine.clamp(y, 5900, levelHeight + height);
 
         if (destinationGiven) {
-            if (x == mx && y == my) {
+            int positionOffset = 5;
+            if (mx == y && my == y) {
                 destinationGiven = false;
-            } else {
-                if (x > mx) {
-                    velX = -horizontalMovement;
-                } else if (x < mx) {
-                    velX = horizontalMovement;
-                } else {
-                    velX = 0;
-                }
-                if (y > my) {
-                    velY = -verticalMovement;
-                } else if (y < my) {
-                    velY = verticalMovement;
-                } else {
-                    velY = 0;
-                }
             }
-        } else {
-            if (moveLeft && !moveRight) {
+            if (Math.abs(mx - x) < positionOffset) {
+                x = mx;
+                moveLeft = false;
+                moveRight = false;
+            } else if (mx > x) {
+                moveLeft = false;
+                moveRight = true;
+            } else if (mx < x) {
+                moveLeft = true;
+                moveRight = false;
+            }
+            if (Math.abs(my - y) < positionOffset) {
+                y = my;
+                moveUp = false;
+                moveDown = false;
+            } else if (my > y) {
+                moveUp = false;
+                moveDown = true;
+            } else if (my < y) {
+                moveUp = true;
+                moveDown = false;
+            }
+        }
+        if (moveLeft && !moveRight) {
                 velX -= acceleration;
                 if (velX < maxHorizontalMovement) {
                     velX = -maxHorizontalMovement;
@@ -180,7 +189,7 @@ public class Player {
                 } else if (velY < 0) {
                     velY += friction;
                 }
-        }
+
     }
 
     private void shoot() {
@@ -210,8 +219,9 @@ public class Player {
     }
 
     public void giveDestination(int mx, int my) {
-        this.mx = mx;
-        this.my = my;
+        this.mx = mx - width/2;
+        this.my = levelHeight - Engine.percHeight(83.5) + my;
+        System.out.println("Destination: "+ this.my);
         destinationGiven = true;
     }
 
@@ -225,6 +235,14 @@ public class Player {
 
     public int getY() {
         return y;
+    }
+
+    public int getMx() {
+        return mx;
+    }
+
+    public int getMy() {
+        return my;
     }
 
     public int getPower() {

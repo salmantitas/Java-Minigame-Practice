@@ -4,5 +4,6 @@ public enum ActionTag {
     go,
     health,
     power,
-    ground
+    ground,
+    control
 }

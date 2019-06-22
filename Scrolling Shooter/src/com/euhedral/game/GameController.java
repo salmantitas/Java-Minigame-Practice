@@ -6,6 +6,7 @@ import com.euhedral.engine.GameState;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Random;
@@ -79,6 +80,7 @@ public class GameController {
     private BufferedImage level1 = null, level2 = null;
     private LevelGenerator levelGenerator;
     public static Camera cam;
+    private boolean keyboardControl = true; // false means mouse Control
 
     public GameController() {
 
@@ -222,6 +224,42 @@ public class GameController {
         uiHandler.render(g);
     }
 
+    public void mouseMoved(int mx, int my) {
+        /*************
+         * Game Code *
+         *************/
+
+        giveDestination(mx, my);
+    }
+
+    public void mouseDragged(int mx, int my) {
+        /*************
+         * Game Code *
+         *************/
+
+        giveDestination(mx, my);
+    }
+
+    public void mousePressed(int mouse) {
+        /*************
+         * Game Code *
+         *************/
+
+        if (mouse==MouseEvent.BUTTON1) {
+            shootPlayer();
+        }
+    }
+
+    public void mouseReleased(int mouse) {
+        /*************
+         * Game Code *
+         *************/
+
+        if (mouse==MouseEvent.BUTTON1) {
+            stopShootPlayer();
+        }
+    }
+
     public void keyPressed(int key) {
         /*************
          * Game Code *
@@ -247,7 +285,7 @@ public class GameController {
                 player.switchBullet();
 
             if (Engine.currentState == GameState.Game) {
-                if (key == (KeyEvent.VK_P)) {
+                if (key == KeyEvent.VK_P || key == KeyEvent.VK_ESCAPE) {
                     Engine.pauseState();
                 }
             }
@@ -255,7 +293,7 @@ public class GameController {
         } else {
 
             if (Engine.currentState == GameState.Pause) {
-                if (key == KeyEvent.VK_P) {
+                if (key == KeyEvent.VK_P || key == KeyEvent.VK_ESCAPE) {
                     Engine.gameState();
                 }
             }
@@ -263,11 +301,6 @@ public class GameController {
             if (key == (KeyEvent.VK_ESCAPE)) {
                 if (Engine.currentState == GameState.Menu) {
                     System.exit(1);
-                } else {
-                    if (Engine.currentState == GameState.Game)
-                        Engine.setState(GameState.Pause);
-                    else if (Engine.currentState == GameState.Pause)
-                        Engine.setState(GameState.Game);
                 }
             }
         }
@@ -344,6 +377,8 @@ public class GameController {
     private void performAction() {
         if (uiHandler.getAction() == ActionTag.go) {
             loadMission = true;
+        } else if (uiHandler.getAction() == ActionTag.control) {
+            keyboardControl = !keyboardControl;
         } else if (uiHandler.getAction() == ActionTag.health) {
             buyHealth();
         } else if (uiHandler.getAction() == ActionTag.power) {
@@ -514,8 +549,13 @@ public class GameController {
             player.moveDown(false);
     }
 
-    public void giveDestination(int mx, int my) {
-        player.giveDestination(mx, my);
+    private void giveDestination(int mx, int my) {
+        if (!keyboardControl)
+            player.giveDestination(mx, my);
+    }
+
+    public boolean canUpdateDestination(int mx, int my) {
+        return !(player.getMx() == mx && player.getMy() == my);
     }
 
     public void shootPlayer() {

@@ -72,10 +72,8 @@ public class UIHandler {
         backToMenu.addOtherState(GameState.Help);
         addButton(backToMenu);
 
-        // Shop
+        // Transition / Shop
 
-        ButtonAction go = new ButtonAction(leftButtonX, lowestButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
-        addButton(go);
 
         ButtonAction health = new ButtonAction(leftButtonX, topButtonY, buttonSize/2, "Buy Health", GameState.Transition, ActionTag.health);
         addButton(health);
@@ -85,6 +83,13 @@ public class UIHandler {
 
         ButtonAction power = new ButtonAction(rightButtonX, topButtonY, buttonSize/2, "Upgrade Power", GameState.Transition, ActionTag.power);
         addButton(power);
+
+        ButtonAction go = new ButtonAction(leftButtonX, lowestButtonY, buttonSize, "Go!", GameState.Transition, ActionTag.go);
+        addButton(go);
+
+//        ButtonAction control = new ButtonAction(midLeftButtonX, lowestButtonY, buttonSize, "Switch Control Scheme", GameState.Transition, ActionTag.control);
+//        control.addOtherState(GameState.Pause);
+//        addButton(control);
 
         // Game Over
 

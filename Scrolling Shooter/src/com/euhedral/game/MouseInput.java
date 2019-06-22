@@ -15,16 +15,37 @@ public class MouseInput extends MouseAdapter {
     }
 
     public void updatePressed() {
-        if (mouse.buttonIsPressed(MouseEvent.BUTTON1)) {
-            gameController.shootPlayer();
-        }
-//        gameController.giveDestination(getMxPressed(), getMyPressed());
+//        if (legalPress)
+        notifyPress(mouse.getButtonPressed());
     }
 
     public void updateReleased() {
-        if (mouse.buttonIsReleased(MouseEvent.BUTTON1))
-            gameController.stopShootPlayer();
+//        if (legalRelease)
+        notifyRelease(mouse.getButtonReleased());
         gameController.checkButtonAction(getMxReleased(), getMyReleased());
+    }
+
+    public void updateMoved() {
+            notifyMoved(getMxMoved(), getMyMoved());
+    }
+    public void updateDragged() {
+            notifyDragged(getMxDrag(), getMyDrag());
+    }
+
+    public int getMxMoved() {
+        return mouse.getMxMove();
+    }
+
+    public int getMyMoved() {
+        return mouse.getMyMove();
+    }
+
+    public int getMxDrag() {
+        return mouse.getMxDrag();
+    }
+
+    public int getMyDrag() {
+        return mouse.getMyDrag();
     }
 
     public int getMxPressed() {
@@ -41,5 +62,21 @@ public class MouseInput extends MouseAdapter {
 
     public int getMyReleased() {
         return mouse.getMyReleased();
+    }
+
+    private void notifyPress(int me) {
+        gameController.mousePressed(me);
+    }
+
+    private void notifyRelease(int me) {
+        gameController.mouseReleased(me);
+    }
+
+    private void notifyMoved(int mx, int my) {
+        gameController.mouseMoved(mx, my);
+    }
+
+    private void notifyDragged(int mx, int my) {
+        gameController.mouseDragged(mx, my);
     }
 }

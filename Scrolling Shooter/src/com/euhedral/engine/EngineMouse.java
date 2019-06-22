@@ -42,6 +42,38 @@ public class EngineMouse extends MouseAdapter {
         System.out.println("Mouse Released at (" + mxReleased + ", " + myReleased + ")");
     }
 
+    public void mouseMoved(MouseEvent e) {
+        mxMove = e.getX();
+        myMove = e.getY();
+        mouseInput.updateMoved();
+
+//        System.out.println("Mouse moved at (" + mxMove + ", " + myMove + ")");
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        mxDrag = e.getX();
+        myDrag = e.getY();
+        mouseInput.updateDragged();
+
+//        System.out.println("Mouse dragged at (" + mxMove + ", " + myMove + ")");
+    }
+
+    public int getMxMove() {
+        return mxMove;
+    }
+
+    public int getMyMove() {
+        return myMove;
+    }
+
+    public int getMxDrag() {
+        return mxDrag;
+    }
+
+    public int getMyDrag() {
+        return myDrag;
+    }
+
     public int getMxPressed() {
         return mxPressed;
     }
