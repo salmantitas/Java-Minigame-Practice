@@ -11,6 +11,8 @@ public class EngineMouse extends MouseAdapter {
     private GameController gameController;
     private MouseInput mouseInput;
 
+    private int mxMove, myMove;
+    private int mxDrag, myDrag;
     private int mxPressed, myPressed;
     private int mxReleased, myReleased;
     private int buttonPressed, buttonReleased;

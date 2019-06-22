@@ -44,6 +44,8 @@ public class Engine extends Canvas implements Runnable{
 
         addKeyListener(keyInput);
         addMouseListener(mouseInput);
+        addMouseMotionListener(mouseInput);
+        addMouseWheelListener(mouseInput);
         System.out.println("Game initialized");
         new Window(WIDTH, HEIGHT, TITLE, this);
     }
@@ -86,8 +88,8 @@ public class Engine extends Canvas implements Runnable{
             }
 
             try {
-                Thread.sleep(1);
-//                Thread.sleep(10);
+//                Thread.sleep(1);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

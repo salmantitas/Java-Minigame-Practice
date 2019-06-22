@@ -49,7 +49,7 @@ public class KeyInput extends KeyAdapter{
     public void updatePressed() {
 
         /***************
-         * com.euhedral.engine.Engine Code *
+         * Engine Code *
          ***************/
 
         if (keyIsPressed(KeyEvent.VK_ESCAPE))
@@ -66,7 +66,7 @@ public class KeyInput extends KeyAdapter{
 
     public void updateReleased() {
         /***************
-         * com.euhedral.engine.Engine Code *
+         * Engine Code *
          ***************/
 
         for (int lk: legalKeysRelease)

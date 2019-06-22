@@ -21,6 +21,10 @@ public class GameController {
     private Color gameBackground = Color.BLUE;
 
     // Common game variables
+    private Texture texture;
+    private SpriteSheet spriteSheet;
+    private Sprite sprite;
+
     private int score = 0;
     private int scoreX = Engine.percWidth(5);
     private int powerX = Engine.percWidth(40);
@@ -90,6 +94,9 @@ public class GameController {
         level1 = loader.loadImage("/level1.png");
         level2 = loader.loadImage("/level2.png");
         levelGenerator = new LevelGenerator(this);
+        texture = new Texture("tex");
+        spriteSheet = new SpriteSheet(new Texture("tex"), 32);
+        sprite = new Sprite(spriteSheet, 1 ,1);
 //        spawn();
     }
 

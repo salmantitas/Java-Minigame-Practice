@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import com.euhedral.game.GameController;
 import com.euhedral.game.KeyInput;
 
-public class EngineKeyboard extends KeyAdapter {
+public class  EngineKeyboard extends KeyAdapter {
     public GameController gameController;
     private KeyInput keyInput;
 
