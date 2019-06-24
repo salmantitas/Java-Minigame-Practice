@@ -67,7 +67,7 @@ public class UIHandler {
 
         // In-Game
 
-        ButtonNav backToMenu = new ButtonNav(midLeftButtonX, lowestButtonY, buttonSize, "Main Menu", GameState.Pause, GameState.Menu);
+        ButtonNav backToMenu = new ButtonNav(midLeftButtonX, lowestButtonY, Engine.perc(buttonSize, 80), "Main Menu", GameState.Pause, GameState.Menu);
         backToMenu.addOtherState(GameState.Help);
         backToMenu.addOtherState(GameState.Transition);
         backToMenu.addOtherState(GameState.GameOver);

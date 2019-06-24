@@ -1,13 +1,15 @@
 package com.euhedral.engine;
 
+import com.euhedral.game.ContactID;
+import com.euhedral.game.EntityID;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
     protected int x, y, width, height;
-    protected float velX = 0, velY = 0;
-//    protected ObjectID;
+    protected EntityID id;
 
     protected Color color;
     protected BufferedImage image;
@@ -23,19 +25,20 @@ public abstract class Entity {
     // every object is initialized to be not jumping or affected by gravity
     protected boolean gravityAffected = false, jumping = false, friction = false;
 
-    public Entity(int x, int y) {
+    public Entity(int x, int y, EntityID id) {
         this.x = x;
         this.y = y;
+        this.id = id;
         initialize();
     }
 
-    public Entity(int x, int y, BufferedImage image) {
-        this(x,y);
+    public Entity(int x, int y, EntityID id, BufferedImage image) {
+        this(x,y, id);
         this.image = image;
     }
 
-    public Entity(int x, int y, BufferedImage[] images) {
-        this(x,y);
+    public Entity(int x, int y, EntityID id, BufferedImage[] images) {
+        this(x,y, id);
         this.images = images;
 
     }
@@ -112,28 +115,12 @@ public abstract class Entity {
         this.height = height;
     }
 
-//    public ObjectID getId() {
-//        return id;
-//    }
-//
-//    public void setId(ObjectID id) {
-//        this.id = id;
-//    }
-
-    public float getVelX() {
-        return velX;
+    public EntityID getId() {
+        return id;
     }
 
-    public void setVelX(float velX) {
-        this.velX = velX;
-    }
-
-    public float getVelY() {
-        return velY;
-    }
-
-    public void setVelY(float velY) {
-        this.velY = velY;
+    public void setId(EntityID id) {
+        this.id = id;
     }
 
     public boolean isGravityAffected() {

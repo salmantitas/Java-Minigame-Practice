@@ -1,6 +1,6 @@
 package com.euhedral.game;
 
-public enum ID {
+public enum ContactID {
     Air,
     Ground,
     Boss

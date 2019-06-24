@@ -7,7 +7,7 @@ import java.awt.*;
 public abstract class EnemyGround extends Enemy{
 
     public EnemyGround(int x, int y) {
-        super(x,y, ID.Ground);
+        super(x,y, EnemyID.Basic, ContactID.Ground);
     }
 
     public void update() {

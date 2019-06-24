@@ -10,7 +10,7 @@ public abstract class EnemyBoss extends Enemy{
     boolean alive = true;
 
     public EnemyBoss(int x, int y) {
-        super(x,y, ID.Boss);
+        super(x,y, EnemyID.Boss, ContactID.Boss);
         shootTimerDef = 150;
     }
 
@@ -25,7 +25,7 @@ public abstract class EnemyBoss extends Enemy{
     @Override
     public void update() {
         super.update();
-        move();
+//        move();
         if (health <= 0)
             alive = false;
     }

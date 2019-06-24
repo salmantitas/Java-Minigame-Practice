@@ -25,7 +25,7 @@ public class Player extends MobileEntity {
     private boolean destinationGiven = false;
 
     public Player(int x, int y, int levelHeight) {
-        super(x,y);
+        super(x,y, EntityID.Player);
         this.levelHeight = levelHeight;
         width = Engine.intAtWidth640(32);
         height = width;
@@ -34,12 +34,12 @@ public class Player extends MobileEntity {
         velX = 0;
         velY = 0;
         acceleration = 0.05f;
-        minVerticalMovement = 3;
-        minHorizontalMovement = 4;
-        verticalMovement = minVerticalMovement;
-        horizontalMovement = minHorizontalMovement;
-        maxVerticalMovement = 2*minVerticalMovement;
-        maxHorizontalMovement = 2*minHorizontalMovement;
+        minVelY = 3;
+        minVelX = 4;
+        velY = minVelY;
+        velX = minVelX;
+        maxVelY = 2 * minVelY;
+        maxVelX = 2 * minVelX;
 
         friction = true;
         frictionalForce = 0.9f;
@@ -82,7 +82,7 @@ public class Player extends MobileEntity {
         for (Bullet bullet : bullets) {
             BulletPlayer bulletPlayer = (BulletPlayer) bullet;
             if (bulletPlayer.getBounds().intersects(enemy.getBounds()) &&
-                    (bulletPlayer.getId() == enemy.getID() || bulletPlayer.getId() == ID.Air && enemy.getID() == ID.Boss)) {
+                    (bulletPlayer.getContactId() == enemy.getID() || bulletPlayer.getContactId() == ContactID.Air && enemy.getID() == ContactID.Boss)) {
                 b = bulletPlayer;
             }
         }
@@ -168,14 +168,14 @@ public class Player extends MobileEntity {
         if (moveLeft && !moveRight) {
 //            velX = - horizontalMovement; // stub
             velX -= acceleration;
-            velX = Engine.clamp(velX, -maxHorizontalMovement, -minHorizontalMovement);
+            velX = Engine.clamp(velX, - maxVelX, - minVelX);
         }
 
         // Moving Right
         else if (moveRight && !moveLeft) {
 //            velX = horizontalMovement; // stub
             velX += acceleration;
-            velX = Engine.clamp(velX, minHorizontalMovement, maxHorizontalMovement);
+            velX = Engine.clamp(velX, minVelX, maxVelX);
         }
 
         // Not Moving Left or Right
@@ -192,14 +192,14 @@ public class Player extends MobileEntity {
         if (moveUp && !moveDown) {
 //            velY = -verticalMovement; // stub
             velY -= acceleration;
-            velY = Engine.clamp(velY, -maxVerticalMovement, -minVerticalMovement);
+            velY = Engine.clamp(velY, - maxVelY, - minVelY);
         }
 
         // Moving Down
         else if (moveDown && !moveUp) {
 //            velY = horizontalMovement;
             velY += acceleration;
-            velY = Engine.clamp(velY, minVerticalMovement, maxVerticalMovement);
+            velY = Engine.clamp(velY, minVelY, maxVelY);
 
         }
 
@@ -224,17 +224,17 @@ public class Player extends MobileEntity {
             // todo
         } else if (power == 2) {
             if (airBullet) {
-                bullets.add(new BulletPlayerAir(x + 4, y, 0));
-                bullets.add(new BulletPlayerAir(x + width - 8, y, 0));
+                bullets.add(new BulletPlayerAir(x + 4, y, -90));
+                bullets.add(new BulletPlayerAir(x + width - 8, y, -90));
             } else {
-                bullets.add(new BulletPlayerGround(x + 8, y, 0));
-                bullets.add(new BulletPlayerGround(x + width - 16, y, 0));
+                bullets.add(new BulletPlayerGround(x + 8, y, -90));
+                bullets.add(new BulletPlayerGround(x + width - 16, y, -90));
             }
         } else {
             if (airBullet) {
-                bullets.add(new BulletPlayerAir(x + width / 2, y, 0));
+                bullets.add(new BulletPlayerAir(x + width / 2, y, -90));
             } else {
-                bullets.add(new BulletPlayerGround(x + width / 2, y, 0));
+                bullets.add(new BulletPlayerGround(x + width / 2, y, -90));
             }
         }
         // reset shoot timer to default

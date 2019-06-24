@@ -4,11 +4,14 @@ import com.euhedral.engine.Engine;
 
 import java.awt.*;
 
-public abstract class Bullet  {
+public class Bullet  {
     protected int x, y, vel;
+    protected float velX, velY;
+    protected double angle;
     protected boolean collided;
     protected int width, height;
     protected Color color;
+    protected boolean calculated = false;
 
     Bullet(int x, int y) {
         this.x = x;
@@ -19,9 +22,40 @@ public abstract class Bullet  {
         vel = Engine.intAtWidth640(4);
     }
 
-    public abstract void update();
+    Bullet(int x, int y, double angle) {
+        this(x,y);
+        this.angle = angle;
+    }
 
-    public abstract void render(Graphics g);
+    protected void calculateVelocities() {
+        double angleX = Math.toRadians(360 - angle);
+        double angleY = Math.toRadians(angle);
+        velX = (float) (vel * Math.cos(angleX));
+        velY = (float) (vel * Math.sin(angleY));
+        calculated = true;
+    }
+
+    public void update() {
+        if (!calculated)
+            calculateVelocities();
+        move();
+    }
+
+    protected void move() {
+        x += velX;
+        y += velY;
+    }
+
+    public void mirror(Bullet bullet, double angle) {
+        if (angle == 90) {
+            velX = -bullet.velX;
+            velY = bullet.velY;
+        }
+    }
+
+    public void render(Graphics g) {
+
+    }
 
     public void setX(int x) {
         this.x = x;

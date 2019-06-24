@@ -1,18 +1,15 @@
 package com.euhedral.game;
 
-import com.euhedral.engine.Engine;
+import com.euhedral.engine.MobileEntity;
 
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
 
-public abstract class Enemy {
+public class Enemy extends MobileEntity {
 
-    protected int x, y, health;
-    protected ID id;
-    protected float velX;
-    protected float velY = 1.95f;
-    protected int width, height;
+    protected int health;
+    protected ContactID contactId;
     protected int power = 1;
     protected boolean moveLeft, moveRight;
     protected Color color;
@@ -23,6 +20,24 @@ public abstract class Enemy {
     protected Camera cam;
     protected Random r;
     protected int score = 50;
+    protected EnemyID enemyID;
+
+    public Enemy(int x, int y, EnemyID enemyID) {
+        super(x, y, EntityID.Enemy);
+        this.enemyID = enemyID;
+        contactId = ContactID.Air;
+        velY = 1.95f;
+        moveRight = false;
+        moveLeft = false;
+        cam = GameController.getCamera();
+    }
+
+    public Enemy(int x, int y, EnemyID enemyID, ContactID contactId) {
+        this(x, y, enemyID);
+        this.contactId = contactId;
+    }
+
+//    public Enemy(int x, int y)
 
     public void damage() {
         this.health--;
@@ -44,16 +59,9 @@ public abstract class Enemy {
         this.inscreen = inscreen;
     }
 
-    public Enemy(int x, int y, ID id) {
-        this.x = x;
-        this.y = y;
-        this.id = id;
-        moveRight = false;
-        moveLeft = false;
-        cam = GameController.getCamera();
-    }
-
     public void update() {
+        move();
+
         shootTimer--;
         if (!inscreen)
             inscreen = y > cam.getMarker() + 160;
@@ -72,11 +80,13 @@ public abstract class Enemy {
         }
     }
 
-    public abstract void move();
+    public void move() {
+        super.move();
+    }
 
     protected void shoot() {
         resetShooter();
-        bullets.add(new BulletEnemy(x + width/2,y, 1));
+        bullets.add(new BulletEnemy(x + width/2,y, 90));
 //        shootTimer = shootTimerDef;
     }
 
@@ -118,8 +128,8 @@ public abstract class Enemy {
         this.velY =  velY;
     }
 
-    public ID getID() {
-        return id;
+    public ContactID getID() {
+        return contactId;
     }
 
     public int getScore() {

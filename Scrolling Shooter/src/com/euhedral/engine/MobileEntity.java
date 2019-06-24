@@ -1,17 +1,19 @@
 package com.euhedral.engine;
 
+import com.euhedral.game.EntityID;
+
 import java.awt.*;
 
 public class MobileEntity extends Entity {
 
     protected float acceleration, frictionalForce;
-    protected int horizontalMovement, verticalMovement;
-    protected int minHorizontalMovement, minVerticalMovement;
-    protected int maxHorizontalMovement, maxVerticalMovement;
+    protected float velX, velY;
+    protected float minVelX, minVelY;
+    protected float maxVelX, maxVelY;
     protected boolean moveLeft, moveRight, moveUp, moveDown;
 
-    public MobileEntity(int x, int y) {
-        super(x, y);
+    public MobileEntity(int x, int y, EntityID id) {
+        super(x, y, id);
     }
 
     @Override

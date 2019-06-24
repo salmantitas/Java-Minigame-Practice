@@ -63,7 +63,7 @@ public class GameController {
     private Player player = new Player(0, 0, 0);
 
     // Camera
-    public static Camera cam;
+    public static Camera camera;
     int offsetHorizontal;
     int offsetVertical;
 
@@ -261,7 +261,7 @@ public class GameController {
         Graphics2D g2d = (Graphics2D) g;
 
         // Camera start
-        g2d.translate(cam.getX(), cam.getY());
+        g2d.translate(camera.getX(), camera.getY());
 
         /*************
          * Game Code *
@@ -275,11 +275,11 @@ public class GameController {
         player.render(g);
 
         /*****************
-         * Engine Conde *
+         * Engine Code *
          *****************/
 
         // Camera end
-        g2d.translate(-cam.getX(), -cam.getY());
+        g2d.translate(-camera.getX(), -camera.getY());
     }
 
     /************************
@@ -630,12 +630,12 @@ public class GameController {
     public void checkCollision() {
         // Player vs enemy collision
         for (Enemy enemy : enemies) {
-            if (enemy.getID() == ID.Air)
+            if (enemy.getID() == ContactID.Air)
                 if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds())) {
                     score += enemy.getScore();
                     health -= 30;
                     destroy(enemy);
-                } else if (enemy.getID() == ID.Boss) {
+                } else if (enemy.getID() == ContactID.Boss) {
                     health = -10;
                 }
         }
@@ -654,7 +654,7 @@ public class GameController {
             if (enemy.inscreen) {
                 Bullet b = player.checkCollision(enemy);
                 if (b != null) {
-                    if (enemy.getID() == ID.Boss) {
+                    if (enemy.getID() == ContactID.Boss) {
                         boss.damage();
                         healthBoss = boss.getHealth();
                         if (boss.getHealth() <= 0) {
@@ -706,7 +706,7 @@ public class GameController {
     }
 
     public static Camera getCamera() {
-        return cam;
+        return camera;
     }
 
     public void spawnPlayer(int width, int height, int levelHeight) {
@@ -717,18 +717,26 @@ public class GameController {
         player.setGround(ground);
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen
-        cam = new Camera(player.getX() + offsetHorizontal, -player.getY() + offsetVertical);
-        cam.setMarker(player.getY());
+//        camera = new Camera(player.getX() + offsetHorizontal, -player.getY() + offsetVertical);
+        camera = new Camera(0, -player.getY() + offsetVertical);
+        camera.setMarker(player.getY());
     }
 
     public void spawnCamera(int width, int height) {
-        cam = new Camera(width, -750); // -700 = 2 fps;
+        camera = new Camera(width, -750); // -700 = 2 fps;
     }
 
-    public void spawnEnemy(int width, int height, ID id) {
-        if (id == ID.Air)
-            enemies.add(new EnemyAirBasic(width, height, 1));
-        else enemies.add(new EnemyGroundBasic(width, height));
+    // Spawn Air Enemy Basic
+    public void spawnEnemy(int x, int y, ContactID contactId) {
+        if (contactId == ContactID.Air)
+            enemies.add(new EnemyBasic(x, y, EnemyID.Basic, contactId));
+        else enemies.add(new EnemyGroundBasic(x, y));
+    }
+
+    // Spawn Air Enemy Basic
+    public void spawnEnemy(int x, int y, EnemyID enemyID, ContactID contactId, Color color) {
+        if (contactId == ContactID.Air)
+            enemies.add(new EnemyBasic(x, y, EnemyID.Fast, contactId, color));
     }
 
     public void spawnBoss(int width, int height) {
@@ -742,7 +750,7 @@ public class GameController {
     }
 
     public void spawnFlag() {
-        flag = new Flag(Engine.WIDTH / 2, -Engine.HEIGHT / 2, ID.Air);
+        flag = new Flag(Engine.WIDTH / 2, -Engine.HEIGHT / 2, ContactID.Air);
     }
 
     public void respawnFlag() {

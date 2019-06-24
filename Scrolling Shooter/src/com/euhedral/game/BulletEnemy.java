@@ -1,31 +1,20 @@
 package com.euhedral.game;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 public class BulletEnemy extends Bullet{
 
-    private double dir;
-
-    BulletEnemy(int x, int y, double dir) {
+    BulletEnemy(int x, int y) {
         super(x, y);
-        this.dir = dir;
     }
 
-    public void update() {
-        if (dir == 0.5) {
-            x += vel/2;
-            y += vel;
-        }
+    BulletEnemy(int x, int y, double angle) {
+        super(x, y, angle);
+    }
 
-        else if (dir == -0.5) {
-            x -= vel/2;
-            y += vel;
-        }
-
-        else
-            y += vel;
-    };
+//    public void update() {
+//
+//    }
 
     public void render(Graphics g) {
         g.setColor(Color.orange);

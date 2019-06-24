@@ -7,20 +7,20 @@ import java.awt.*;
 public class Flag {
 
     protected int x, y;
-    protected ID id;
+    protected ContactID contactId;
     protected float velX, velY;
     protected int width, height;
     protected Color color;
     protected Camera cam;
 
-    public Flag(int x, int y, ID id) {
+    public Flag(int x, int y, ContactID contactId) {
         this.x = x;
         this.y = y;
         width = Engine.intAtWidth640(32);
         height = width;
         velY = Engine.floatAtWidth640(2)/2;
         color = Color.YELLOW;
-        this.id = id;
+        this.contactId = contactId;
         cam = GameController.getCamera();
     }
 
@@ -51,8 +51,8 @@ public class Flag {
         this.velY =  velY;
     }
 
-    public ID getID() {
-        return id;
+    public ContactID getID() {
+        return contactId;
     }
 
     // Private Methods
