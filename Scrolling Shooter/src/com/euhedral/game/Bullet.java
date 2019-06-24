@@ -24,14 +24,25 @@ public class Bullet  {
 
     Bullet(int x, int y, double angle) {
         this(x,y);
-        this.angle = angle;
+        this.angle = angle % 360;
     }
 
     protected void calculateVelocities() {
-        double angleX = Math.toRadians(360 - angle);
-        double angleY = Math.toRadians(angle);
-        velX = (float) (vel * Math.cos(angleX));
-        velY = (float) (vel * Math.sin(angleY));
+        double angleX;
+        double angleY;
+//        if (angle >= - 90 && angle <= 90) {
+            angleX = Math.toRadians(360 - angle);
+            angleY = Math.toRadians(angle);
+//        } else {
+//            angleX = Math.toRadians(angle);
+//            angleY = Math.toRadians(360 - angle);
+//        }
+            velX = (float) (vel * Math.cos(angleX));
+            velY = (float) (vel * Math.sin(angleY));
+//        } else {
+//            velX = (float) (vel * Math.sin(angleX));
+//            velY = (float) (vel * Math.cos(angleY));
+//        }
         calculated = true;
     }
 

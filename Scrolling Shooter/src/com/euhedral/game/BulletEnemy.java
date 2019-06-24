@@ -12,6 +12,11 @@ public class BulletEnemy extends Bullet{
         super(x, y, angle);
     }
 
+    BulletEnemy(int x, int y, double angle, int vel) {
+        super(x, y, angle);
+        this.vel = vel;
+    }
+
 //    public void update() {
 //
 //    }
