@@ -12,13 +12,13 @@ public class LevelGenerator {
     }
 
     public void loadImageLevel(BufferedImage image) {
-        int w = image.getWidth();
-        int h = image.getHeight();
+        int width = image.getWidth();
+        int height = image.getHeight();
 
-        System.out.printf("Width: %d, Height: %d\n", w, h);
+        System.out.printf("Width: %d, Height: %d\n", width, height);
 
-        for (int j = h - 1; j >= 0; j--) {
-            for (int i = w - 1; i >= 0; i--) {
+        for (int j = height - 1; j >= 0; j--) {
+            for (int i = width - 1; i >= 0; i--) {
                 int pixel = image.getRGB(i, j);
                 int r = (pixel >> 16) & 0xff;
                 int g = (pixel >> 8) & 0xff;
@@ -26,7 +26,7 @@ public class LevelGenerator {
 
                 // Game Code//
                 if (r == 0 && g == 0 && b == 255)
-                    gameController.spawnPlayer(i*32, j*32, h*32);
+                    gameController.spawnPlayer(i*32, j*32, height*32);
                 if (r == 255 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, ContactID.Air);
                 if (r == 200 && g == 0 && b == 0)
@@ -39,7 +39,7 @@ public class LevelGenerator {
         }
 
         gameController.spawnFlag();
-        gameController.setLevelHeight(h*32);
+        gameController.setLevelHeight(height*32);
     }
 
 

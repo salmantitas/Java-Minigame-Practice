@@ -11,9 +11,7 @@ import java.util.Random;
 public class EnemyBasic extends Enemy {
 
     public EnemyBasic(int x, int y, EnemyID enemyID, ContactID contactID) {
-        super(x,y, enemyID);
-        this.enemyID = enemyID;
-        initialize();
+        super(x,y, enemyID, contactID);
         power = 1;
         width = Engine.intAtWidth640(32);
         height = width;
