@@ -10,6 +10,7 @@ public abstract class Entity {
 
     protected int x, y, width, height;
     protected EntityID id;
+    protected boolean active = true;
 
     protected Color color;
     protected BufferedImage image;
@@ -177,5 +178,13 @@ public abstract class Entity {
 
     protected void drawRect(Graphics g) {
         g.fillRect((int) x, (int) y, width, height);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

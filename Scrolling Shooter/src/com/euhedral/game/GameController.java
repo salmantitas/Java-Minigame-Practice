@@ -196,7 +196,9 @@ public class GameController {
                 flag.update();
 
                 for (Enemy enemy : enemies) {
-                    enemy.update();
+                    if(enemy.isActive()) {
+                        enemy.update();
+                    }
                 }
 
                 checkCollision();
@@ -268,7 +270,9 @@ public class GameController {
          *************/
 
         for (Enemy enemy : enemies) {
-            enemy.render(g);
+            if (enemy.isActive()) {
+                enemy.render(g);
+            }
         }
 
         flag.render(g);
@@ -651,7 +655,7 @@ public class GameController {
 
         // Enemy vs player bullet collision
         for (Enemy enemy : enemies) {
-            if (enemy.inscreen) {
+            if (enemy.inscreen && enemy.isActive()) {
                 Bullet b = player.checkCollision(enemy);
                 if (b != null) {
                     if (enemy.getID() == ContactID.Boss) {
@@ -675,6 +679,7 @@ public class GameController {
     }
 
     private void destroy(Enemy enemy) {
+        enemy.setActive(false);
 //        Iterator<com.euhedral.game.Enemy> it = enemies.iterator();
 //        while (it.hasNext()) {
 //            com.euhedral.game.Enemy e = it.next();
@@ -682,10 +687,10 @@ public class GameController {
 //                it.remove();
 //            }
 //        }
-        enemy.setX(+300);
-        enemy.setY(player.getY() + 1000);
-        enemy.setVelX(0);
-        enemy.setVelY(0);
+//        enemy.setX(+300);
+//        enemy.setY(player.getY() + 1000);
+//        enemy.setVelX(0);
+//        enemy.setVelY(0);
     }
 
     private void destroy(Bullet bullet) {

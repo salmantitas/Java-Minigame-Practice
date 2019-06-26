@@ -6,11 +6,21 @@ import java.awt.*;
 
 public class MobileEntity extends Entity {
 
+    protected enum HorizontalMovement{
+        LEFT, RIGHT, NONE;
+    }
+
+    protected enum VerticalMovement{
+        UP, DOWN, NONE;
+    }
+
     protected float acceleration, frictionalForce;
     protected float velX, velY;
     protected float minVelX, minVelY;
     protected float maxVelX, maxVelY;
     protected boolean moveLeft, moveRight, moveUp, moveDown;
+    protected HorizontalMovement hMove = HorizontalMovement.NONE;
+    protected VerticalMovement vMove = VerticalMovement.NONE;
 
     public MobileEntity(int x, int y, EntityID id) {
         super(x, y, id);
