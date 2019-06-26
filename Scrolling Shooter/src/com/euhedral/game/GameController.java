@@ -635,7 +635,7 @@ public class GameController {
         // Player vs enemy collision
         for (Enemy enemy : enemies) {
             if (enemy.getID() == ContactID.Air)
-                if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds())) {
+                if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds()) && enemy.isActive()) {
                     score += enemy.getScore();
                     health -= 30;
                     destroy(enemy);
@@ -646,10 +646,12 @@ public class GameController {
 
         // Player vs enemy bullet collision
         for (Enemy enemy : enemies) {
-            Bullet b = enemy.checkCollision(player);
-            if (b != null) {
-                health -= 10;
-                destroy(b);
+            if (enemy.isActive()) {
+                Bullet b = enemy.checkCollision(player);
+                if (b != null) {
+                    health -= 10;
+                    destroy(b);
+                }
             }
         }
 
@@ -687,13 +689,10 @@ public class GameController {
 //                it.remove();
 //            }
 //        }
-//        enemy.setX(+300);
-//        enemy.setY(player.getY() + 1000);
-//        enemy.setVelX(0);
-//        enemy.setVelY(0);
     }
 
     private void destroy(Bullet bullet) {
+        // todo: deactivate instead of replacing
         bullet.setX(+100);
         bullet.setY(Engine.HEIGHT + 100);
         bullet.setVel(0);

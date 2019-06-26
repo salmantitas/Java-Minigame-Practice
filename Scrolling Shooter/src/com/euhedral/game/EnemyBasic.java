@@ -17,7 +17,6 @@ public class EnemyBasic extends Enemy {
         height = width;
         color = Color.red;
         r = new Random();
-        healthRange(3,5);
         initialize();
     }
 
@@ -32,11 +31,13 @@ public class EnemyBasic extends Enemy {
             power = 1;
             shootTimerDef = 250;
             velY = 1.8f;
+            healthRange(3,5);
         }
         if (enemyID == EnemyID.Fast) {
             power = 2;
             shootTimerDef = 150;
-            velY = 2.5f;
+            velY = 3f;
+            healthRange(1,3);
         }
     }
 
