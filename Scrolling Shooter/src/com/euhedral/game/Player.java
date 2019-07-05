@@ -4,6 +4,7 @@ import com.euhedral.engine.Engine;
 import com.euhedral.engine.MobileEntity;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 public class Player extends MobileEntity {
@@ -23,6 +24,9 @@ public class Player extends MobileEntity {
     // Test
     private int mx, my;
     private boolean destinationGiven = false;
+
+    // Graphics
+    private BufferedImage image;
 
     public Player(int x, int y, int levelHeight) {
         super(x,y, EntityID.Player);
@@ -52,8 +56,13 @@ public class Player extends MobileEntity {
         this.power = 1;
     }
 
+    public Player(int x, int y, int levelHeight, BufferedImage image) {
+        this(x, y, levelHeight);
+        this.image = image;
+    }
+
     public void update() {
-//        System.out.println("com.euhedral.game.Player at (" + x + ", " + y + ")");
+//        System.out.println("Player at (" + x + ", " + y + ")");
         move();
         shootTimer--;
 

@@ -30,6 +30,7 @@ public class Engine extends Canvas implements Runnable{
     public static int timer = 0;
 
     public GameController gameController;
+    public static BufferedImageLoader loader;
 
     public static GameState currentState = GameState.Game;
 
@@ -45,6 +46,7 @@ public class Engine extends Canvas implements Runnable{
      * Creates the window
      */
     public Engine() {
+        loader = new BufferedImageLoader();
         gameController = new GameController();
 
         keyInput = new EngineKeyboard(gameController);

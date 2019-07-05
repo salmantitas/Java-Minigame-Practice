@@ -1,9 +1,6 @@
 package com.euhedral.game;
 
-import com.euhedral.engine.BufferedImageLoader;
-import com.euhedral.engine.Engine;
-import com.euhedral.engine.Entity;
-import com.euhedral.engine.GameState;
+import com.euhedral.engine.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -67,16 +64,12 @@ public class GameController {
     int offsetHorizontal;
     int offsetVertical;
 
-    // Graphics
-    private BufferedImageLoader loader;
-
     // Level Generation
     private LevelGenerator levelGenerator;
 
     // Levels
     private int levelHeight;
     private boolean loadMission = false;
-
 
     /******************
      * User variables *
@@ -100,8 +93,15 @@ public class GameController {
     private boolean levelSpawned = false;
     private boolean ground = false;
 
-    private BufferedImage level1 = null, level2 = null;
     private boolean keyboardControl = true; // false means mouse Control
+    private BufferedImage level1 = null, level2 = null;
+
+    /************
+     * Graphics *
+     ************/
+
+    private SpriteSheet playerSpriteSheet;
+    private BufferedImage[] playerImage;
 
     public GameController() {
 
@@ -130,16 +130,18 @@ public class GameController {
          *************/
 
         Engine.menuState();
+        level1 = Engine.loader.loadImage("/level1.png");
+        level2 = Engine.loader.loadImage("/level2.png");
     }
 
     private void initializeGraphics() {
         /*************
          * Game Code *
          *************/
-
-        loader = new BufferedImageLoader();
-        level1 = loader.loadImage("/level1.png");
-        level2 = loader.loadImage("/level2.png");
+        playerSpriteSheet = new SpriteSheet("/player.png");
+        playerImage = new BufferedImage[2];
+        playerImage[0] = playerSpriteSheet.grabImage(1,1,32,32);
+        playerImage[1] = playerSpriteSheet.grabImage(2,1,32,32);
     }
 
     private void initializeAnimations() {
@@ -256,9 +258,9 @@ public class GameController {
     }
 
     private void renderInCamera(Graphics g) {
-        /*****************
-         * Engine Conde *
-         *****************/
+        /***************
+         * Engine Code *
+         ***************/
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -716,7 +718,7 @@ public class GameController {
     public void spawnPlayer(int width, int height, int levelHeight) {
         offsetHorizontal = -gameWidth / 2 + 32;
         offsetVertical = gameHeight - 160;
-        player = new Player(width, height, levelHeight);
+        player = new Player(width, height, levelHeight, playerImage[0]);
         player.setPower(power);
         player.setGround(ground);
         // sets the camera's width to center the player horizontally, essentially to 0, and

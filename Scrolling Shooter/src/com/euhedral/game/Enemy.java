@@ -1,5 +1,6 @@
 package com.euhedral.game;
 
+import com.euhedral.engine.Engine;
 import com.euhedral.engine.MobileEntity;
 
 import java.awt.*;
@@ -11,6 +12,8 @@ public class Enemy extends MobileEntity {
     protected int health;
     protected ContactID contactId;
     protected int power = 1;
+    protected EnemyID enemyID;
+    protected float offscreenVelY = 2f;
     protected boolean moveLeft, moveRight;
     protected Color color;
     protected int shootTimerDef = 250;
@@ -20,7 +23,6 @@ public class Enemy extends MobileEntity {
     protected Camera cam;
     protected Random r;
     protected int score = 50;
-    protected EnemyID enemyID;
 
     public Enemy(int x, int y, EnemyID enemyID) {
         super(x, y, EntityID.Enemy);
@@ -64,7 +66,7 @@ public class Enemy extends MobileEntity {
 
         shootTimer--;
         if (!inscreen)
-            inscreen = y > cam.getMarker() + 160;
+            inscreen = y > cam.getMarker() + 100;
         if (inscreen)
             if (shootTimer <= 0)
                 shoot();
@@ -81,7 +83,13 @@ public class Enemy extends MobileEntity {
     }
 
     public void move() {
-        super.move();
+//        super.move();
+        if (inscreen) {
+            moveInScreen();
+        } else {
+            y += offscreenVelY;
+            x = Engine.clamp(x, 0, Engine.WIDTH - width);
+        }
     }
 
     protected void shoot() {
@@ -134,6 +142,10 @@ public class Enemy extends MobileEntity {
 
     public int getScore() {
         return score;
+    }
+
+    public void moveInScreen() {
+
     }
 
 }

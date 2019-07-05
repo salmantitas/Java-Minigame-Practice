@@ -187,4 +187,12 @@ public abstract class Entity {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    /*
+    * Debug
+    * */
+
+    protected void printLocation() {
+        System.out.printf("__ at (%d, %d)", x, y);
+    }
 }

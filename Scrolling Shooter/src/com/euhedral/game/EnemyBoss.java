@@ -51,7 +51,7 @@ public abstract class EnemyBoss extends Enemy{
 //        System.out.println("Boss at (" + x + ", " + y + ")");
     }
 
-    public abstract void moveInScreen();
+
 
     @Override
     public abstract void shoot();

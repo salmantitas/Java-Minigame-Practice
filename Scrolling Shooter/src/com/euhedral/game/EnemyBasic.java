@@ -32,12 +32,14 @@ public class EnemyBasic extends Enemy {
             shootTimerDef = 250;
             velY = 1.8f;
             healthRange(3,5);
+            score = 50;
         }
         if (enemyID == EnemyID.Fast) {
             power = 2;
             shootTimerDef = 150;
-            velY = 3f;
+            velY = 4f;
             healthRange(1,3);
+            score = 100;
         }
     }
 
@@ -62,6 +64,12 @@ public class EnemyBasic extends Enemy {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    @Override
+    public void moveInScreen() {
+        y += velY;
+        x += velX;
     }
 
     // Private Methods
