@@ -13,7 +13,7 @@ public class Enemy extends MobileEntity {
     protected ContactID contactId;
     protected int power = 1;
     protected EnemyID enemyID;
-    protected float offscreenVelY = 2f;
+    protected float offscreenVelY;
     protected boolean moveLeft, moveRight;
     protected Color color;
     protected int shootTimerDef = 250;
@@ -23,12 +23,15 @@ public class Enemy extends MobileEntity {
     protected Camera cam;
     protected Random r;
     protected int score = 50;
+    protected int distance;
+    protected int movementTimer;
 
     public Enemy(int x, int y, EnemyID enemyID) {
         super(x, y, EntityID.Enemy);
         this.enemyID = enemyID;
         contactId = ContactID.Air;
         velY = 1.95f;
+        offscreenVelY = velY;
         moveRight = false;
         moveLeft = false;
         cam = GameController.getCamera();
@@ -62,18 +65,22 @@ public class Enemy extends MobileEntity {
     }
 
     public void update() {
-        move();
 
         shootTimer--;
-        if (!inscreen)
+        if (!inscreen) {
             inscreen = y > cam.getMarker() + 100;
-        if (inscreen)
-            if (shootTimer <= 0)
+        }
+        if (inscreen) {
+            if (shootTimer <= 0) {
                 shoot();
+            }
+        }
 
         for (Bullet bullet: bullets) {
             bullet.update();
         }
+
+        move();
     }
 
     public void render(Graphics g) {
@@ -84,11 +91,13 @@ public class Enemy extends MobileEntity {
 
     public void move() {
 //        super.move();
+        x = Engine.clamp(x, 0, Engine.WIDTH - width);
+
         if (inscreen) {
             moveInScreen();
         } else {
             y += offscreenVelY;
-            x = Engine.clamp(x, 0, Engine.WIDTH - width);
+
         }
     }
 
@@ -145,6 +154,10 @@ public class Enemy extends MobileEntity {
     }
 
     public void moveInScreen() {
+
+    }
+
+    public void moveHorizontally() {
 
     }
 

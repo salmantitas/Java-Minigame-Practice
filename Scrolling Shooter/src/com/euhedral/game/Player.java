@@ -133,7 +133,7 @@ public class Player extends MobileEntity {
 
     // Private Methods
 
-    // This function governs the movement of the player
+    // This function governs the movementTimer of the player
     @Override
     protected void move() {
         super.move();

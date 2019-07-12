@@ -27,13 +27,15 @@ public class LevelGenerator {
                 // Game Code//
                 if (r == 0 && g == 0 && b == 255)
                     gameController.spawnPlayer(i*32, j*32, height*32);
-                if (r == 255 && g == 0 && b == 0)
-                    gameController.spawnEnemy(i*32, j*32, ContactID.Air);
-                if (r == 200 && g == 0 && b == 0)
+                else if (r == 255 && g == 0 && b == 0)
+                    gameController.spawnEnemy(i*32, j*32, EnemyID.Basic, ContactID.Air, new Color(r,g,b));
+                else if (r == 150 && g == 0 && b == 0)
+                    gameController.spawnEnemy(i*32, j*32, EnemyID.Move, ContactID.Air, new Color(r,g,b));
+                else if (r == 200 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, EnemyID.Fast, ContactID.Air, new Color(r,g,b));
-                if (r == 255 && g == 150 && b == 244)
+                else if (r == 255 && g == 150 && b == 244)
                     gameController.spawnEnemy(i*32, j*32, ContactID.Ground);
-                if (r == 255 && g == 216 && b == 0)
+                else if (r == 255 && g == 216 && b == 0)
                     gameController.spawnBoss(i*32, j*32);
             }
         }

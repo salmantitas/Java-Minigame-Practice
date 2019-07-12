@@ -6,7 +6,10 @@ import java.awt.*;
 
 public class EnemyBoss1 extends EnemyBoss{
 
-    int distToCover = Engine.HEIGHT/8;
+    int
+            distToCover = Engine.HEIGHT/8,
+            min = Engine.percWidth(25) ,
+            max = Engine.percWidth(75) - (int) 1.8 * width;
 
     public EnemyBoss1(int x, int y) {
         super(x,y);
@@ -61,7 +64,6 @@ public class EnemyBoss1 extends EnemyBoss{
                 x -= velX;
         }
 
-        int min = Engine.percWidth(25) , max = Engine.percWidth(75) - (int) 1.8 * width;
         if (x < min)
             left = false;
         if (x > max)

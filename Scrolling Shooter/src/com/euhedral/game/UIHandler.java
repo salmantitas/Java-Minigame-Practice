@@ -266,7 +266,7 @@ public class UIHandler {
         g.setColor(Color.WHITE);
         String[] help = new String[5];
         int lineHeightInPixel = 80;
-        help[0] = "W-A-S-D for movement";
+        help[0] = "W-A-S-D for movementTimer";
         help[1] = "SPACEBAR to shoot";
         help[2] = "CTRL to switch between air and ground weapons";
         help[3] = "ESC or P in-game to pause or resume";

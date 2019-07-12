@@ -742,7 +742,7 @@ public class GameController {
     // Spawn Air Enemy Basic
     public void spawnEnemy(int x, int y, EnemyID enemyID, ContactID contactId, Color color) {
         if (contactId == ContactID.Air)
-            enemies.add(new EnemyBasic(x, y, EnemyID.Fast, contactId, color));
+            enemies.add(new EnemyBasic(x, y, enemyID, contactId, color));
     }
 
     public void spawnBoss(int width, int height) {
