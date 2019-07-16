@@ -666,8 +666,7 @@ public class GameController {
                         boss.damage();
                         healthBoss = boss.getHealth();
                         if (boss.getHealth() <= 0) {
-                            destroy(boss);
-                            score += bossScore;
+                            destroyBoss();
                         }
                     } else {
                         enemy.damage();
@@ -691,6 +690,12 @@ public class GameController {
 //                it.remove();
 //            }
 //        }
+    }
+
+    private void destroyBoss() {
+        boss.setAlive(false);
+        destroy(boss);
+        score += bossScore;
     }
 
     private void destroy(Bullet bullet) {
@@ -721,6 +726,7 @@ public class GameController {
         player = new Player(width, height, levelHeight, playerImage[0]);
         player.setPower(power);
         player.setGround(ground);
+
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen
 //        camera = new Camera(player.getX() + offsetHorizontal, -player.getY() + offsetVertical);
@@ -768,7 +774,7 @@ public class GameController {
         // If the boss is killed, updates the boolean variable and adds the bossScore
         if (bossLives != boss.isAlive()) {
             bossLives = boss.isAlive();
-            score += bossScore;
+//            score += bossScore;
         }
 
         if (flag.getY() > levelHeight && !bossLives) {
