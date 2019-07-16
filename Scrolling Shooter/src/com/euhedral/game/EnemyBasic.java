@@ -30,6 +30,9 @@ public class EnemyBasic extends Enemy {
         super.update();
         if (enemyID == EnemyID.Move) {
             moveHorizontally();
+        } else if (enemyID == EnemyID.Snake) {
+            moveLikeSnake();
+            System.out.println("Shotnum = " + shotNum);
         }
     }
 
@@ -49,12 +52,20 @@ public class EnemyBasic extends Enemy {
             healthRange(2,4);
             score = 100;
         }
+        if (enemyID == EnemyID.Snake) {
+            shootTimerDef = 60;
+            healthRange(6,10);
+            score = 150;
+            velX = velY;
+            distance = width * 2;
+            movementTimer = distance;
+        }
         if (enemyID == EnemyID.Move) {
             width = Engine.intAtWidth640(48);
             shootTimerDef = 120;
             velY = 1.75f;
             healthRange(8,12);
-            score = 150;
+            score = 200;
             distance = width * 5;
             movementTimer = distance;
         }
@@ -69,7 +80,10 @@ public class EnemyBasic extends Enemy {
 
     @Override
     protected void shoot() {
-        if (enemyID == EnemyID.Fast) {
+        shotNum++;
+        if (enemyID == EnemyID.Snake) {
+            snakeShoot();
+        } else if (enemyID == EnemyID.Fast) {
             int newVel = Engine.intAtWidth640(5);
             double angle = 75;
             bullets.add(new BulletEnemy(x + width/2,y, angle, newVel));
@@ -85,6 +99,22 @@ public class EnemyBasic extends Enemy {
         } else {
             super.shoot();
         }
+    }
+
+    private void snakeShoot() {
+        int var = shotNum % 3;
+        int newVel = Engine.intAtWidth640(5);
+        double angle = 75;
+
+        if (var == 0) {
+            bullets.add(new BulletEnemy(x + width/2,y, 90));
+        } else if (var == 1) {
+            bullets.add(new BulletEnemy(x + width/2,y, angle, newVel));
+        } else {
+            bullets.add(new BulletEnemy(x + width/2,y, angle + 2 * (90 - angle), newVel));
+        }
+
+        resetShooter();
     }
 
     public void setX(int x) {
@@ -121,12 +151,38 @@ public class EnemyBasic extends Enemy {
 
         if (movementTimer <= distance && movementTimer > int3) {
             hMove = HorizontalMovement.LEFT;
-        } else if (movementTimer <= int3 && movementTimer > int2) {
+        } else if (movementTimer <= int3 && movementTimer > int2 || movementTimer <= int1 && movementTimer > int0) {
             hMove = HorizontalMovement.NONE;
         } else if (movementTimer <= int2 && movementTimer > int1) {
             hMove = HorizontalMovement.RIGHT;
+        }
+//        } else if (movementTimer <= int1 && movementTimer > int0) {
+//            hMove = HorizontalMovement.NONE;
+//        }
+    }
+
+    public void moveLikeSnake() {
+        if (movementTimer > 0) {
+            movementTimer--;
+        } else {
+            movementTimer = distance;
+        }
+
+        int
+                int0 = 0,
+                int1 = Engine.perc(distance, 30),
+                int2 = Engine.perc(distance, 50),
+                int3 = Engine.perc(distance, 80);
+
+
+        if (movementTimer <= distance && movementTimer > int3) {
+            hMove = HorizontalMovement.LEFT;
+        } else if (movementTimer <= int3 && movementTimer > int2 || movementTimer <= int2 && movementTimer > int1) {
+            hMove = HorizontalMovement.RIGHT;
+//        } else if (movementTimer <= int2 && movementTimer > int1) {
+//            hMove = HorizontalMovement.RIGHT;
         } else if (movementTimer <= int1 && movementTimer > int0) {
-            hMove = HorizontalMovement.NONE;
+            hMove = HorizontalMovement.LEFT;
         }
     }
 

@@ -24,6 +24,7 @@ public class Enemy extends MobileEntity {
     protected Random r;
     protected int score = 50;
     protected int distance;
+    protected int shotNum = 0;
     protected int movementTimer;
 
     public Enemy(int x, int y, EnemyID enemyID) {
@@ -102,6 +103,7 @@ public class Enemy extends MobileEntity {
     }
 
     protected void shoot() {
+        shotNum++;
         resetShooter();
         bullets.add(new BulletEnemy(x + width/2,y, 90));
 //        shootTimer = shootTimerDef;

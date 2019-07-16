@@ -29,8 +29,11 @@ public class LevelGenerator {
                     gameController.spawnPlayer(i*32, j*32, height*32);
                 else if (r == 255 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, EnemyID.Basic, ContactID.Air, new Color(r,g,b));
+
                 else if (r == 150 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, EnemyID.Move, ContactID.Air, new Color(r,g,b));
+                else if (r == 100 && g == 0 && b == 0)
+                    gameController.spawnEnemy(i*32, j*32, EnemyID.Snake, ContactID.Air, new Color(r,g,b));
                 else if (r == 200 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, EnemyID.Fast, ContactID.Air, new Color(r,g,b));
                 else if (r == 255 && g == 150 && b == 244)

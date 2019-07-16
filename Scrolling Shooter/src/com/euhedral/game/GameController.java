@@ -69,7 +69,7 @@ public class GameController {
 
     // Levels
     private int levelHeight;
-    private boolean loadMission = false;
+    private boolean loadMission = false; // levels will only loaded when this is true
 
     /******************
      * User variables *
@@ -173,12 +173,19 @@ public class GameController {
              * Game Code *
              *************/
 
+            /*
+            * Spawn if the level can loaded and has not already been spawned
+            * */
+
             if (loadMission) {
                 if (!levelSpawned)
                     spawn();
             }
         }
 
+        /*
+        * Disable the level load permission, as the level is already running
+        * */
         if (Engine.currentState == GameState.Game) {
             loadMission = false;
             boolean endGameCondition = health <= 0;
@@ -683,7 +690,8 @@ public class GameController {
 
     private void destroy(Enemy enemy) {
         enemy.setActive(false);
-//        Iterator<com.euhedral.game.Enemy> it = enemies.iterator();
+
+//        Iterator<Enemy> it = enemies.iterator();
 //        while (it.hasNext()) {
 //            com.euhedral.game.Enemy e = it.next();
 //            if (e == enemy) {
@@ -771,7 +779,7 @@ public class GameController {
 
     // if the flag crosses the screen, advance level and if no levels remain, end game
     public void checkLevelStatus() {
-        // If the boss is killed, updates the boolean variable and adds the bossScore
+        // If the boss is killed, updates the boolean variable
         if (bossLives != boss.isAlive()) {
             bossLives = boss.isAlive();
 //            score += bossScore;
