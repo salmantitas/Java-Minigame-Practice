@@ -77,17 +77,17 @@ public class Enemy extends MobileEntity {
             }
         }
 
-        for (Bullet bullet: bullets) {
-            bullet.update();
-        }
+//        for (Bullet bullet: bullets) {
+//            bullet.update();
+//        }
 
         move();
     }
 
     public void render(Graphics g) {
-        for (Bullet bullet: bullets) {
-            bullet.render(g);
-        }
+//        for (Bullet bullet: bullets) {
+//            bullet.render(g);
+//        }
     }
 
     public void move() {
@@ -105,8 +105,10 @@ public class Enemy extends MobileEntity {
     protected void shoot() {
         shotNum++;
         resetShooter();
+    }
+
+    protected void shootDownDefault() {
         bullets.add(new BulletEnemy(x + width/2,y, 90));
-//        shootTimer = shootTimerDef;
     }
 
     protected void resetShooter() {
@@ -115,16 +117,6 @@ public class Enemy extends MobileEntity {
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
-    }
-
-    public Bullet checkCollision(Player player) {
-        Bullet b = null;
-        for (Bullet bullet: bullets) {
-            if (bullet.getBounds().intersects(player.getBounds())) {
-                b = bullet;
-            }
-        }
-        return b;
     }
 
     protected void healthRange(int min, int max) {
@@ -153,6 +145,14 @@ public class Enemy extends MobileEntity {
 
     public int getScore() {
         return score;
+    }
+
+    public LinkedList<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void clearBullets() {
+        bullets.clear();
     }
 
     public void moveInScreen() {

@@ -32,7 +32,6 @@ public class EnemyBasic extends Enemy {
             moveHorizontally();
         } else if (enemyID == EnemyID.Snake) {
             moveLikeSnake();
-            System.out.println("Shotnum = " + shotNum);
         }
     }
 
@@ -80,24 +79,30 @@ public class EnemyBasic extends Enemy {
 
     @Override
     protected void shoot() {
-        shotNum++;
+        super.shoot();
         if (enemyID == EnemyID.Snake) {
             snakeShoot();
         } else if (enemyID == EnemyID.Fast) {
-            int newVel = Engine.intAtWidth640(5);
-            double angle = 75;
-            bullets.add(new BulletEnemy(x + width/2,y, angle, newVel));
-            bullets.add(new BulletEnemy(x + width/2,y, angle + 2 * (90 - angle), newVel));
-            if (power == 2) {
-                bullets.add(new BulletEnemy(x + width/2,y, 90, newVel));
-            }
-            resetShooter();
+            fastShoot();
         } else if (enemyID == EnemyID.Move) {
-            bullets.add(new BulletEnemy((int) (1.1 * x), y + height / 2, 90));
-            bullets.add(new BulletEnemy(x + (int) (0.8 * width), y + height / 2, 90));
-            resetShooter();
+            moveShoot();
         } else {
-            super.shoot();
+            shootDownDefault();
+        }
+    }
+
+    private void moveShoot() {
+        bullets.add(new BulletEnemy((int) (1.1 * x), y + height / 2, 90));
+        bullets.add(new BulletEnemy(x + (int) (0.8 * width), y + height / 2, 90));
+    }
+
+    private void fastShoot() {
+        int newVel = Engine.intAtWidth640(5);
+        double angle = 75;
+        bullets.add(new BulletEnemy(x + width/2,y, angle, newVel));
+        bullets.add(new BulletEnemy(x + width/2,y, angle + 2 * (90 - angle), newVel));
+        if (power == 2) {
+            bullets.add(new BulletEnemy(x + width/2,y, 90, newVel));
         }
     }
 
@@ -115,10 +120,6 @@ public class EnemyBasic extends Enemy {
         }
 
         resetShooter();
-    }
-
-    public void setX(int x) {
-        this.x = x;
     }
 
     @Override

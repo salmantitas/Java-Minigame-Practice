@@ -87,6 +87,7 @@ public class GameController {
     private boolean bossLives = false;
 
     private LinkedList<Enemy> enemies = new LinkedList<>();
+    private LinkedList<Bullet> bullets = new LinkedList<>();
 
     private int bossScore = 500;
 
@@ -204,9 +205,15 @@ public class GameController {
                 player.update();
                 flag.update();
 
+                for (Bullet bullet : bullets) {
+                    bullet.update();
+                }
+
                 for (Enemy enemy : enemies) {
                     if(enemy.isActive()) {
                         enemy.update();
+                        bullets.addAll(enemy.getBullets());
+                        enemy.clearBullets();
                     }
                 }
 
@@ -277,6 +284,10 @@ public class GameController {
         /*************
          * Game Code *
          *************/
+
+        for (Bullet bullet: bullets) {
+            bullet.render(g);
+        }
 
         for (Enemy enemy : enemies) {
             if (enemy.isActive()) {
@@ -442,6 +453,7 @@ public class GameController {
         level = STARTLEVEL;
         levelSpawned = false;
         enemies.clear();
+        bullets.clear();
         levelSpawned = false;
         uiHandler.ground = false;
     }
@@ -654,13 +666,10 @@ public class GameController {
         }
 
         // Player vs enemy bullet collision
-        for (Enemy enemy : enemies) {
-            if (enemy.isActive()) {
-                Bullet b = enemy.checkCollision(player);
-                if (b != null) {
-                    health -= 10;
-                    destroy(b);
-                }
+        for (Bullet bullet: bullets) {
+            if (bullet.getBounds().intersects(player.getBounds())) {
+                health -= 10;
+                destroy(bullet);
             }
         }
 

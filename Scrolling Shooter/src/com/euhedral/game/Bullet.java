@@ -1,10 +1,11 @@
 package com.euhedral.game;
 
 import com.euhedral.engine.Engine;
+import com.euhedral.engine.MobileEntity;
 
 import java.awt.*;
 
-public class Bullet  {
+public class Bullet extends MobileEntity {
     protected int x, y, vel;
     protected float velX, velY;
     protected double angle;
@@ -14,6 +15,7 @@ public class Bullet  {
     protected boolean calculated = false;
 
     Bullet(int x, int y) {
+        super(x ,y, EntityID.Bullet);
         this.x = x;
         this.y = y;
         collided = false;
