@@ -70,7 +70,8 @@ public class Player extends MobileEntity {
             shoot();
 
         for (Bullet bullet : bullets) {
-            bullet.update();
+            if (bullet.isActive())
+                bullet.update();
         }
 
     }
@@ -79,7 +80,8 @@ public class Player extends MobileEntity {
 //        g.fillRect(mx, my, 10, 10);
 
         for (Bullet bullet : bullets) {
-            bullet.render(g);
+            if (bullet.isActive())
+                bullet.render(g);
         }
 
         g.setColor(color);
@@ -90,7 +92,7 @@ public class Player extends MobileEntity {
         Bullet b = null;
         for (Bullet bullet : bullets) {
             BulletPlayer bulletPlayer = (BulletPlayer) bullet;
-            if (bulletPlayer.getBounds().intersects(enemy.getBounds()) &&
+            if (bulletPlayer.isActive() && bulletPlayer.getBounds().intersects(enemy.getBounds()) &&
                     (bulletPlayer.getContactId() == enemy.getID() || bulletPlayer.getContactId() == ContactID.Air && enemy.getID() == ContactID.Boss)) {
                 b = bulletPlayer;
             }

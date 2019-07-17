@@ -206,7 +206,8 @@ public class GameController {
                 flag.update();
 
                 for (Bullet bullet : bullets) {
-                    bullet.update();
+                    if (bullet.isActive())
+                        bullet.update();
                 }
 
                 for (Enemy enemy : enemies) {
@@ -286,7 +287,8 @@ public class GameController {
          *************/
 
         for (Bullet bullet: bullets) {
-            bullet.render(g);
+            if (bullet.isActive())
+                bullet.render(g);
         }
 
         for (Enemy enemy : enemies) {
@@ -667,7 +669,7 @@ public class GameController {
 
         // Player vs enemy bullet collision
         for (Bullet bullet: bullets) {
-            if (bullet.getBounds().intersects(player.getBounds())) {
+            if (bullet.isActive() && bullet.getBounds().intersects(player.getBounds())) {
                 health -= 10;
                 destroy(bullet);
             }
@@ -716,10 +718,11 @@ public class GameController {
     }
 
     private void destroy(Bullet bullet) {
+        bullet.setActive(false);
         // todo: deactivate instead of replacing
-        bullet.setX(+100);
-        bullet.setY(Engine.HEIGHT + 100);
-        bullet.setVel(0);
+//        bullet.setX(+100);
+//        bullet.setY(Engine.HEIGHT + 100);
+//        bullet.setVel(0);
     }
 
     private void spawn() {
