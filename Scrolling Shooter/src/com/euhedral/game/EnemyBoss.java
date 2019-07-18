@@ -4,7 +4,7 @@ import com.euhedral.engine.Engine;
 
 import java.awt.*;
 
-public abstract class EnemyBoss extends Enemy{
+public abstract class EnemyBoss extends Enemy {
 
     boolean left = false, up = false, down = false; // if all is false, boss will move down like normal enemies
     boolean alive = true;

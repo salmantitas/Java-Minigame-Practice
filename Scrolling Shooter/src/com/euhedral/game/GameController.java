@@ -75,7 +75,7 @@ public class GameController {
      * User variables *
      ******************/
 
-    private static int STARTLEVEL = 1;
+    private static int STARTLEVEL = 2;
     private static int level;
     private final int MAXLEVEL = 2;
 
@@ -92,7 +92,7 @@ public class GameController {
     private int bossScore = 500;
 
     private boolean levelSpawned = false;
-    private boolean ground = false;
+    private boolean ground = true; // true for testing, has to be false by default
 
     private boolean keyboardControl = true; // false means mouse Control
     private BufferedImage level1 = null, level2 = null;
@@ -256,8 +256,10 @@ public class GameController {
                 renderInCamera(g);
                 drawHealth(g);
 
-                if (boss.isInscreen() && boss.isAlive())
-                    drawBossHealth(g);
+                if (boss != null) {
+                    if (boss.isInscreen() && boss.isAlive())
+                        drawBossHealth(g);
+                }
 
                 drawScore(g);
                 drawPower(g);
@@ -761,24 +763,26 @@ public class GameController {
     // Spawn Air Enemy Basic
     public void spawnEnemy(int x, int y, ContactID contactId) {
         if (contactId == ContactID.Air)
-            enemies.add(new EnemyBasic(x, y, EnemyID.Basic, contactId));
+            enemies.add(new Enemy(x, y, EnemyID.Basic, contactId));
         else enemies.add(new EnemyGroundBasic(x, y));
     }
 
     // Spawn Air Enemy Basic
     public void spawnEnemy(int x, int y, EnemyID enemyID, ContactID contactId, Color color) {
         if (contactId == ContactID.Air)
-            enemies.add(new EnemyBasic(x, y, enemyID, contactId, color));
+            enemies.add(new Enemy(x, y, enemyID, contactId, color));
     }
 
     public void spawnBoss(int width, int height) {
-        bossLives = true;
-        if (level == 1)
-            boss = new EnemyBoss1(width, height);
-        enemies.add(boss);
-        healthBossDef = boss.getHealth();
-        healthBoss = healthBossDef;
-//        else enemies.add(new com.euhedral.game.EnemyGroundBasic(width,height));
+        if (level == 2) {
+            boss = new EnemyBoss2(width, height);
+        }
+        if (boss != null) {
+            bossLives = true;
+            enemies.add(boss);
+            healthBossDef = boss.getHealth();
+            healthBoss = healthBossDef;
+        }
     }
 
     public void spawnFlag() {
@@ -792,9 +796,10 @@ public class GameController {
     // if the flag crosses the screen, advance level and if no levels remain, end game
     public void checkLevelStatus() {
         // If the boss is killed, updates the boolean variable
-        if (bossLives != boss.isAlive()) {
-            bossLives = boss.isAlive();
-//            score += bossScore;
+        if (boss != null) {
+            if (bossLives != boss.isAlive()) {
+                bossLives = boss.isAlive();
+            }
         }
 
         if (flag.getY() > levelHeight && !bossLives) {

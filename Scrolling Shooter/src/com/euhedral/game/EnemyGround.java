@@ -4,7 +4,7 @@ import com.euhedral.engine.Engine;
 
 import java.awt.*;
 
-public abstract class EnemyGround extends Enemy{
+public abstract class EnemyGround extends Enemy {
 
     public EnemyGround(int x, int y) {
         super(x,y, EnemyID.Basic, ContactID.Ground);
