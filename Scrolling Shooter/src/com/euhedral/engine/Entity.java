@@ -184,7 +184,15 @@ public abstract class Entity {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void enable() {
+        setActive(true);
+    }
+
+    public void disable() {
+        setActive(false);
+    }
+
+    private void setActive(boolean active) {
         this.active = active;
     }
 

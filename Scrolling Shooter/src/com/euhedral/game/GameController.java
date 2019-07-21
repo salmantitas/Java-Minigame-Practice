@@ -75,7 +75,7 @@ public class GameController {
      * User variables *
      ******************/
 
-    private static int STARTLEVEL = 2;
+    private static int STARTLEVEL = 1;
     private static int level;
     private final int MAXLEVEL = 2;
 
@@ -88,14 +88,17 @@ public class GameController {
 
     private LinkedList<Enemy> enemies = new LinkedList<>();
     private LinkedList<Bullet> bullets = new LinkedList<>();
+    private LinkedList<Pickup> pickups = new LinkedList<>();
 
     private int bossScore = 500;
 
     private boolean levelSpawned = false;
-    private boolean ground = true; // true for testing, has to be false by default
+    private boolean ground = false; // true for testing, has to be false by default
 
     private boolean keyboardControl = true; // false means mouse Control
     private BufferedImage level1 = null, level2 = null;
+
+    private float inscreenMarker;
 
     /************
      * Graphics *
@@ -210,11 +213,20 @@ public class GameController {
                         bullet.update();
                 }
 
+                bullets.addAll(boss.getBullets());
+                boss.clearBullets();
+
                 for (Enemy enemy : enemies) {
                     if(enemy.isActive()) {
                         enemy.update();
                         bullets.addAll(enemy.getBullets());
                         enemy.clearBullets();
+                    }
+                }
+
+                for (Pickup pickup : pickups) {
+                    if (pickup.isActive()) {
+                        pickup.update();
                     }
                 }
 
@@ -293,6 +305,11 @@ public class GameController {
                 bullet.render(g);
         }
 
+        for (Pickup pickup: pickups) {
+            if (pickup.isActive())
+                pickup.render(g);
+        }
+
         for (Enemy enemy : enemies) {
             if (enemy.isActive()) {
                 enemy.render(g);
@@ -301,6 +318,9 @@ public class GameController {
 
         flag.render(g);
         player.render(g);
+
+        g.setColor(Color.RED);
+        g.drawLine(0, (int) inscreenMarker, Engine.WIDTH, (int) inscreenMarker);
 
         /*****************
          * Engine Code *
@@ -460,6 +480,8 @@ public class GameController {
         bullets.clear();
         levelSpawned = false;
         uiHandler.ground = false;
+
+        lev2debug();
     }
 
     public void checkButtonAction(int mx, int my) {
@@ -509,6 +531,14 @@ public class GameController {
         for (int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
             entity.update();
+        }
+    }
+
+    private void updateActiveEntities(LinkedList<Entity> list) {
+        for (int i = 0; i < list.size(); i++) {
+            Entity entity = list.get(i);
+            if (entity.isActive())
+                entity.update();
         }
     }
 
@@ -657,6 +687,16 @@ public class GameController {
     }
 
     public void checkCollision() {
+        // Player vs pickup collision
+        for (Pickup pickup: pickups) {
+            if (pickup.isActive()) {
+                if (pickup.getBounds().intersects(player.getBounds())) {
+                    health += 25;
+                    pickup.disable();
+                }
+            }
+        }
+
         // Player vs enemy collision
         for (Enemy enemy : enemies) {
             if (enemy.getID() == ContactID.Air)
@@ -702,7 +742,7 @@ public class GameController {
     }
 
     private void destroy(Enemy enemy) {
-        enemy.setActive(false);
+        enemy.disable();
 
 //        Iterator<Enemy> it = enemies.iterator();
 //        while (it.hasNext()) {
@@ -720,11 +760,7 @@ public class GameController {
     }
 
     private void destroy(Bullet bullet) {
-        bullet.setActive(false);
-        // todo: deactivate instead of replacing
-//        bullet.setX(+100);
-//        bullet.setY(Engine.HEIGHT + 100);
-//        bullet.setVel(0);
+        bullet.disable();
     }
 
     private void spawn() {
@@ -754,6 +790,7 @@ public class GameController {
 //        camera = new Camera(player.getX() + offsetHorizontal, -player.getY() + offsetVertical);
         camera = new Camera(0, -player.getY() + offsetVertical);
         camera.setMarker(player.getY());
+        inscreenMarker = camera.getMarker() + 100;
     }
 
     public void spawnCamera(int width, int height) {
@@ -764,7 +801,7 @@ public class GameController {
     public void spawnEnemy(int x, int y, ContactID contactId) {
         if (contactId == ContactID.Air)
             enemies.add(new Enemy(x, y, EnemyID.Basic, contactId));
-        else enemies.add(new EnemyGroundBasic(x, y));
+        else enemies.add(new EnemyGround(x, y));
     }
 
     // Spawn Air Enemy Basic
@@ -773,8 +810,15 @@ public class GameController {
             enemies.add(new Enemy(x, y, enemyID, contactId, color));
     }
 
+    // Spawn Pickups
+    public void spawnPickup(int x, int y, PickupID id, Color color) {
+        pickups.add(new Pickup(x, y, id, color));
+    }
+
     public void spawnBoss(int width, int height) {
-        if (level == 2) {
+        if (level == 1) {
+            boss = new EnemyBoss1(width, height);
+        } else if (level == 2) {
             boss = new EnemyBoss2(width, height);
         }
         if (boss != null) {
@@ -819,6 +863,11 @@ public class GameController {
 
     public void setLevelHeight(int h) {
         levelHeight = h;
+    }
+
+    private void lev2debug() {
+        level = 2;
+        ground = true;
     }
 
 }

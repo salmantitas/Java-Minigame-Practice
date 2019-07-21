@@ -25,11 +25,14 @@ public class LevelGenerator {
                 int b = pixel & 0xff;
 
                 // Game Code//
+
                 if (r == 0 && g == 0 && b == 255)
                     gameController.spawnPlayer(i*32, j*32, height*32);
+
+                // Air Enemies
+
                 else if (r == 255 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, EnemyID.Basic, ContactID.Air, new Color(r,g,b));
-
                 else if (r == 150 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, EnemyID.Move, ContactID.Air, new Color(r,g,b));
                 else if (r == 100 && g == 0 && b == 0)
@@ -37,8 +40,16 @@ public class LevelGenerator {
                 else if (r == 200 && g == 0 && b == 0)
                     gameController.spawnEnemy(i*32, j*32, EnemyID.Fast, ContactID.Air, new Color(r,g,b));
 
+                // Ground Enemies
+
                 else if (r == 255 && g == 150 && b == 244)
                     gameController.spawnEnemy(i*32, j*32, ContactID.Ground);
+
+                // Pickups
+
+                else if (r == 0 && g == 255 && b == 0) {
+                    gameController.spawnPickup(i*32, j*32, PickupID.Health, new Color(r,g,b));
+                }
 
                 else if (r == 255 && g == 216 && b == 0)
                     gameController.spawnBoss(i*32, j*32);

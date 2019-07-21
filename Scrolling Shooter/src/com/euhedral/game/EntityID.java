@@ -4,5 +4,6 @@ public enum EntityID {
     Player,
     Enemy,
     Bullet,
+    Pickup,
     Boss
 }
