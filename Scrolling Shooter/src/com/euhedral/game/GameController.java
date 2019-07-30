@@ -56,7 +56,7 @@ public class GameController {
 
     // Objects
 
-    private LinkedList<Entity> entities;
+    private EntityManager entityManager;
     private Player player = new Player(0, 0, 0);
 
     // Camera
@@ -119,7 +119,9 @@ public class GameController {
         gameHeight = Engine.HEIGHT;
         uiHandler = new UIHandler();
         initializeGame();
+//        entityManager.initializeGraphics();
         initializeGraphics();
+//        entityManager.initializeAnimations();
         initializeAnimations();
         initializeLevel();
     }
@@ -136,6 +138,7 @@ public class GameController {
         Engine.menuState();
         level1 = Engine.loader.loadImage("/level1.png");
         level2 = Engine.loader.loadImage("/level2.png");
+//        entityManager = new EntityManager();
     }
 
     private void initializeGraphics() {
@@ -504,48 +507,6 @@ public class GameController {
                 buyGround();
             }
             uiHandler.endAction();
-        }
-    }
-
-    /*******************************
-     * Entity Management Functions *
-     ****************-**************/
-
-    public void addEntity(Entity entity) {
-        entities.add(entity);
-
-        /*************
-         * Game Code *
-         *************/
-    }
-
-    public void removeEntity(Entity entity) {
-        entities.remove(entity);
-
-        /*************
-         * Game Code *
-         *************/
-    }
-
-    private void updateEntities() {
-        for (int i = 0; i < entities.size(); i++) {
-            Entity entity = entities.get(i);
-            entity.update();
-        }
-    }
-
-    private void updateActiveEntities(LinkedList<Entity> list) {
-        for (int i = 0; i < list.size(); i++) {
-            Entity entity = list.get(i);
-            if (entity.isActive())
-                entity.update();
-        }
-    }
-
-    private void renderEntities(Graphics g) {
-        for (int i = 0; i < entities.size(); i++) {
-            Entity entity = entities.get(i);
-            entity.render(g);
         }
     }
 

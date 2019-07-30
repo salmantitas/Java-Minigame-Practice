@@ -7,9 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37bf829a-0159-4e27-9c38-4832500ea2d6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/Enemy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/Player.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="483" column="17" selection-start-line="483" selection-start-column="10" selection-end-line="483" selection-end-column="17" />
+            <state relative-caret-position="-323">
+              <caret line="510" column="5" selection-start-line="510" selection-start-column="5" selection-end-line="510" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -36,10 +35,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="60" column="30" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
+            <state relative-caret-position="187">
+              <caret line="262" column="5" lean-forward="true" selection-start-line="262" selection-start-column="5" selection-end-line="262" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,9 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>initiali`</find>
-      <find>if (!</find>
-      <find>initializeg</find>
       <find>camera = n</find>
       <find>in</find>
       <find>render(</find>
@@ -88,6 +96,9 @@
       <find>move()</find>
       <find>clampo</find>
       <find>initia</find>
+      <find>mousemove</find>
+      <find>mouve</find>
+      <find>graphics</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -96,7 +107,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/euhedral/engine/MenuItem.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/ActButton.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/GameState.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/BulletPlayerAir.java" />
@@ -144,9 +154,10 @@
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/Entity.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/engine/MobileEntity.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Pickup.java" />
-        <option value="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Enemy.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Player.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java" />
       </list>
     </option>
   </component>
@@ -303,7 +314,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22147651" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22147651" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -312,8 +323,8 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32577905" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3937677" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39943343" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3937677" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -388,7 +399,6 @@
     <SUITE FILE_PATH="coverage/Scrolling_Shooter$Engine.ic" NAME="Engine Coverage Results" MODIFIED="1564522417366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/TextureManager.java" />
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Tile.java" />
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Sprite.java" />
     <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/ClassLoader.java">
@@ -755,16 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="483" column="17" selection-start-line="483" selection-start-column="10" selection-end-line="483" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/engine/MobileEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -779,8 +779,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="60" column="30" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
+        <state relative-caret-position="187">
+          <caret line="262" column="5" lean-forward="true" selection-start-line="262" selection-start-column="5" selection-end-line="262" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323">
+          <caret line="510" column="5" selection-start-line="510" selection-start-column="5" selection-end-line="510" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
