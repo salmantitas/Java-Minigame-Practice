@@ -55,6 +55,7 @@ public class Enemy extends MobileEntity {
 
     @Override
     public void update() {
+        super.update();
         shootTimer--;
         if (!inscreen) {
             inscreen = y > cam.getMarker() + 100;
@@ -64,7 +65,6 @@ public class Enemy extends MobileEntity {
                 shoot();
             }
         }
-        move();
 
         if (enemyID == EnemyID.Move) {
             moveHorizontally();

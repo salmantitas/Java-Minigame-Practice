@@ -20,6 +20,8 @@ public class Player extends MobileEntity {
     private int power;
     private boolean ground = false;
     private boolean airBullet = true;
+    private int clampOffsetX;
+    private int clampOffsetY;
 
     // Test
     private int mx, my;
@@ -54,6 +56,9 @@ public class Player extends MobileEntity {
         moveUp = false;
 
         this.power = 1;
+
+        clampOffsetX = - 5 * width / 4;
+        clampOffsetY = height;
     }
 
     public Player(int x, int y, int levelHeight, BufferedImage image) {
@@ -63,7 +68,7 @@ public class Player extends MobileEntity {
 
     public void update() {
 //        System.out.println("Player at (" + x + ", " + y + ")");
-        move();
+        super.update();
         shootTimer--;
 
         if (canShoot && shootTimer <= 0)
@@ -140,41 +145,40 @@ public class Player extends MobileEntity {
     protected void move() {
         super.move();
 
-        int clampOffsetX = - 5 * width / 4;
-        int clampOffsetY = height;
-
 //        System.out.printf("VelX: %f | VelY: %f\n", velX, velY);
 
-        x = Engine.clamp(x, 0, Engine.WIDTH + clampOffsetX);
-        y = Engine.clamp(y, 5900, levelHeight + clampOffsetY);
+        mouseMove();
+        keyboardMove();
 
-        if (destinationGiven) {
-            int positionOffset = 5;
-            if (mx == y && my == y) {
-                destinationGiven = false;
+    }
+
+    private void shoot() {
+        if (power == 5) {
+            // todo
+        } else if (power == 4) {
+            // todo
+        } else if (power == 3) {
+            // todo
+        } else if (power == 2) {
+            if (airBullet) {
+                bullets.add(new BulletPlayerAir(x + 4, y, -90));
+                bullets.add(new BulletPlayerAir(x + width - 8, y, -90));
+            } else {
+                bullets.add(new BulletPlayerGround(x + 8, y, -90));
+                bullets.add(new BulletPlayerGround(x + width - 16, y, -90));
             }
-            if (Math.abs(mx - x) < positionOffset) {
-                moveLeft = false;
-                moveRight = false;
-            } else if (mx > x) {
-                moveLeft = false;
-                moveRight = true;
-            } else if (mx < x) {
-                moveLeft = true;
-                moveRight = false;
-            }
-            if (Math.abs(my - y) < positionOffset) {
-                moveUp = false;
-                moveDown = false;
-            } else if (my > y) {
-                moveUp = false;
-                moveDown = true;
-            } else if (my < y) {
-                moveUp = true;
-                moveDown = false;
+        } else {
+            if (airBullet) {
+                bullets.add(new BulletPlayerAir(x + width / 2, y, -90));
+            } else {
+                bullets.add(new BulletPlayerGround(x + width / 2, y, -90));
             }
         }
+        // reset shoot timer to default
+        shootTimer = shootTimerDefault;
+    }
 
+    private void keyboardMove() {
         // Moving Left
         if (moveLeft && !moveRight) {
 //            velX = - horizontalMovement; // stub
@@ -226,30 +230,36 @@ public class Player extends MobileEntity {
         }
     }
 
-    private void shoot() {
-        if (power == 5) {
-            // todo
-        } else if (power == 4) {
-            // todo
-        } else if (power == 3) {
-            // todo
-        } else if (power == 2) {
-            if (airBullet) {
-                bullets.add(new BulletPlayerAir(x + 4, y, -90));
-                bullets.add(new BulletPlayerAir(x + width - 8, y, -90));
-            } else {
-                bullets.add(new BulletPlayerGround(x + 8, y, -90));
-                bullets.add(new BulletPlayerGround(x + width - 16, y, -90));
+    private void mouseMove() {
+        x = Engine.clamp(x, 0, Engine.WIDTH + clampOffsetX);
+        y = Engine.clamp(y, 5900, levelHeight + clampOffsetY);
+
+        if (destinationGiven) {
+            int positionOffset = 5;
+            if (mx == y && my == y) {
+                destinationGiven = false;
             }
-        } else {
-            if (airBullet) {
-                bullets.add(new BulletPlayerAir(x + width / 2, y, -90));
-            } else {
-                bullets.add(new BulletPlayerGround(x + width / 2, y, -90));
+            if (Math.abs(mx - x) < positionOffset) {
+                moveLeft = false;
+                moveRight = false;
+            } else if (mx > x) {
+                moveLeft = false;
+                moveRight = true;
+            } else if (mx < x) {
+                moveLeft = true;
+                moveRight = false;
+            }
+            if (Math.abs(my - y) < positionOffset) {
+                moveUp = false;
+                moveDown = false;
+            } else if (my > y) {
+                moveUp = false;
+                moveDown = true;
+            } else if (my < y) {
+                moveUp = true;
+                moveDown = false;
             }
         }
-        // reset shoot timer to default
-        shootTimer = shootTimerDefault;
     }
 
     public void giveDestination(int mx, int my) {

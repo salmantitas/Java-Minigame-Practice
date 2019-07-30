@@ -481,7 +481,7 @@ public class GameController {
         levelSpawned = false;
         uiHandler.ground = false;
 
-        testingCheat();
+//        testingCheat();
     }
 
     public void checkButtonAction(int mx, int my) {
