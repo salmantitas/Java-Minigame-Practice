@@ -33,7 +33,7 @@ public class MobileEntity extends Entity {
 
     @Override
     public void update() {
-
+        move();
     }
 
     @Override

@@ -481,7 +481,7 @@ public class GameController {
         levelSpawned = false;
         uiHandler.ground = false;
 
-        lev2debug();
+        testingCheat();
     }
 
     public void checkButtonAction(int mx, int my) {
@@ -813,6 +813,7 @@ public class GameController {
     // Spawn Pickups
     public void spawnPickup(int x, int y, PickupID id, Color color) {
         pickups.add(new Pickup(x, y, id, color));
+//        System.out.println("Pickup spawned");
     }
 
     public void spawnBoss(int width, int height) {
@@ -865,7 +866,7 @@ public class GameController {
         levelHeight = h;
     }
 
-    private void lev2debug() {
+    private void testingCheat() {
         level = 2;
         ground = true;
     }

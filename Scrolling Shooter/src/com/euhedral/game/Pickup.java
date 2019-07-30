@@ -15,11 +15,14 @@ public class Pickup extends MobileEntity {
         height = width * 2;
         this.pickupID = pickupID;
         this.color = color;
+        velY = 1.8f;
     }
 
     @Override
     public void update() {
         super.update();
+//        y += velY;
+        System.out.println(x + ", " + y);
     }
 
     @Override
