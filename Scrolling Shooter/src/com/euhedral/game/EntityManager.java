@@ -10,6 +10,8 @@ import java.util.LinkedList;
 public class EntityManager {
     private LinkedList<Entity> entities;
 
+    private Player player = new Player(0, 0, 0);
+
     EntityManager() {
 
     }
@@ -36,6 +38,84 @@ public class EntityManager {
 
     public void render(Graphics g) {
 
+    }
+
+    /********************
+     * Player Functions *
+     ********************/
+
+    public void updatePlayer() {
+        player.update();
+    }
+
+    public void renderPlayer(Graphics g) {
+        player.render(g);
+    }
+
+    public void movePlayer(char c) {
+        if (c == 'l')
+            player.moveLeft(true);
+        else if (c == 'r')
+            player.moveRight(true);
+
+        if (c == 'u')
+            player.moveUp(true);
+        else if (c == 'd')
+            player.moveDown(true);
+    }
+
+    public void stopMovePlayer(char c) {
+        if (c == 'l')
+            player.moveLeft(false);
+        else if (c == 'r')
+            player.moveRight(false);
+
+        if (c == 'u')
+            player.moveUp(false);
+        else if (c == 'd')
+            player.moveDown(false);
+    }
+
+    public void giveDestination(int mx, int my) {
+        player.giveDestination(mx, my);
+    }
+
+    public boolean canUpdateDestination(int mx, int my) {
+        return !(player.getMx() == mx && player.getMy() == my);
+    }
+
+    public void switchPlayerBullet() {
+        player.switchBullet();
+    }
+
+    public int getPlayerPower() {
+        return player.getPower();
+    }
+
+    public void playerCanShoot() {
+        player.canShoot(true);
+    }
+    public void playerCannotShoot() {
+        player.canShoot(false);
+    }
+
+    public void spawnPlayer(int width, int height, int levelHeight, BufferedImage sprite, int power, boolean ground) {
+        player = new Player(width, height, levelHeight, sprite);
+        player.setGround(ground);
+        player.setPower(power);
+    }
+
+    public Bullet checkPlayerCollision(Enemy enemy) {
+        return player.checkCollision(enemy);
+    }
+
+    // Temp Functions
+    public Rectangle getPlayerBounds() {
+        return player.getBounds();
+    }
+
+    public int getPlayerY() {
+        return player.getY();
     }
 
     /*******************************

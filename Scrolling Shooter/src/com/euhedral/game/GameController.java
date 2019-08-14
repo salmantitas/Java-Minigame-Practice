@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class GameController {
+    public class GameController {
     private UIHandler uiHandler;
     private Random r = new Random();
 
@@ -57,7 +57,7 @@ public class GameController {
     // Objects
 
     private EntityManager entityManager;
-    private Player player = new Player(0, 0, 0);
+//    private Player player = new Player(0, 0, 0);
 
     // Camera
     public static Camera camera;
@@ -138,7 +138,7 @@ public class GameController {
         Engine.menuState();
         level1 = Engine.loader.loadImage("/level1.png");
         level2 = Engine.loader.loadImage("/level2.png");
-//        entityManager = new EntityManager();
+        entityManager = new EntityManager();
     }
 
     private void initializeGraphics() {
@@ -208,7 +208,8 @@ public class GameController {
 
             else {
 
-                player.update();
+                entityManager.updatePlayer();
+//                player.update();
                 flag.update();
 
                 for (Bullet bullet : bullets) {
@@ -320,7 +321,7 @@ public class GameController {
         }
 
         flag.render(g);
-        player.render(g);
+        entityManager.renderPlayer(g);
 
         g.setColor(Color.RED);
         g.drawLine(0, (int) inscreenMarker, Engine.WIDTH, (int) inscreenMarker);
@@ -409,7 +410,7 @@ public class GameController {
                 shootPlayer();
 
             if (key == KeyEvent.VK_CONTROL)
-                player.switchBullet();
+                entityManager.switchPlayerBullet();
 
             if (Engine.currentState == GameState.Game) {
                 if (key == KeyEvent.VK_P || key == KeyEvent.VK_ESCAPE) {
@@ -564,7 +565,7 @@ public class GameController {
         int cost = 1000;
 
         if (score >= cost) {
-            if (player.getPower() < maxPower) {
+            if (entityManager.getPlayerPower() < maxPower) {
                 power++;
                 score -= cost;
                 if (power > maxPower)
@@ -607,51 +608,35 @@ public class GameController {
     }
 
     public void movePlayer(char c) {
-        if (c == 'l')
-            player.moveLeft(true);
-        else if (c == 'r')
-            player.moveRight(true);
-
-        if (c == 'u')
-            player.moveUp(true);
-        else if (c == 'd')
-            player.moveDown(true);
+        if (c == 'l' || c == 'r' || c == 'u' | c == 'd') {
+            entityManager.movePlayer(c);
+        }
     }
 
     public void stopMovePlayer(char c) {
-        if (c == 'l')
-            player.moveLeft(false);
-        else if (c == 'r')
-            player.moveRight(false);
-
-        if (c == 'u')
-            player.moveUp(false);
-        else if (c == 'd')
-            player.moveDown(false);
+        if (c == 'l' || c == 'r' || c == 'u' | c == 'd') {
+            entityManager.stopMovePlayer(c);
+        }
     }
 
     private void giveDestination(int mx, int my) {
         if (!keyboardControl)
-            player.giveDestination(mx, my);
-    }
-
-    public boolean canUpdateDestination(int mx, int my) {
-        return !(player.getMx() == mx && player.getMy() == my);
+            entityManager.giveDestination(mx, my);
     }
 
     public void shootPlayer() {
-        player.canShoot(true);
+        entityManager.playerCanShoot();
     }
 
     public void stopShootPlayer() {
-        player.canShoot(false);
+        entityManager.playerCannotShoot();
     }
 
     public void checkCollision() {
         // Player vs pickup collision
         for (Pickup pickup: pickups) {
             if (pickup.isActive()) {
-                if (pickup.getBounds().intersects(player.getBounds())) {
+                if (pickup.getBounds().intersects(entityManager.getPlayerBounds())) {
                     health += 25;
                     pickup.disable();
                 }
@@ -661,7 +646,7 @@ public class GameController {
         // Player vs enemy collision
         for (Enemy enemy : enemies) {
             if (enemy.getID() == ContactID.Air)
-                if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds()) && enemy.isActive()) {
+                if (enemy.inscreen && enemy.getBounds().intersects(entityManager.getPlayerBounds()) && enemy.isActive()) {
                     score += enemy.getScore();
                     health -= 30;
                     destroy(enemy);
@@ -672,7 +657,7 @@ public class GameController {
 
         // Player vs enemy bullet collision
         for (Bullet bullet: bullets) {
-            if (bullet.isActive() && bullet.getBounds().intersects(player.getBounds())) {
+            if (bullet.isActive() && bullet.getBounds().intersects(entityManager.getPlayerBounds())) {
                 health -= 10;
                 destroy(bullet);
             }
@@ -681,7 +666,7 @@ public class GameController {
         // Enemy vs player bullet collision
         for (Enemy enemy : enemies) {
             if (enemy.inscreen && enemy.isActive()) {
-                Bullet b = player.checkCollision(enemy);
+                Bullet b = entityManager.checkPlayerCollision(enemy);
                 if (b != null) {
                     if (enemy.getID() == ContactID.Boss) {
                         boss.damage();
@@ -704,14 +689,6 @@ public class GameController {
 
     private void destroy(Enemy enemy) {
         enemy.disable();
-
-//        Iterator<Enemy> it = enemies.iterator();
-//        while (it.hasNext()) {
-//            com.euhedral.game.Enemy e = it.next();
-//            if (e == enemy) {
-//                it.remove();
-//            }
-//        }
     }
 
     private void destroyBoss() {
@@ -742,15 +719,13 @@ public class GameController {
     public void spawnPlayer(int width, int height, int levelHeight) {
         offsetHorizontal = -gameWidth / 2 + 32;
         offsetVertical = gameHeight - 160;
-        player = new Player(width, height, levelHeight, playerImage[0]);
-        player.setPower(power);
-        player.setGround(ground);
+        entityManager.spawnPlayer(width, height, levelHeight, playerImage[0], power, ground);
 
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen
 //        camera = new Camera(player.getX() + offsetHorizontal, -player.getY() + offsetVertical);
-        camera = new Camera(0, -player.getY() + offsetVertical);
-        camera.setMarker(player.getY());
+        camera = new Camera(0, -entityManager.getPlayerY() + offsetVertical);
+        camera.setMarker(entityManager.getPlayerY());
         inscreenMarker = camera.getMarker() + 100;
     }
 
