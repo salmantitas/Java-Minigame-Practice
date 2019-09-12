@@ -23,32 +23,6 @@ import java.util.Random;
     private String gameTitle = "Aerial Predator";
     private Color gameBackground = Color.BLUE;
 
-    /****************************************
-     * Common Game Variables                *
-     * Comment Out Whichever is Unnecessary *
-     ****************************************/
-
-    // Score
-    private int score = 0;
-    private int scoreX = Engine.percWidth(2.5);
-    private int scoreY = Engine.percHeight(16);
-    private int scoreSize = Engine.percWidth(3);
-
-    // Vitality
-//    private int lives = 3;
-
-    private int healthX = Engine.percWidth(2.5);
-    private int healthY = 5 * healthX;
-    private final int healthDefault = 100;
-    private int health = healthDefault;
-
-    // Power
-    private int powerX = Engine.percWidth(37);
-    private int powerY = scoreY;
-    private int powerSize = scoreSize;
-    private final int maxPower = 5;
-    private int power = 1;
-
     // High Score
     private LinkedList<Integer> highScore = new LinkedList<>();
     private int highScoreNumbers = 5;
@@ -56,6 +30,7 @@ import java.util.Random;
 
     // Objects
 
+    private VariableManager variableManager;
     private EntityManager entityManager;
 //    private Player player = new Player(0, 0, 0);
 
@@ -87,7 +62,7 @@ import java.util.Random;
     private boolean bossLives = false;
 
     private LinkedList<Enemy> enemies = new LinkedList<>();
-    private LinkedList<Bullet> bullets = new LinkedList<>();
+//    private LinkedList<Bullet> bullets = new LinkedList<>();
     private LinkedList<Pickup> pickups = new LinkedList<>();
 
     private int bossScore = 500;
@@ -138,7 +113,8 @@ import java.util.Random;
         Engine.menuState();
         level1 = Engine.loader.loadImage("/level1.png");
         level2 = Engine.loader.loadImage("/level2.png");
-        entityManager = new EntityManager();
+        variableManager = new VariableManager();
+        entityManager = new EntityManager(variableManager);
     }
 
     private void initializeGraphics() {
@@ -195,7 +171,7 @@ import java.util.Random;
         * */
         if (Engine.currentState == GameState.Game) {
             loadMission = false;
-            boolean endGameCondition = health <= 0;
+            boolean endGameCondition = variableManager.getHealth() <= 0;
 
             if (endGameCondition) {
                 Engine.gameOverState();
@@ -209,21 +185,24 @@ import java.util.Random;
             else {
 
                 entityManager.updatePlayer();
-//                player.update();
                 flag.update();
+                entityManager.updateBullets(boss);
 
-                for (Bullet bullet : bullets) {
-                    if (bullet.isActive())
-                        bullet.update();
-                }
+//                for (Bullet bullet : bullets) {
+//                    if (bullet.isActive())
+//                        bullet.update();
+//                }
 
-                bullets.addAll(boss.getBullets());
+
+//                bullets.addAll(boss.getBullets());
+
                 boss.clearBullets();
 
                 for (Enemy enemy : enemies) {
                     if(enemy.isActive()) {
                         enemy.update();
-                        bullets.addAll(enemy.getBullets());
+                        entityManager.addToBullets(enemy);
+//                        bullets.addAll(enemy.getBullets());
                         enemy.clearBullets();
                     }
                 }
@@ -304,10 +283,7 @@ import java.util.Random;
          * Game Code *
          *************/
 
-        for (Bullet bullet: bullets) {
-            if (bullet.isActive())
-                bullet.render(g);
-        }
+        entityManager.renderBullets(g);
 
         for (Pickup pickup: pickups) {
             if (pickup.isActive())
@@ -470,9 +446,12 @@ import java.util.Random;
     public void resetGame() {
 
         Engine.timer = 0;
-        score = 0;
-        power = 1;
-        health = healthDefault;
+        variableManager.resetScore();
+        variableManager.resetPower();
+        variableManager.resetHealth();
+//        score = 0;
+//        power = 1;
+//        health = healthDefault;
 
         /*************
          * Game Code *
@@ -481,7 +460,7 @@ import java.util.Random;
         level = STARTLEVEL;
         levelSpawned = false;
         enemies.clear();
-        bullets.clear();
+        entityManager.clearBullets();
         levelSpawned = false;
         uiHandler.ground = false;
 
@@ -516,26 +495,15 @@ import java.util.Random;
      ***************************/
 
     private void drawScore(Graphics g) {
-        g.setFont(new Font("arial", 1, scoreSize));
-        g.setColor(Color.WHITE);
-        g.drawString("Score: " + score, scoreX, scoreY);
+        variableManager.renderScore(g);
     }
 
     private void drawHealth(Graphics g) {
-        int width = Engine.intAtWidth640(2);
-        int height = width * 6;
-        Color backColor = Color.lightGray;
-        Color healthColor = Color.GREEN;
-        g.setColor(backColor);
-        g.fillRect(healthX, healthY, healthDefault * width, height);
-        g.setColor(healthColor);
-        g.fillRect(healthX, healthY, health * width, height);
+        variableManager.renderHealth(g);
     }
 
     private void drawPower(Graphics g) {
-        g.setFont(new Font("arial", 1, powerSize));
-        g.setColor(Color.WHITE);
-        g.drawString("Power: " + power, powerX, powerY);
+        variableManager.renderPower(g);
     }
 
     /******************
@@ -547,12 +515,15 @@ import java.util.Random;
     private void buyHealth() {
         int cost = 500;
 
-        if (score >= cost) {
-            if (health < healthDefault) {
-                health += 25;
-                score -= cost;
-                if (health > healthDefault)
-                    health = healthDefault;
+//        int health = variableManager.getHealth();
+        int healthDefault = variableManager.getHealthDefault();
+
+        if (variableManager.getScore() >= cost) {
+            if (variableManager.getHealth() < healthDefault) {
+                variableManager.increaseHealth(25);
+                variableManager.decreaseScore(cost);
+                if (variableManager.getHealth() > healthDefault)
+                    variableManager.resetHealth();
             } else {
                 System.out.println("Health is full");
             }
@@ -564,12 +535,12 @@ import java.util.Random;
     private void buyPower() {
         int cost = 1000;
 
-        if (score >= cost) {
-            if (entityManager.getPlayerPower() < maxPower) {
-                power++;
-                score -= cost;
-                if (power > maxPower)
-                    power--;
+        if (variableManager.getScore() >= cost) {
+            if (entityManager.getPlayerPower() < variableManager.getMaxPower()) {
+                variableManager.increasePower(1);
+                variableManager.decreaseScore(cost);
+                if (variableManager.getPower() > variableManager.getMaxPower())
+                    variableManager.decreasePower(1);
             } else {
                 System.out.println("Max power is reached");
             }
@@ -580,9 +551,9 @@ import java.util.Random;
 
     private void buyGround() {
         int cost = 2000;
-        if (score >= cost) {
+        if (variableManager.getScore() >= cost) {
             if (!ground) {
-                score -= cost;
+                variableManager.decreaseScore(cost);
                 ground = true;
                 uiHandler.ground = true;
             }
@@ -637,7 +608,7 @@ import java.util.Random;
         for (Pickup pickup: pickups) {
             if (pickup.isActive()) {
                 if (pickup.getBounds().intersects(entityManager.getPlayerBounds())) {
-                    health += 25;
+                    variableManager.increaseHealth(25);
                     pickup.disable();
                 }
             }
@@ -647,21 +618,23 @@ import java.util.Random;
         for (Enemy enemy : enemies) {
             if (enemy.getID() == ContactID.Air)
                 if (enemy.inscreen && enemy.getBounds().intersects(entityManager.getPlayerBounds()) && enemy.isActive()) {
-                    score += enemy.getScore();
-                    health -= 30;
+                    variableManager.increaseScore(enemy.getScore());
+//                    score += enemy.getScore();
+                    variableManager.decreaseHealth(30);
                     destroy(enemy);
                 } else if (enemy.getID() == ContactID.Boss) {
-                    health = -10;
+                    variableManager.decreaseHealth(10);
                 }
         }
 
         // Player vs enemy bullet collision
-        for (Bullet bullet: bullets) {
-            if (bullet.isActive() && bullet.getBounds().intersects(entityManager.getPlayerBounds())) {
-                health -= 10;
-                destroy(bullet);
-            }
-        }
+        entityManager.playerVsEnemyBulletCollision();
+//        for (Bullet bullet: bullets) {
+//            if (bullet.isActive() && bullet.getBounds().intersects(entityManager.getPlayerBounds())) {
+//                health -= 10;
+//                destroy(bullet);
+//            }
+//        }
 
         // Enemy vs player bullet collision
         for (Enemy enemy : enemies) {
@@ -678,7 +651,8 @@ import java.util.Random;
                         enemy.damage();
                         if (enemy.getHealth() <= 0) {
                             destroy(enemy);
-                            score += enemy.getScore();
+                            variableManager.increaseScore(enemy.getScore());
+//                            score += enemy.getScore();
                         }
                     }
                     destroy(b);
@@ -694,7 +668,8 @@ import java.util.Random;
     private void destroyBoss() {
         boss.setAlive(false);
         destroy(boss);
-        score += bossScore;
+        variableManager.increaseScore(bossScore);
+//        score += bossScore;
     }
 
     private void destroy(Bullet bullet) {
@@ -719,7 +694,7 @@ import java.util.Random;
     public void spawnPlayer(int width, int height, int levelHeight) {
         offsetHorizontal = -gameWidth / 2 + 32;
         offsetVertical = gameHeight - 160;
-        entityManager.spawnPlayer(width, height, levelHeight, playerImage[0], power, ground);
+        entityManager.spawnPlayer(width, height, levelHeight, playerImage[0], variableManager.getPower(), ground);
 
         // sets the camera's width to center the player horizontally, essentially to 0, and
         // adjust the height so that player is at the bottom of the screen

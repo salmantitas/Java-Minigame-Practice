@@ -1,19 +1,23 @@
 package com.euhedral.game;
 
 import com.euhedral.engine.Entity;
-import com.euhedral.engine.SpriteSheet;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 public class EntityManager {
+    private VariableManager variableManager;
+    public LinkedList<EntityActionTag> actions = new LinkedList<>();
+
     private LinkedList<Entity> entities;
 
     private Player player = new Player(0, 0, 0);
+    private LinkedList<Enemy> enemies = new LinkedList<>();
+    private LinkedList<Bullet> bullets = new LinkedList<>();
 
-    EntityManager() {
-
+    EntityManager(VariableManager variableManager) {
+        this.variableManager = variableManager;
     }
 
     public void initializeGraphics() {
@@ -116,6 +120,50 @@ public class EntityManager {
 
     public int getPlayerY() {
         return player.getY();
+    }
+
+    /********************
+     * Bullet Functions *
+     ********************/
+
+    public void updateBullets(EnemyBoss boss) {
+        for (Bullet bullet : bullets) {
+            if (bullet.isActive())
+                bullet.update();
+        }
+
+        bullets.addAll(boss.getBullets());
+    }
+    public void renderBullets(Graphics g) {
+        for (Bullet bullet: bullets) {
+            if (bullet.isActive())
+                bullet.render(g);
+        }
+    }
+
+    public void clearBullets() {
+        bullets.clear();
+    }
+
+    public void addToBullets(Enemy enemy) {
+        bullets.addAll(enemy.getBullets());
+    }
+
+    private void destroy(Bullet bullet) {
+        bullet.disable();
+    }
+
+    /***********************
+     * Collision Functions *
+     ***********************/
+
+    public void playerVsEnemyBulletCollision() {
+        for (Bullet bullet: bullets) {
+            if (bullet.isActive() && bullet.getBounds().intersects(player.getBounds())) {
+                variableManager.decreaseHealth(10);
+                destroy(bullet);
+            }
+        }
     }
 
     /*******************************
