@@ -16,6 +16,8 @@ public class EntityManager {
     private LinkedList<Enemy> enemies = new LinkedList<>();
     private LinkedList<Bullet> bullets = new LinkedList<>();
 
+    private EnemyBoss boss;
+
     EntityManager(VariableManager variableManager) {
         this.variableManager = variableManager;
     }
@@ -126,13 +128,14 @@ public class EntityManager {
      * Bullet Functions *
      ********************/
 
-    public void updateBullets(EnemyBoss boss) {
+    public void updateBullets() {
         for (Bullet bullet : bullets) {
             if (bullet.isActive())
                 bullet.update();
         }
 
         bullets.addAll(boss.getBullets());
+        boss.clearBullets();
     }
     public void renderBullets(Graphics g) {
         for (Bullet bullet: bullets) {
@@ -153,6 +156,94 @@ public class EntityManager {
         bullet.disable();
     }
 
+    /*******************
+     * Enemy Functions *
+     *******************/
+
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+    }
+
+    public void addEnemy(int x, int y, EnemyID eID, ContactID cID) {
+        Enemy enemy = new Enemy(x, y, eID, cID);
+        enemies.add(enemy);
+    }
+
+    public void addEnemy(int x, int y, EnemyID eID, ContactID cID, Color color) {
+        Enemy enemy = new Enemy(x, y, eID, cID, color);
+        enemies.add(enemy);
+    }
+
+    public void updateEnemies() {
+        for (Enemy enemy : enemies) {
+            if(enemy.isActive()) {
+                enemy.update();
+                addToBullets(enemy);
+                enemy.clearBullets();
+            }
+        }
+    }
+
+    public void renderEnemies(Graphics g) {
+        for (Enemy enemy : enemies) {
+            if (enemy.isActive()) {
+                enemy.render(g);
+            }
+        }
+    }
+
+    public void clearEnemies() {
+        enemies.clear();
+    }
+
+    private void destroy(Enemy enemy) {
+        enemy.disable();
+    }
+
+    /*
+    * Boss Functions
+    * */
+
+    private void destroyBoss() {
+        boss.setAlive(false);
+        destroy(boss);
+        variableManager.increaseScore(variableManager.getBossScore());
+//        score += bossScore;
+    }
+
+    public void spawnBoss(int level, int width, int height) {
+        if (level == 1) {
+            boss = new EnemyBoss1(width, height);
+        } else if (level == 2) {
+            boss = new EnemyBoss2(width, height);
+        }
+        if (boss != null) {
+            variableManager.setBossLives(true);
+//            bossLives = true;
+            enemies.add(boss);
+            variableManager.setHealthBossDef(boss.getHealth());
+//            healthBossDef = boss.getHealth();
+            variableManager.setHealthBoss(variableManager.getHealthBossDef());
+//            healthBoss = healthBossDef;
+        }
+        this.boss = boss;
+    }
+
+    public void checkBoss() {
+        if (boss != null) {
+            if (variableManager.isBossLives() != boss.isAlive()) {
+                variableManager.setBossLives(boss.isAlive());
+            }
+        }
+    }
+
+    public void renderBossHealth(Graphics g) {
+        if (boss != null) {
+            if (boss.isInscreen() && boss.isAlive())
+                variableManager.drawBossHealth(g);
+        }
+    }
+
     /***********************
      * Collision Functions *
      ***********************/
@@ -162,6 +253,45 @@ public class EntityManager {
             if (bullet.isActive() && bullet.getBounds().intersects(player.getBounds())) {
                 variableManager.decreaseHealth(10);
                 destroy(bullet);
+            }
+        }
+    }
+
+    public void playerVsEnemyCollision() {
+        for (Enemy enemy : enemies) {
+            if (enemy.getID() == ContactID.Air)
+                if (enemy.inscreen && enemy.getBounds().intersects(player.getBounds()) && enemy.isActive()) {
+                    variableManager.increaseScore(enemy.getScore());
+                    variableManager.decreaseHealth(30);
+                    destroy(enemy);
+                } else if (enemy.getID() == ContactID.Boss) {
+                    variableManager.decreaseHealth(10);
+                }
+        }
+    }
+
+    public void enemyVsPlayerBulletCollision() {
+        for (Enemy enemy : enemies) {
+            if (enemy.inscreen && enemy.isActive()) {
+                Bullet b = player.checkCollision(enemy);
+                if (b != null) {
+                    if (enemy.getID() == ContactID.Boss) {
+                        boss.damage();
+                        variableManager.setHealthBoss(boss.getHealth());
+//                        healthBoss = boss.getHealth();
+                        if (boss.getHealth() <= 0) {
+                            destroyBoss();
+                        }
+                    } else {
+                        enemy.damage();
+                        if (enemy.getHealth() <= 0) {
+                            destroy(enemy);
+                            variableManager.increaseScore(enemy.getScore());
+//                            score += enemy.getScore();
+                        }
+                    }
+                    destroy(b);
+                }
             }
         }
     }

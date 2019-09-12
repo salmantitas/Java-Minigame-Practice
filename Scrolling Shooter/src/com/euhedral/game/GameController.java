@@ -54,18 +54,12 @@ import java.util.Random;
     private static int level;
     private final int MAXLEVEL = 2;
 
-    private EnemyBoss boss;
+//    private EnemyBoss boss;
     private Flag flag;
 
-    private int healthBossDef, healthBoss;
-
-    private boolean bossLives = false;
-
-    private LinkedList<Enemy> enemies = new LinkedList<>();
+//    private LinkedList<Enemy> enemies = new LinkedList<>();
 //    private LinkedList<Bullet> bullets = new LinkedList<>();
     private LinkedList<Pickup> pickups = new LinkedList<>();
-
-    private int bossScore = 500;
 
     private boolean levelSpawned = false;
     private boolean ground = false; // true for testing, has to be false by default
@@ -186,7 +180,7 @@ import java.util.Random;
 
                 entityManager.updatePlayer();
                 flag.update();
-                entityManager.updateBullets(boss);
+                entityManager.updateBullets();
 
 //                for (Bullet bullet : bullets) {
 //                    if (bullet.isActive())
@@ -196,16 +190,18 @@ import java.util.Random;
 
 //                bullets.addAll(boss.getBullets());
 
-                boss.clearBullets();
+//                boss.clearBullets();
 
-                for (Enemy enemy : enemies) {
-                    if(enemy.isActive()) {
-                        enemy.update();
-                        entityManager.addToBullets(enemy);
-//                        bullets.addAll(enemy.getBullets());
-                        enemy.clearBullets();
-                    }
-                }
+                entityManager.updateEnemies();
+
+//                for (Enemy enemy : enemies) {
+//                    if(enemy.isActive()) {
+//                        enemy.update();
+//                        entityManager.addToBullets(enemy);
+////                        bullets.addAll(enemy.getBullets());
+//                        enemy.clearBullets();
+//                    }
+//                }
 
                 for (Pickup pickup : pickups) {
                     if (pickup.isActive()) {
@@ -251,10 +247,7 @@ import java.util.Random;
                 renderInCamera(g);
                 drawHealth(g);
 
-                if (boss != null) {
-                    if (boss.isInscreen() && boss.isAlive())
-                        drawBossHealth(g);
-                }
+                entityManager.renderBossHealth(g);
 
                 drawScore(g);
                 drawPower(g);
@@ -290,11 +283,7 @@ import java.util.Random;
                 pickup.render(g);
         }
 
-        for (Enemy enemy : enemies) {
-            if (enemy.isActive()) {
-                enemy.render(g);
-            }
-        }
+        entityManager.renderEnemies(g);
 
         flag.render(g);
         entityManager.renderPlayer(g);
@@ -459,7 +448,7 @@ import java.util.Random;
 
         level = STARTLEVEL;
         levelSpawned = false;
-        enemies.clear();
+        entityManager.clearEnemies();
         entityManager.clearBullets();
         levelSpawned = false;
         uiHandler.ground = false;
@@ -562,22 +551,6 @@ import java.util.Random;
         }
     }
 
-    protected void drawBossHealth(Graphics g) {
-        int startX = Engine.percWidth(35);
-        int endX = Engine.percWidth(65);
-        int diffX = endX - startX;
-
-        int y = Engine.percHeight(28);
-        int width = diffX / healthBossDef;
-        int height = width;
-        Color backColor = Color.lightGray;
-        Color healthColor = Color.RED;
-        g.setColor(backColor);
-        g.fillRect(startX, y, healthBossDef * width, height);
-        g.setColor(healthColor);
-        g.fillRect(startX, y, healthBoss * width, height);
-    }
-
     public void movePlayer(char c) {
         if (c == 'l' || c == 'r' || c == 'u' | c == 'd') {
             entityManager.movePlayer(c);
@@ -615,62 +588,57 @@ import java.util.Random;
         }
 
         // Player vs enemy collision
-        for (Enemy enemy : enemies) {
-            if (enemy.getID() == ContactID.Air)
-                if (enemy.inscreen && enemy.getBounds().intersects(entityManager.getPlayerBounds()) && enemy.isActive()) {
-                    variableManager.increaseScore(enemy.getScore());
-//                    score += enemy.getScore();
-                    variableManager.decreaseHealth(30);
-                    destroy(enemy);
-                } else if (enemy.getID() == ContactID.Boss) {
-                    variableManager.decreaseHealth(10);
-                }
-        }
-
-        // Player vs enemy bullet collision
-        entityManager.playerVsEnemyBulletCollision();
-//        for (Bullet bullet: bullets) {
-//            if (bullet.isActive() && bullet.getBounds().intersects(entityManager.getPlayerBounds())) {
-//                health -= 10;
-//                destroy(bullet);
-//            }
+        entityManager.playerVsEnemyCollision();
+//        for (Enemy enemy : enemies) {
+//            if (enemy.getID() == ContactID.Air)
+//                if (enemy.inscreen && enemy.getBounds().intersects(entityManager.getPlayerBounds()) && enemy.isActive()) {
+//                    variableManager.increaseScore(enemy.getScore());
+////                    score += enemy.getScore();
+//                    variableManager.decreaseHealth(30);
+//                    destroy(enemy);
+//                } else if (enemy.getID() == ContactID.Boss) {
+//                    variableManager.decreaseHealth(10);
+//                }
 //        }
 
+        entityManager.playerVsEnemyBulletCollision();
+
         // Enemy vs player bullet collision
-        for (Enemy enemy : enemies) {
-            if (enemy.inscreen && enemy.isActive()) {
-                Bullet b = entityManager.checkPlayerCollision(enemy);
-                if (b != null) {
-                    if (enemy.getID() == ContactID.Boss) {
-                        boss.damage();
-                        healthBoss = boss.getHealth();
-                        if (boss.getHealth() <= 0) {
-                            destroyBoss();
-                        }
-                    } else {
-                        enemy.damage();
-                        if (enemy.getHealth() <= 0) {
-                            destroy(enemy);
-                            variableManager.increaseScore(enemy.getScore());
-//                            score += enemy.getScore();
-                        }
-                    }
-                    destroy(b);
-                }
-            }
-        }
+        entityManager.enemyVsPlayerBulletCollision();
+//        for (Enemy enemy : enemies) {
+//            if (enemy.inscreen && enemy.isActive()) {
+//                Bullet b = entityManager.checkPlayerCollision(enemy);
+//                if (b != null) {
+//                    if (enemy.getID() == ContactID.Boss) {
+//                        boss.damage();
+//                        healthBoss = boss.getHealth();
+//                        if (boss.getHealth() <= 0) {
+//                            destroyBoss();
+//                        }
+//                    } else {
+//                        enemy.damage();
+//                        if (enemy.getHealth() <= 0) {
+//                            destroy(enemy);
+//                            variableManager.increaseScore(enemy.getScore());
+////                            score += enemy.getScore();
+//                        }
+//                    }
+//                    destroy(b);
+//                }
+//            }
+//        }
     }
 
     private void destroy(Enemy enemy) {
         enemy.disable();
     }
 
-    private void destroyBoss() {
-        boss.setAlive(false);
-        destroy(boss);
-        variableManager.increaseScore(bossScore);
-//        score += bossScore;
-    }
+//    private void destroyBoss() {
+//        boss.setAlive(false);
+//        destroy(boss);
+//        variableManager.increaseScore(bossScore);
+////        score += bossScore;
+//    }
 
     private void destroy(Bullet bullet) {
         bullet.disable();
@@ -711,14 +679,16 @@ import java.util.Random;
     // Spawn Air Enemy Basic
     public void spawnEnemy(int x, int y, ContactID contactId) {
         if (contactId == ContactID.Air)
-            enemies.add(new Enemy(x, y, EnemyID.Basic, contactId));
-        else enemies.add(new EnemyGround(x, y));
+            entityManager.addEnemy(x, y, EnemyID.Basic, contactId);
+//            enemies.add(new Enemy(x, y, EnemyID.Basic, contactId));
+        else entityManager.addEnemy(new EnemyGround(x,y));
     }
 
     // Spawn Air Enemy Basic
     public void spawnEnemy(int x, int y, EnemyID enemyID, ContactID contactId, Color color) {
         if (contactId == ContactID.Air)
-            enemies.add(new Enemy(x, y, enemyID, contactId, color));
+            entityManager.addEnemy(x, y, enemyID, contactId, color);
+//            enemies.add(new Enemy(x, y, enemyID, contactId, color));
     }
 
     // Spawn Pickups
@@ -728,17 +698,20 @@ import java.util.Random;
     }
 
     public void spawnBoss(int width, int height) {
-        if (level == 1) {
-            boss = new EnemyBoss1(width, height);
-        } else if (level == 2) {
-            boss = new EnemyBoss2(width, height);
-        }
-        if (boss != null) {
-            bossLives = true;
-            enemies.add(boss);
-            healthBossDef = boss.getHealth();
-            healthBoss = healthBossDef;
-        }
+        entityManager.spawnBoss(level, width, height);
+//        if (level == 1) {
+//            entityManager.spawnBoss(new EnemyBoss1(width, height));
+////            boss = new EnemyBoss1(width, height);
+//        } else if (level == 2) {
+//            entityManager.spawnBoss(new EnemyBoss2(width, height));
+////            boss = new EnemyBoss2(width, height);
+//        }
+//        if (boss != null) {
+//            bossLives = true;
+//            enemies.add(boss);
+//            healthBossDef = boss.getHealth();
+//            healthBoss = healthBossDef;
+//        }
     }
 
     public void spawnFlag() {
@@ -752,16 +725,13 @@ import java.util.Random;
     // if the flag crosses the screen, advance level and if no levels remain, end game
     public void checkLevelStatus() {
         // If the boss is killed, updates the boolean variable
-        if (boss != null) {
-            if (bossLives != boss.isAlive()) {
-                bossLives = boss.isAlive();
-            }
-        }
+        entityManager.checkBoss();
 
-        if (flag.getY() > levelHeight && !bossLives) {
+        if (flag.getY() > levelHeight && !variableManager.isBossLives()) {
             level++;
             levelSpawned = false;
-            bossLives = false;
+            variableManager.setBossLives(false);
+//            bossLives = false;
 
             if (level > MAXLEVEL) {
                 Engine.menuState(); // stub

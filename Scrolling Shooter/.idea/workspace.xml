@@ -7,11 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37bf829a-0159-4e27-9c38-4832500ea2d6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/euhedral/game/EntityActionTag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="501" column="40" selection-start-line="501" selection-start-column="40" selection-end-line="501" selection-end-column="40" />
+            <state relative-caret-position="161">
+              <caret line="249" column="49" selection-start-line="249" selection-start-column="49" selection-end-line="249" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#13351#13352#0" expanded="true" />
@@ -38,131 +37,58 @@
                 <element signature="e#13487#13488#0" expanded="true" />
                 <element signature="e#14033#14034#0" expanded="true" />
                 <element signature="e#14079#14080#0" expanded="true" />
+                <element signature="e#18860#18861#0" expanded="true" />
+                <element signature="e#18891#18892#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#387#388#0" expanded="true" />
-                <element signature="e#425#426#0" expanded="true" />
-                <element signature="e#1025#1026#0" expanded="true" />
-                <element signature="e#1047#1048#0" expanded="true" />
-                <element signature="e#1086#1087#0" expanded="true" />
-                <element signature="e#1111#1112#0" expanded="true" />
-                <element signature="e#1181#1182#0" expanded="true" />
-                <element signature="e#1218#1219#0" expanded="true" />
-                <element signature="e#1264#1265#0" expanded="true" />
-                <element signature="e#1301#1302#0" expanded="true" />
-                <element signature="e#1347#1348#0" expanded="true" />
-                <element signature="e#1384#1385#0" expanded="true" />
-                <element signature="e#1430#1431#0" expanded="true" />
-                <element signature="e#1467#1468#0" expanded="true" />
-                <element signature="e#1503#1504#0" expanded="true" />
-                <element signature="e#1538#1539#0" expanded="true" />
-                <element signature="e#1582#1583#0" expanded="true" />
-                <element signature="e#1617#1618#0" expanded="true" />
-                <element signature="e#385#386#0" expanded="true" />
-                <element signature="e#415#416#0" expanded="true" />
-                <element signature="e#458#459#0" expanded="true" />
-                <element signature="e#496#497#0" expanded="true" />
-                <element signature="e#527#528#0" expanded="true" />
-                <element signature="e#557#558#0" expanded="true" />
-                <element signature="e#600#601#0" expanded="true" />
-                <element signature="e#638#639#0" expanded="true" />
-                <element signature="e#675#676#0" expanded="true" />
-                <element signature="e#711#712#0" expanded="true" />
-                <element signature="e#741#742#0" expanded="true" />
-                <element signature="e#770#771#0" expanded="true" />
-                <element signature="e#811#812#0" expanded="true" />
-                <element signature="e#847#848#0" expanded="true" />
-                <element signature="e#1677#1678#0" expanded="true" />
-                <element signature="e#1705#1706#0" expanded="true" />
-                <element signature="e#1744#1745#0" expanded="true" />
-                <element signature="e#1778#1779#0" expanded="true" />
-                <element signature="e#1808#1809#0" expanded="true" />
-                <element signature="e#1837#1838#0" expanded="true" />
-                <element signature="e#1878#1879#0" expanded="true" />
-                <element signature="e#1914#1915#0" expanded="true" />
-                <element signature="e#1944#1945#0" expanded="true" />
-                <element signature="e#1973#1974#0" expanded="true" />
-                <element signature="e#2014#2015#0" expanded="true" />
-                <element signature="e#2050#2051#0" expanded="true" />
-                <element signature="e#2083#2084#0" expanded="true" />
-                <element signature="e#2115#2116#0" expanded="true" />
-                <element signature="e#2162#2163#0" expanded="true" />
-                <element signature="e#2204#2205#0" expanded="true" />
-                <element signature="e#2234#2235#0" expanded="true" />
-                <element signature="e#2263#2264#0" expanded="true" />
-                <element signature="e#2304#2305#0" expanded="true" />
-                <element signature="e#2340#2341#0" expanded="true" />
-                <element signature="e#2370#2371#0" expanded="true" />
-                <element signature="e#2399#2400#0" expanded="true" />
-                <element signature="e#2440#2441#0" expanded="true" />
-                <element signature="e#2476#2477#0" expanded="true" />
-                <element signature="e#2509#2510#0" expanded="true" />
-                <element signature="e#2541#2542#0" expanded="true" />
-                <element signature="e#2588#2589#0" expanded="true" />
-                <element signature="e#2630#2631#0" expanded="true" />
-                <element signature="e#2662#2663#0" expanded="true" />
-                <element signature="e#2693#2694#0" expanded="true" />
-                <element signature="e#2722#2723#0" expanded="true" />
-                <element signature="e#2750#2751#0" expanded="true" />
-                <element signature="e#2789#2790#0" expanded="true" />
-                <element signature="e#2823#2824#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3037#3038#0" expanded="true" />
-                <element signature="e#3065#3066#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="-230">
+              <caret line="242" column="45" lean-forward="true" selection-start-line="242" selection-start-column="45" selection-end-line="242" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#558#559#0" expanded="true" />
                 <element signature="e#612#613#0" expanded="true" />
+                <element signature="e#3475#3476#0" expanded="true" />
+                <element signature="e#3525#3526#0" expanded="true" />
+                <element signature="e#3846#3847#0" expanded="true" />
+                <element signature="e#3874#3875#0" expanded="true" />
+                <element signature="e#4599#4600#0" expanded="true" />
+                <element signature="e#4630#4631#0" expanded="true" />
+                <element signature="e#4480#4481#0" expanded="true" />
+                <element signature="e#4511#4512#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/ActionTag.java">
+        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EntityActionTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+            <state relative-caret-position="382">
+              <caret line="248" column="34" selection-start-line="248" selection-start-column="34" selection-end-line="248" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4806#4807#0" expanded="true" />
+                <element signature="e#4842#4843#0" expanded="true" />
+                <element signature="e#4897#4898#0" expanded="true" />
+                <element signature="e#4947#4948#0" expanded="true" />
+                <element signature="e#4981#4982#0" expanded="true" />
+                <element signature="e#5014#5015#0" expanded="true" />
+                <element signature="e#5063#5064#0" expanded="true" />
+                <element signature="e#5107#5108#0" expanded="true" />
+                <element signature="e#5140#5141#0" expanded="true" />
+                <element signature="e#5172#5173#0" expanded="true" />
+                <element signature="e#5219#5220#0" expanded="true" />
+                <element signature="e#5261#5262#0" expanded="true" />
+                <element signature="e#5368#5369#0" expanded="true" />
+                <element signature="e#5419#5420#0" expanded="true" />
+                <element signature="e#5461#5462#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -178,23 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>enemie</find>
-      <find>destroy</find>
-      <find>boss</find>
-      <find>bullet.</find>
-      <find>renderEn</find>
-      <find>renderpl</find>
-      <find>bullet</find>
-      <find>bullets</find>
-      <find>bullets.</find>
-      <find>bu</find>
-      <find>destroy(Bu</find>
-      <find>health =</find>
-      <find>he</find>
-      <find>health -=</find>
-      <find>enti</find>
-      <find>entinit</find>
-      <find>entitym</find>
       <find>int health</find>
       <find>health</find>
       <find>health</find>
@@ -208,6 +117,23 @@
       <find>increas</find>
       <find>drawhealth</find>
       <find>renderh</find>
+      <find>drawh</find>
+      <find>checkc</find>
+      <find>playervs</find>
+      <find>destroy(Enemy</find>
+      <find>checkcoll</find>
+      <find>addenem</find>
+      <find>enemies</find>
+      <find>collision</find>
+      <find>addenemy</find>
+      <find>Boss</find>
+      <find>updateBullets</find>
+      <find>bosshealth</find>
+      <find>bossscore</find>
+      <find>boss f</find>
+      <find>bosslives</find>
+      <find>bosslive</find>
+      <find>spawnboss</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -264,9 +190,9 @@
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Enemy.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/Player.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/EntityActionTag.java" />
-        <option value="$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java" />
-        <option value="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" />
         <option value="$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/GameController.java" />
+        <option value="$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java" />
       </list>
     </option>
   </component>
@@ -421,9 +347,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23825504" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23825504" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -432,7 +357,7 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32577905" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3937677" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3937677" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -467,6 +392,12 @@
           <line>22</line>
           <properties />
           <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java</url>
+          <line>260</line>
+          <properties />
+          <option name="timeStamp" value="155" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -861,18 +792,6 @@
     <entry file="file://$PROJECT_DIR$/res/level2.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3037#3038#0" expanded="true" />
-            <element signature="e#3065#3066#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/ActionTag.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -887,22 +806,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java">
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="357">
+          <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#558#559#0" expanded="true" />
-            <element signature="e#612#613#0" expanded="true" />
+            <element signature="e#3037#3038#0" expanded="true" />
+            <element signature="e#3065#3066#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="248" column="34" selection-start-line="248" selection-start-column="34" selection-end-line="248" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4806#4807#0" expanded="true" />
+            <element signature="e#4842#4843#0" expanded="true" />
+            <element signature="e#4897#4898#0" expanded="true" />
+            <element signature="e#4947#4948#0" expanded="true" />
+            <element signature="e#4981#4982#0" expanded="true" />
+            <element signature="e#5014#5015#0" expanded="true" />
+            <element signature="e#5063#5064#0" expanded="true" />
+            <element signature="e#5107#5108#0" expanded="true" />
+            <element signature="e#5140#5141#0" expanded="true" />
+            <element signature="e#5172#5173#0" expanded="true" />
+            <element signature="e#5219#5220#0" expanded="true" />
+            <element signature="e#5261#5262#0" expanded="true" />
+            <element signature="e#5368#5369#0" expanded="true" />
+            <element signature="e#5419#5420#0" expanded="true" />
+            <element signature="e#5461#5462#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="501" column="40" selection-start-line="501" selection-start-column="40" selection-end-line="501" selection-end-column="40" />
+        <state relative-caret-position="161">
+          <caret line="249" column="49" selection-start-line="249" selection-start-column="49" selection-end-line="249" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#13351#13352#0" expanded="true" />
@@ -911,82 +855,28 @@
             <element signature="e#13487#13488#0" expanded="true" />
             <element signature="e#14033#14034#0" expanded="true" />
             <element signature="e#14079#14080#0" expanded="true" />
+            <element signature="e#18860#18861#0" expanded="true" />
+            <element signature="e#18891#18892#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/VariableManager.java">
+    <entry file="file://$PROJECT_DIR$/src/com/euhedral/game/EntityManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+        <state relative-caret-position="-230">
+          <caret line="242" column="45" lean-forward="true" selection-start-line="242" selection-start-column="45" selection-end-line="242" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#387#388#0" expanded="true" />
-            <element signature="e#425#426#0" expanded="true" />
-            <element signature="e#1025#1026#0" expanded="true" />
-            <element signature="e#1047#1048#0" expanded="true" />
-            <element signature="e#1086#1087#0" expanded="true" />
-            <element signature="e#1111#1112#0" expanded="true" />
-            <element signature="e#1181#1182#0" expanded="true" />
-            <element signature="e#1218#1219#0" expanded="true" />
-            <element signature="e#1264#1265#0" expanded="true" />
-            <element signature="e#1301#1302#0" expanded="true" />
-            <element signature="e#1347#1348#0" expanded="true" />
-            <element signature="e#1384#1385#0" expanded="true" />
-            <element signature="e#1430#1431#0" expanded="true" />
-            <element signature="e#1467#1468#0" expanded="true" />
-            <element signature="e#1503#1504#0" expanded="true" />
-            <element signature="e#1538#1539#0" expanded="true" />
-            <element signature="e#1582#1583#0" expanded="true" />
-            <element signature="e#1617#1618#0" expanded="true" />
-            <element signature="e#385#386#0" expanded="true" />
-            <element signature="e#415#416#0" expanded="true" />
-            <element signature="e#458#459#0" expanded="true" />
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#527#528#0" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-            <element signature="e#600#601#0" expanded="true" />
-            <element signature="e#638#639#0" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#811#812#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#1677#1678#0" expanded="true" />
-            <element signature="e#1705#1706#0" expanded="true" />
-            <element signature="e#1744#1745#0" expanded="true" />
-            <element signature="e#1778#1779#0" expanded="true" />
-            <element signature="e#1808#1809#0" expanded="true" />
-            <element signature="e#1837#1838#0" expanded="true" />
-            <element signature="e#1878#1879#0" expanded="true" />
-            <element signature="e#1914#1915#0" expanded="true" />
-            <element signature="e#1944#1945#0" expanded="true" />
-            <element signature="e#1973#1974#0" expanded="true" />
-            <element signature="e#2014#2015#0" expanded="true" />
-            <element signature="e#2050#2051#0" expanded="true" />
-            <element signature="e#2083#2084#0" expanded="true" />
-            <element signature="e#2115#2116#0" expanded="true" />
-            <element signature="e#2162#2163#0" expanded="true" />
-            <element signature="e#2204#2205#0" expanded="true" />
-            <element signature="e#2234#2235#0" expanded="true" />
-            <element signature="e#2263#2264#0" expanded="true" />
-            <element signature="e#2304#2305#0" expanded="true" />
-            <element signature="e#2340#2341#0" expanded="true" />
-            <element signature="e#2370#2371#0" expanded="true" />
-            <element signature="e#2399#2400#0" expanded="true" />
-            <element signature="e#2440#2441#0" expanded="true" />
-            <element signature="e#2476#2477#0" expanded="true" />
-            <element signature="e#2509#2510#0" expanded="true" />
-            <element signature="e#2541#2542#0" expanded="true" />
-            <element signature="e#2588#2589#0" expanded="true" />
-            <element signature="e#2630#2631#0" expanded="true" />
-            <element signature="e#2662#2663#0" expanded="true" />
-            <element signature="e#2693#2694#0" expanded="true" />
-            <element signature="e#2722#2723#0" expanded="true" />
-            <element signature="e#2750#2751#0" expanded="true" />
-            <element signature="e#2789#2790#0" expanded="true" />
-            <element signature="e#2823#2824#0" expanded="true" />
+            <element signature="e#558#559#0" expanded="true" />
+            <element signature="e#612#613#0" expanded="true" />
+            <element signature="e#3475#3476#0" expanded="true" />
+            <element signature="e#3525#3526#0" expanded="true" />
+            <element signature="e#3846#3847#0" expanded="true" />
+            <element signature="e#3874#3875#0" expanded="true" />
+            <element signature="e#4599#4600#0" expanded="true" />
+            <element signature="e#4630#4631#0" expanded="true" />
+            <element signature="e#4480#4481#0" expanded="true" />
+            <element signature="e#4511#4512#0" expanded="true" />
           </folding>
         </state>
       </provider>

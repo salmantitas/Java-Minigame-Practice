@@ -32,6 +32,14 @@ public class VariableManager {
     private final int maxPower = 5;
     private int power = 1;
 
+    /*
+    * User Variables
+    * */
+
+    private int healthBossDef, healthBoss;
+    private int bossScore = 500;
+    private boolean bossLives = false;
+
     public VariableManager() {
 
     }
@@ -97,6 +105,22 @@ public class VariableManager {
         g.setFont(new Font("arial", 1, powerSize));
         g.setColor(Color.WHITE);
         g.drawString("Power: " + power, powerX, powerY);
+    }
+
+    protected void drawBossHealth(Graphics g) {
+        int startX = Engine.percWidth(35);
+        int endX = Engine.percWidth(65);
+        int diffX = endX - startX;
+
+        int y = Engine.percHeight(28);
+        int width = diffX / healthBossDef;
+        int height = width;
+        Color backColor = Color.lightGray;
+        Color healthColor = Color.RED;
+        g.setColor(backColor);
+        g.fillRect(startX, y, healthBossDef * width, height);
+        g.setColor(healthColor);
+        g.fillRect(startX, y, healthBoss * width, height);
     }
 
 
@@ -196,5 +220,37 @@ public class VariableManager {
 
     public void setPower(int power) {
         this.power = power;
+    }
+
+    public int getHealthBossDef() {
+        return healthBossDef;
+    }
+
+    public void setHealthBossDef(int healthBossDef) {
+        this.healthBossDef = healthBossDef;
+    }
+
+    public int getHealthBoss() {
+        return healthBoss;
+    }
+
+    public void setHealthBoss(int healthBoss) {
+        this.healthBoss = healthBoss;
+    }
+
+    public int getBossScore() {
+        return bossScore;
+    }
+
+    public void setBossScore(int bossScore) {
+        this.bossScore = bossScore;
+    }
+
+    public boolean isBossLives() {
+        return bossLives;
+    }
+
+    public void setBossLives(boolean bossLives) {
+        this.bossLives = bossLives;
     }
 }
